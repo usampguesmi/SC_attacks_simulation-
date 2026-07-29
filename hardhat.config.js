@@ -1,5 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
-
+require("dotenv").config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.28",
@@ -10,6 +10,10 @@ module.exports = {
     localhost: {
       url: "http://127.0.0.1:8545",
       chainId: 31337
+    },
+    sepolia: {
+      url: "http://127.0.0.1:8547",
+      accounts: [process.env.SEPOLIA_PRIVATE_KEY]
     }
   }
 };

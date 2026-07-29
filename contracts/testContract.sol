@@ -35,7 +35,7 @@ contract testContract {
         }
     }
 
-     function setValueWithCondition2 (uint256 _value) public {
+    function setValueWithCondition2 (uint256 _value) public {
         if (_value>3){
         value = _value;}
         else{
