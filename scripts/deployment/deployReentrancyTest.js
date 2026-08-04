@@ -16,8 +16,8 @@ async function main() {
     const address = await reentrancyTest.getAddress();
     console.log("Address:", address);
 
-    // Path to deployment.json
-    const deploymentPath = path.join(__dirname, "deployment.json");
+    // Path to deployment_localhost.json
+    const deploymentPath = path.join(__dirname, "deployment_localhost.json");
     let deployment = {};
     if (fs.existsSync(deploymentPath)) {
         deployment = JSON.parse(
@@ -45,7 +45,7 @@ async function main() {
         JSON.stringify(deployment, null, 2)
     );
 
-    console.log("deployment.json updated successfully.");
+    console.log("deployment_localhost.json updated successfully.");
 }
 
 main().catch(console.error);

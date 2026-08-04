@@ -31,7 +31,6 @@ contract ReentrancyTest {
         require (balances[msg.sender]>0, "no balance");
         (bool success,)= payable(msg.sender).call{value:balances[msg.sender]}("");
         require (success, "transfer failed");
-        
     }
 
     function callTransferWith2RequiresplusState() public {
@@ -71,22 +70,20 @@ contract ReentrancyTest {
         require (success, "transfer failed");
     }
 
-     function safewithdraw()public{
+    function safewithdraw()public{
         uint256 amount = balances [msg.sender];
         require (amount>0, "no balance"); 
         balances[msg.sender]=0;
         (bool success,) = payable(msg.sender).call{value:amount}("");
-        require (success, "transfer failed");
-        
+        require (success, "transfer failed"); 
     }
 
-     function unsafewithdraw()public{
+    function unsafewithdraw()public{
         uint256 amount = balances [msg.sender];
         require (amount>0, "no balance"); 
         (bool success,) = payable(msg.sender).call{value:amount}("");
         require (success, "transfer failed");
-        balances[msg.sender]=0;
-        
+        balances[msg.sender]=0; 
     }
 
     function NoWithdraw()public{
@@ -109,5 +106,4 @@ contract ReentrancyTest {
         require (success, "transfer failed");
         
     }
-   
 }
