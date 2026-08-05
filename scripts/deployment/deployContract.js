@@ -1,30 +1,41 @@
 const { ethers } = require("hardhat");
 const fs = require("fs");
-
+const path = require("path");
 async function main() {
 
-    const [owner, , , attackerEOA] = await ethers.getSigners();
+    const deploymentPath = path.join(
+            __dirname,
+            "../deployment",
+            "deployment_localhost.json"
+    );
+    
+   // Read existing deployment file
+    const deployment = JSON.parse(
+        fs.readFileSync(deploymentPath, "utf8")
+    );
+
+    const TestAddress = deployment.contracts.ReentrancyTest.address;
+
+    const [owner] = await ethers.getSigners();
    
-    const TestContract = await ethers.getContractFactory("testContract");
-    const test = await TestContract.connect(owner).deploy();
+    const TestContract = await ethers.getContractFactory("Attacker");
+    const test = await TestContract.connect(owner).deploy(TestAddress);
     await test.waitForDeployment();
     const testAddress = await test.getAddress();
    console.log("address : ", testAddress)
-
-    // ── Save addresses ─────────────────────────────────────
-    const deployment = {
-        network: "hardhat",
-        timestamp: new Date().toISOString(),
-        contracts: {
-            TestContract: {
-                address: testAddress,
-            } 
-        }
+      
+   deployment.contracts.Attacker= {
+        address: testAddress
     };
 
     fs.writeFileSync(
-        "deployment.json",
+       deploymentPath,
         JSON.stringify(deployment, null, 2)
     );
+
+     console.log("Deployment file updated.");
 }
-main().catch(console.error);
+main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+});
