@@ -14,12 +14,12 @@ async function main() {
         fs.readFileSync(deploymentPath, "utf8")
     );
 
-    const TestAddress = deployment.contracts.ReentrancyTest.address;
+    const argument = deployment.contracts.ReentrancyTest.address;
 
     const [owner] = await ethers.getSigners();
    
     const TestContract = await ethers.getContractFactory("Attacker");
-    const test = await TestContract.connect(owner).deploy(TestAddress);
+    const test = await TestContract.connect(owner).deploy(argument);
     await test.waitForDeployment();
     const testAddress = await test.getAddress();
    console.log("address : ", testAddress)

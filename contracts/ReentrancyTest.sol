@@ -60,14 +60,22 @@ contract ReentrancyTest {
     }
      function callinst()public{
         uint256 amount = balances [msg.sender];
-        require (amount>0, "no balance"); 
+        require (amount>0, "sender does not have a  balance"); 
+        require (address(this).balance>=amount, "balance contract not enough"); 
         (bool success,) = payable(msg.sender).call{value:amount}("");
+        require (success, "transfer balance to sender failed ");
     }
     function secondRequireinst()public{
         uint256 amount = balances [msg.sender];
         require (amount>0, "no balance"); 
         (bool success,) = payable(msg.sender).call{value:amount}("");
         require (success, "transfer failed");
+    }
+
+    function withdraw(uint256 amount) public {
+        require(address(this).balance >= amount, "balance contract less than requested amount");
+        (bool success,) = payable(msg.sender).call{value:amount}("");
+        require (success, "transfer amount to sender failed"); 
     }
 
     function safewithdraw()public{
@@ -82,7 +90,7 @@ contract ReentrancyTest {
         uint256 amount = balances [msg.sender];
         require (amount>0, "no balance"); 
         (bool success,) = payable(msg.sender).call{value:amount}("");
-        require (success, "transfer failed");
+        require (success, "transfer of amount failed");
         balances[msg.sender]=0; 
     }
 
@@ -103,7 +111,8 @@ contract ReentrancyTest {
 
         (bool success,) = payable(msg.sender).call{value:amount}("");
 
-        require (success, "transfer failed");
+        require (success, "transfer of amount failed");
         
     }
+    receive() external payable {}
 }

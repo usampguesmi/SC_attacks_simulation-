@@ -2,7 +2,7 @@ const { ethers } = require("hardhat");
 const fs = require("fs");
 const path = require("path");
 
-const artifact_ReentrancyTest_Contract = require(
+const artifact_ReentrancyTest = require(
     "../../artifacts/contracts/ReentrancyTest.sol/ReentrancyTest.json"
 );
 
@@ -24,23 +24,6 @@ async function main() {
     const attackerAddress= deployment.contracts.Attacker.address;
     const reentrancyTestAddress= deployment.contracts.ReentrancyTest.address;
     const signers = await ethers.getSigners();
-    const contractReentrancyTest = new ethers.Contract (
-       reentrancyTestAddress,
-       artifact_ReentrancyTest_Contract.abi,
-       signers[0]
-    );
-
-    const contractBalance = await ethers.provider.getBalance(attackerAddress);
-    console.log("Attacker contract address:", attackerAddress);
-    console.log("Attacker contract balance:", ethers.formatEther(contractBalance));
-    
-    console.log("signers[0] address:", signers[0].address);
-    console.log("balance of signer[0]:  ",ethers.formatEther(await  ethers.provider.getBalance(signers[0].address)), "ETHER ");
-
-    const balancesmapping1 = await contractReentrancyTest.balances(signers[0].address);
-    console.log("balances[sender] in ETH:",ethers.formatEther(balancesmapping1),"ETH");
-
-
     const signer = signers[0];
     const  user1 = signers[1];
     const  user2 = signers[2];
@@ -50,9 +33,24 @@ async function main() {
     const  user6 = signers[6];
     const  attacker = signers[7];
 
+    const contractReentrancyTest = new ethers.Contract (
+    reentrancyTestAddress,
+    artifact_ReentrancyTest.abi,
+    signer
+);
+    const attackerContract_Balance = await ethers.provider.getBalance(attackerAddress);
+    console.log("Attacker contract balance = ", ethers.formatEther(attackerContract_Balance),"ETH");
+    console.log("reentrancyTest contract balance: =", ethers.formatEther(await ethers.provider.getBalance(reentrancyTestAddress)),"ETH");
+    console.log("attacker user balance =  ",ethers.formatEther(await  ethers.provider.getBalance(attacker.address)),"ETH");
+
+    const balancesmapping1 = await contractReentrancyTest.balances(attacker.address);
+    console.log("balances attacker user in reentrancy contract = ",ethers.formatEther(balancesmapping1),"ETH");
+
+
+    /*
     for (let i=0; i<=7;i++){
         console.log("address of signer ", i , " : ", signers[i].address , " and balance = ", await ethers.formatEther(await ethers.provider.getBalance(signers[i].address)) )
-    }
+    }*/
 }
 
 main().catch(console.error);

@@ -17,26 +17,27 @@ const attackerAddress = deployment.contracts.Attacker.address;
 const reentrancyTestAddress = deployment.contracts.ReentrancyTest.address;
 
 const signers = await ethers.getSigners();
+const signer = signers[0];
+const  user1 = signers[1];
+const  user2 = signers[2];
+const  user3 = signers[3];
+const  user4 = signers[4];
+const  user5 = signers[5];
+const  user6 = signers[6];
+const  attacker = signers[7];
 
 const contractAttacker = new ethers.Contract (
     attackerAddress,
     artifact_attcker.abi,
-    signers[0]
+    signer
 );
 const contractReentrancyTest = new ethers.Contract (
     reentrancyTestAddress,
     artifact_ReentrancyTest.abi,
-    signers[0]
+    signer
 );
 
-    const signer = signers[0];
-    const  user1 = signers[1];
-    const  user2 = signers[2];
-    const  user3 = signers[3];
-    const  user4 = signers[4];
-    const  user5 = signers[5];
-    const  user6 = signers[6];
-    const  attacker = signers[7];
+    
 
 context.deployment = deployment;
 context.attackerAddress = attackerAddress;
