@@ -2,6 +2,10 @@ const { ethers } = require("hardhat");
 const fs = require("fs");
 const path = require("path");
 
+const {
+    savePatchedGethFormat
+} = require("./convertToPatchedGethFormat");
+
 /**
  * Save the execution trace of a transaction in three formats.
  *
@@ -21,6 +25,12 @@ async function saveTrace(txHash, outputDir, filePrefix) {
             }
         ]
     );
+
+    savePatchedGethFormat(
+    trace,
+    outputDir,
+    `${filePrefix}-patched`
+);
 
     // ---------- Format 1 ----------
     const opcodeSequence = trace.structLogs.map(

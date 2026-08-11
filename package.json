@@ -15,6 +15,7 @@
     "hardhat": "^2.22.19"
   },
   "dependencies": {
+    "cli-table3": "^0.6.5",
     "dotenv": "^17.4.2"
   }
 }

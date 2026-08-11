@@ -2,14 +2,14 @@ const {ethers}= require ("hardhat");
 const fs = require ("fs");
 const path = require ("path");
 
-const artifact_attcker= require ("../../artifacts/contracts/Attacker.sol/Attacker.json")
+const artifact_attacker= require ("../../artifacts/contracts/Attacker.sol/Attacker.json")
 const artifact_ReentrancyTest= require ("../../artifacts/contracts/ReentrancyTest.sol/ReentrancyTest.json")
 
 async function loadContext() {
 const context ={};
-const deploymentPath = path.join(__dirname, "../deployment", "deployment_localhost.json");
+const deploymentPath = path.join(__dirname, "../deployment", "deployment_sepolia.json");
     if (!fs.existsSync(deploymentPath)) {
-            throw new Error("deployment_localhost.json not found. Run deploy.js first.");
+            throw new Error("deployment_sepolia.json not found. Run deploy.js first.");
     }
 const deployment = JSON.parse(fs.readFileSync(deploymentPath, "utf8"));
 
@@ -28,7 +28,7 @@ const  attacker = signers[7];
 
 const contractAttacker = new ethers.Contract (
     attackerAddress,
-    artifact_attcker.abi,
+    artifact_attacker.abi,
     signer
 );
 const contractReentrancyTest = new ethers.Contract (
@@ -36,8 +36,6 @@ const contractReentrancyTest = new ethers.Contract (
     artifact_ReentrancyTest.abi,
     signer
 );
-
-    
 
 context.deployment = deployment;
 context.attackerAddress = attackerAddress;

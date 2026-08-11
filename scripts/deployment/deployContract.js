@@ -17,7 +17,7 @@ async function main() {
     const argument = deployment.contracts.ReentrancyTest.address;
 
     const [owner] = await ethers.getSigners();
-   
+
     const TestContract = await ethers.getContractFactory("Attacker");
     const test = await TestContract.connect(owner).deploy(argument);
     await test.waitForDeployment();

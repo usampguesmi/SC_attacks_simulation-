@@ -7,7 +7,6 @@ contract Attacker {
     ReentrancyTest public reentrancyTest;
     uint256 public attackCount;
 
-
     constructor(address payable _bankAddress) {
         reentrancyTest = ReentrancyTest(_bankAddress);
     }
@@ -19,7 +18,7 @@ contract Attacker {
         reentrancyTest.unsafewithdraw();
     }
 
-    function call_withdraw(uint256 amount) public payable {
+    function call_withdraw(uint256 amount) public {
         reentrancyTest.withdraw(amount);
     }
 
@@ -40,5 +39,9 @@ contract Attacker {
         return address(this).balance;
     }
 
-    receive() external payable {}
+    function setAttackCount(uint256 _attackCount) public {
+        attackCount = _attackCount;
+    }
+
+     receive() external payable {}
 }

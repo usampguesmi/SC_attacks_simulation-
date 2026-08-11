@@ -3,12 +3,11 @@
   "network": "hardhat",
   "timestamp": "2026-07-23T13:12:59.319Z",
   "contracts": {
-    "TestContract": {
-      
-      "address": "0x6d1f7ac9036d82b04ba719c9ac3ee42200d04e9f"
+    "Attacker": {
+      "address": "0xd48c40f1DD3f234AA589988a2A794a5F019b89F0"
     },
     "ReentrancyTest": {
-       "address": "0x4431123d1DbBCD63E09c3D9459ec27d15b8d5A83"
+       "address": "0x6D3F97401254ea1CAb401E0dF44ec89929fb20ae"
     }
   }
 }
