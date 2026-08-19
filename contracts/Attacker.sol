@@ -43,5 +43,15 @@ contract Attacker {
         attackCount = _attackCount;
     }
 
+     function withdrawFull() public {
+    uint256 balance = address(this).balance;
+
+    require(balance > 0, "Contract has no balance");
+
+    (bool success, ) = payable(msg.sender).call{value: balance}("");
+
+    require(success, "Transfer failed");
+}
+
      receive() external payable {}
 }
