@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "cli-table3": "^0.6.5",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "pg": "^8.23.0"
   }
 }
