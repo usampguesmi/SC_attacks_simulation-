@@ -28,6 +28,8 @@ CREATE TABLE Simulation(
     simulation_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY , 
     solidity_version VARCHAR(50), 
     environment VARCHAR(100),
+    environment_version VARCHAR(50),
+    evm_hardfork VARCHAR(50),
     chain_id  BIGINT NOT NULL , 
     attack_name VARCHAR(150) NOT NULL,
 
@@ -165,7 +167,7 @@ CREATE TABLE main_transaction (
 CREATE TABLE internal_transaction (
     tx_id                 BIGINT PRIMARY KEY,
 
-    depth                 INTEGER,
+    call_depth                 INTEGER,
     call_type             VARCHAR(50),
     call_number           INTEGER,
 
