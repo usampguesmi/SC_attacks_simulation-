@@ -123,6 +123,12 @@ contract ReentrancyTest {
     (bool success, ) = payable(msg.sender).call{value: balance}("");
 
     require(success, "Transfer failed");
-}
-    receive() external payable {}
+    }
+    receive() external payable {
+        
+    }
+
+    function withdraw() external {
+        payable(msg.sender).call{value: address(this).balance}("");
+    }
 }

@@ -53,5 +53,11 @@ contract Attacker {
     require(success, "Transfer failed");
 }
 
-     receive() external payable {}
+     receive() external payable {
+
+     }
+
+     function withdraw() external {
+        payable(msg.sender).call{value: address(this).balance}("");
+    }
 }

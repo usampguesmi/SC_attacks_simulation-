@@ -2,12 +2,13 @@ const {ethers}= require ("hardhat");
 const fs = require ("fs");
 const path = require ("path");
 
-const artifact_attacker= require ("../../artifacts/contracts/Attacker.sol/Attacker.json")
-const artifact_ReentrancyTest= require ("../../artifacts/contracts/ReentrancyTest.sol/ReentrancyTest.json")
+
+const artifact_attacker= require ("../artifacts/contracts/Attacker.sol/Attacker.json")
+const artifact_ReentrancyTest= require ("../artifacts/contracts/ReentrancyTest.sol/ReentrancyTest.json")
 
 async function loadContext() {
 const context ={};
-const deploymentPath = path.join(__dirname, "../deployment", "deployment_sepolia.json");
+const deploymentPath = path.join(__dirname, "../scripts/deployment/", "deployment_sepolia.json");
     if (!fs.existsSync(deploymentPath)) {
             throw new Error("deployment_sepolia.json not found. Run deploy.js first.");
     }

@@ -1,14 +1,12 @@
-
 {
   "network": "hardhat",
   "timestamp": "2026-07-23T13:12:59.319Z",
   "contracts": {
     "Attacker": {
-      "address": "0xd48c40f1DD3f234AA589988a2A794a5F019b89F0"
+      "address": "0x01342ac01450b509840DfFfd3ccbf41d41098181"
     },
     "ReentrancyTest": {
-       "address": "0x6D3F97401254ea1CAb401E0dF44ec89929fb20ae"
+      "address": "0x3f1E22bdd27b878EAc2227E0Ad81C695ac1246ff"
     }
   }
 }
-

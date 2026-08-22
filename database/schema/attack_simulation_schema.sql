@@ -11,6 +11,12 @@ CREATE TYPE account_role_enum AS ENUM (
     'VICTIM_AND_ATTACKER'
 );
 
+CREATE TYPE transaction_purpose_enum AS ENUM (
+    'MALICIOUS',
+    'BENIGN',
+    'INSTRUMENTATION'
+);
+
 CREATE TABLE blockchain_network (
     chain_id BIGINT PRIMARY KEY,
     network_name VARCHAR(100) NOT NULL,
@@ -97,19 +103,20 @@ CREATE TABLE SmartContract (
         block_number BIGINT, 
         tx_timestamp TIMESTAMPTZ, 
         gas_used BIGINT,
-        opcode_sequence_length BIGINT, 
+        traces_length BIGINT, 
 
         opcode_traces TEXT,
         opcode_stack_traces TEXT,
-        Full_EVM_Execution_Trace JSONB, 
+        full_evm_exec_traces JSONB, 
 
         simulation_id BIGINT NOT NULL, 
 
-        fromAddress VARCHAR(50) NOT NULL,
+        from_address VARCHAR(50) NOT NULL,
         fromAddress_chain_id BIGINT NOT NULL, 
 
-        toAddress VARCHAR(50) NOT NULL, 
+        to_address VARCHAR(50) NOT NULL, 
         toAddress_chain_id BIGINT NOT NULL,
+        transaction_purpose transaction_purpose_enum,
 
         CONSTRAINT tk_transactionRecord_simulation
             FOREIGN KEY (simulation_id)
@@ -117,7 +124,7 @@ CREATE TABLE SmartContract (
         
         CONSTRAINT fk_transaction_from_account
             FOREIGN KEY (
-            fromAddress,
+            from_address,
             fromAddress_chain_id
             )
             REFERENCES account(
@@ -127,7 +134,7 @@ CREATE TABLE SmartContract (
 
         CONSTRAINT fk_transaction_to_account
             FOREIGN KEY (
-            toAddress,
+            to_Address,
             toAddress_chain_id
             )
             REFERENCES account(
@@ -135,21 +142,16 @@ CREATE TABLE SmartContract (
             chain_id
             ),
 
-        CONSTRAINT chk_transaction_to_account 
-            CHECK (
-                (toAddress IS NULL AND toAddress_chain_id IS NULL)
-                 OR
-                (toAddress IS NOT NULL AND toAddress_chain_id IS NOT NULL)
-)); 
+); 
 
 CREATE TABLE main_transaction (
     tx_id             BIGINT PRIMARY KEY,
 
-    hash              VARCHAR(66) NOT NULL,
+    tx_hash              VARCHAR(66) NOT NULL,
     chain_id          BIGINT NOT NULL,
 
     index_in_block    INTEGER,
-    status            BOOLEAN,
+    tx_status            BOOLEAN,
 
     CONSTRAINT fk_main_transaction_parent
         FOREIGN KEY (tx_id)
@@ -161,7 +163,7 @@ CREATE TABLE main_transaction (
         REFERENCES blockchain_network(chain_id),
 
     CONSTRAINT uq_main_transaction_hash
-        UNIQUE (chain_id, hash)
+        UNIQUE (chain_id, tx_hash)
 );
 
 CREATE TABLE internal_transaction (
@@ -169,7 +171,7 @@ CREATE TABLE internal_transaction (
 
     call_depth                 INTEGER,
     call_type             VARCHAR(50),
-    call_number           INTEGER,
+    call_index          INTEGER,
 
     start_opcode_index    BIGINT,
     end_opcode_index      BIGINT,
@@ -201,7 +203,7 @@ CREATE TABLE evm_traces (
 
     pc                   BIGINT,
     opcode_name          VARCHAR(100),
-    depth                INTEGER,
+    opcode_depth                INTEGER,
     opcode_category      VARCHAR(100),
 
     memory               INTEGER,
