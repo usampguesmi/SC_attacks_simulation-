@@ -1,13 +1,13 @@
 const { createTransactionRecord } = require("../repositories/transactionReccord_crud.js");
 const {getOrCreateSimulation} = require("../repositories/simulation_crud.js");
 
-
+const { resolveAccount } = require("./testAccountResolver.js"); 
 const {TransactionPurpose} = require("../repositories/enumeration.js");
 
 const hre = require("hardhat");
 const hardhatPackage = require("hardhat/package.json");
 
-async function main() {
+async function transaction_reccord_values() {
     const txHash = "0x942219b0645da96af2b89daf4f31441162bc67d1ef7fc7de28e15d609ff293c2"; 
     const tx = await hre.ethers.provider.getTransaction(txHash);
     //console.log("Transaction object:", tx);
@@ -36,7 +36,15 @@ console.log(transactionPurpose)
 const attack_name = "sf_reentrancy"
 const asb= await getOrCreateSimulation (attack_name)
 
-//
+// from_address / fromAddress_chain_id
+const fromResolved = await resolveAccount(tx.from, chainId);
+const fromAddress = fromResolved.accountAddress;
+const fromAddressChainId = fromResolved.chainId;
+
+// to_address / toAddress_chain_id
+const toResolved = await resolveAccount(tx.to, chainId);
+const toAddress = toResolved.accountAddress;
+const toAddressChainId = toResolved.chainId;
 
 
 

@@ -2,10 +2,6 @@ const { ethers } = require("hardhat");
 const fs = require("fs");
 const path = require("path");
 
-const {
-    savePatchedGethFormat
-} = require("./convertToPatchedGethFormat");
-
 /**
  * Save the execution trace of a transaction in three formats.
  *
@@ -26,21 +22,15 @@ async function saveTrace(txHash, outputDir, filePrefix) {
         ]
     );
 
-    savePatchedGethFormat(
-    trace,
-    outputDir,
-    `${filePrefix}-patched`
-);
-
     // ---------- Format 1 ----------
     const opcodeSequence = trace.structLogs.map(
         log => `${log.pc};${log.op}`
     );
 
-    fs.writeFileSync(
-        path.join(outputDir, `${filePrefix}-format1.txt`),
-        opcodeSequence.join("\n")
-    );
+    const opcodeCount = opcodeSequence.length;
+
+    const format1 = opcodeSequence.join("\n");
+    fs.writeFileSync(path.join(outputDir, `${filePrefix}-format1.txt`), format1);
 
     // ---------- Format 2 ----------
     const opcodeSequenceWithArgs = trace.structLogs.map(log => {
@@ -57,18 +47,15 @@ async function saveTrace(txHash, outputDir, filePrefix) {
         return `${log.pc};${log.op};${args}`;
     });
 
-    fs.writeFileSync(
-        path.join(outputDir, `${filePrefix}-format2.txt`),
-        opcodeSequenceWithArgs.join("\n")
-    );
+    const format2 = opcodeSequenceWithArgs.join("\n");
+    fs.writeFileSync(path.join(outputDir, `${filePrefix}-format2.txt`), format2);
+
 
     // ---------- Format 3 ----------
-    fs.writeFileSync(
-        path.join(outputDir, `${filePrefix}-format3.json`),
-        JSON.stringify(trace, null, 2)
-    );
+    const format3 = JSON.stringify(trace, null, 2);
+    fs.writeFileSync(path.join(outputDir, `${filePrefix}-format3.json`), format3);
 
-    return trace;
+    return { trace, format1, format2, format3, opcodeCount };
 }
 
 module.exports = {
