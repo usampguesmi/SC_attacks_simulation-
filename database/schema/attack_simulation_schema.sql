@@ -51,7 +51,6 @@ CREATE TABLE Simulation(
 CREATE TABLE Account (
     account_address VARCHAR(50), 
     chain_id BIGINT NOT NULL, 
-    nonce NUMERIC(20, 0),
 
     PRIMARY KEY (account_address, chain_id ),
     

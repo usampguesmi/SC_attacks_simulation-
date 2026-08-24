@@ -4,4 +4,21 @@ const TransactionPurpose = Object.freeze({
     INSTRUMENTATION: "INSTRUMENTATION"
 });
 
-module.exports = TransactionPurpose;
+const AccountRole = Object.freeze({
+    ATTACKER: "ATTACKER",
+    VICTIM: "VICTIM",
+    NEUTRAL: "NEUTRAL",
+    VICTIM_AND_ATTACKER: "VICTIM&ATTACKER"
+});
+
+const ParticipationType = Object.freeze({
+    FROM: "FROM",
+    TO: "TO",
+    OTHER: "OTHER"
+});
+
+module.exports = {
+    TransactionPurpose,
+    AccountRole,
+    ParticipationType
+};

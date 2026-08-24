@@ -1,5 +1,8 @@
-const { createTransactionRecord } =
-    require("../repositories/transactionReccord_crud.js");
+const { createTransactionRecord } = require("../repositories/transactionReccord_crud.js");
+const {getOrCreateSimulation} = require("../repositories/simulation_crud.js");
+
+
+const {TransactionPurpose} = require("../repositories/enumeration.js");
 
 const hre = require("hardhat");
 const hardhatPackage = require("hardhat/package.json");
@@ -24,6 +27,17 @@ const tx_Timestamp = new Date(Number(Timestamp) * 1000);
 
 // gas_used
 const gasUsed = receipt.gasUsed;
+
+//transaction purpose
+const transactionPurpose = TransactionPurpose.INSTRUMENTATION;
+console.log(transactionPurpose)
+
+// chain_id 
+const attack_name = "sf_reentrancy"
+const asb= await getOrCreateSimulation (attack_name)
+
+//
+
 
 
 

@@ -7,6 +7,12 @@
     },
     "ReentrancyTest": {
       "address": "0x3f1E22bdd27b878EAc2227E0Ad81C695ac1246ff"
+    },
+    "ContractB": {
+      "address": "0x89B71935e894E6a62EDE616c44a6E3EAaA4b8da6"
+    },
+    "ContractA": {
+      "address": "0xA6dB5993efd4B0F6fF173A99877ce61F014E38Ab"
     }
   }
 }
