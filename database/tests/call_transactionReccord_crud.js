@@ -1,6 +1,6 @@
 const { createTransactionRecord } = require("../repositories/transactionReccord_crud.js");
 const {getOrCreateSimulation} = require("../repositories/simulation_crud.js");
-
+const {fetchAndSaveGethTrace} = require("./remoteTraceExport.js")
 const { resolveAccount } = require("./testAccountResolver.js"); 
 const {TransactionPurpose} = require("../repositories/enumeration.js");
 const {saveTrace} = require("../../utils/saveTrace.js")
@@ -47,6 +47,19 @@ const toAddress = toResolved.accountAddress;
 const toAddressChainId = toResolved.chainId;
 
 const { opcode_traces, opcode_stack_traces,  full_evm_exec_traces, tracesLength } = await saveTrace(txHash, outputDir, filePrefix);
+
+const geth_traces = await fetchAndSaveGethTrace(txHash, outputDir, filePrefix);
+
+    // --- check for internal calls ---
+
+const internalCalls = detectInternalCalls(trace.structLogs);
+if (internalCalls.length === 0) {
+
+    console.log("No internal calls detected - inserting as a single transaction_record + main_transaction.");
+
+}
+
+
 
 
 

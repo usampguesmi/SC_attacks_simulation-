@@ -116,6 +116,7 @@ CREATE TABLE SmartContract (
         to_address VARCHAR(50) NOT NULL, 
         toAddress_chain_id BIGINT NOT NULL,
         transaction_purpose transaction_purpose_enum,
+        geth_traces TEXT, 
 
         CONSTRAINT tk_transactionRecord_simulation
             FOREIGN KEY (simulation_id)
