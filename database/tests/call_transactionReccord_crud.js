@@ -3,7 +3,7 @@ const {getOrCreateSimulation} = require("../repositories/simulation_crud.js");
 
 const { resolveAccount } = require("./testAccountResolver.js"); 
 const {TransactionPurpose} = require("../repositories/enumeration.js");
-
+const {saveTrace} = require("../../utils/saveTrace.js")
 const hre = require("hardhat");
 const hardhatPackage = require("hardhat/package.json");
 
@@ -45,6 +45,10 @@ const fromAddressChainId = fromResolved.chainId;
 const toResolved = await resolveAccount(tx.to, chainId);
 const toAddress = toResolved.accountAddress;
 const toAddressChainId = toResolved.chainId;
+
+const { opcode_traces, opcode_stack_traces,  full_evm_exec_traces, tracesLength } = await saveTrace(txHash, outputDir, filePrefix);
+
+
 
 
 
