@@ -13,6 +13,12 @@
     },
     "ContractA": {
       "address": "0xA6dB5993efd4B0F6fF173A99877ce61F014E38Ab"
+    },
+    "VulnerableBank": {
+      "address": "0x5bb3996E4FEC5aF6Ed5FA5E310B6E463dd24033c"
+    },
+    "Attacker2": {
+      "address": "0x623aF1d8fa7bBe21A2E19D6A4C207AF362092f4E"
     }
   }
 }

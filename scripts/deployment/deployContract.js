@@ -6,7 +6,7 @@ async function main() {
     const deploymentPath = path.join(
             __dirname,
             "../deployment",
-            "deployment_sepolia.json"
+            "deployment_localhost.json"
     );
     
    // Read existing deployment file
@@ -14,17 +14,17 @@ async function main() {
         fs.readFileSync(deploymentPath, "utf8")
     );
 
-    const argument = deployment.contracts.ReentrancyTest.address;
+    const argument = deployment.contracts.VulnerableBank.address;
 
     const [owner] = await ethers.getSigners();
 
-    const TestContract = await ethers.getContractFactory("ContractA");
-    const test = await TestContract.connect(owner).deploy();
+    const TestContract = await ethers.getContractFactory("Attacker2");
+    const test = await TestContract.connect(owner).deploy(argument);
     await test.waitForDeployment();
     const testAddress = await test.getAddress();
    console.log("address : ", testAddress)
       
-   deployment.contracts.ContractA= {
+   deployment.contracts.Attacker2= {
         address: testAddress
     };
 

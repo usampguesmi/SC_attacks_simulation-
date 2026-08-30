@@ -5,6 +5,7 @@ const { resolveAccount } = require("./testAccountResolver.js");
 const {TransactionPurpose} = require("../repositories/enumeration.js");
 const {saveTrace} = require("../../utils/saveTrace.js")
 const hre = require("hardhat");
+const {createMainTransaction} = require("../repositories/mainTransaction_crud.js")
 const hardhatPackage = require("hardhat/package.json");
 
 async function transaction_reccord_values() {
@@ -57,6 +58,46 @@ if (internalCalls.length === 0) {
 
     console.log("No internal calls detected - inserting as a single transaction_record + main_transaction.");
 
+    const transactionRecordData = {
+            txValue,
+            blockNumber,
+            txTimestamp: tx_Timestamp,
+            gasUsed,
+            tracesLength: opcodeCount,
+            opcodeTraces: format1,
+            opcodeStackTraces: format2,
+            fullEvmExecTraces: format3,
+            simulationId,
+            fromAddress,
+            fromAddressChainId,
+            toAddress,
+            toAddressChainId,
+            transactionPurpose,
+            gethTraces
+        };
+
+        // 1. insert transaction_record, get back its generated tx_id
+        const txId = await createTransactionRecord(transactionRecordData);
+        console.log("transaction_record created, tx_id:", txId);
+
+         await createMainTransaction(
+            txId,
+            txHash,
+            chainId,
+            receipt.index ?? receipt.transactionIndex, // index_in_block
+            receipt.status === 1                        // tx_status (boolean)
+        );
+        console.log("main_transaction created, tx_id:", txId);
+
+        return txId;
+    }
+
+if (internalCalls.length === 0) {
+    
+}
+
+
+
 }
 
 
@@ -78,7 +119,7 @@ if (internalCalls.length === 0) {
 
     console.log("********* transaction_reccord saved! *********");
     console.log(" ********* transaction_reccord ID: *********", simulationId);*/
-}
+
 
 
 main()
