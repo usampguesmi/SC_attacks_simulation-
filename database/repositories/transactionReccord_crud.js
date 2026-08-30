@@ -17,13 +17,12 @@ async function createTransactionRecord(data) {
             fromAddress_chain_id,
             to_address,
             toAddress_chain_id,
-            transaction_purpose,
             geth_traces
         )
         VALUES (
             $1, $2, $3, $4, $5,
             $6, $7, $8, $9, $10,
-            $11, $12, $13, $14, $15
+            $11, $12, $13, $14
         )
         RETURNING tx_id;
     `;
@@ -42,7 +41,6 @@ async function createTransactionRecord(data) {
         data.fromAddressChainId,
         data.toAddress,
         data.toAddressChainId,
-        data.transactionPurpose,
         data.gethTraces
     ];
 

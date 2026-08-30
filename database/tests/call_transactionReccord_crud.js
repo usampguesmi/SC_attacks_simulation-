@@ -8,6 +8,8 @@ const hre = require("hardhat");
 const {createMainTransaction} = require("../repositories/mainTransaction_crud.js")
 const hardhatPackage = require("hardhat/package.json");
 
+
+
 async function transaction_reccord_values() {
     const txHash = "0x942219b0645da96af2b89daf4f31441162bc67d1ef7fc7de28e15d609ff293c2"; 
     const tx = await hre.ethers.provider.getTransaction(txHash);
@@ -72,7 +74,6 @@ if (internalCalls.length === 0) {
             fromAddressChainId,
             toAddress,
             toAddressChainId,
-            transactionPurpose,
             gethTraces
         };
 
