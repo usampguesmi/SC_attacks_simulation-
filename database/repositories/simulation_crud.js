@@ -30,12 +30,12 @@ async function createSimulation(
         attackName,
         environment_version,
         evm_hardfork
-
     ];
 
     const result = await pool.query(query, values);
 
-    return result.rows[0].simulation_id;
+    // return both, so this function is consistent with getOrCreateSimulation below
+    return { simulationId: result.rows[0].simulation_id, chainId };
 }
 
 async function getOrCreateSimulation(attackName) {
@@ -49,7 +49,7 @@ async function getOrCreateSimulation(attackName) {
     const solidityVersion =
         hre.config.solidity.compilers[0].version;
 
-    const environment ="Hardhat";
+    const environment = "Hardhat";
 
     const environmentVersion =
         hardhatPackage.version;
@@ -91,7 +91,7 @@ async function getOrCreateSimulation(attackName) {
 
 
     // ============================================================
-    // 3. If simulation exists, return its ID
+    // 3. If simulation exists, return its ID + chainId
     // ============================================================
 
     if (existingSimulation.rows.length > 0) {
@@ -104,7 +104,7 @@ async function getOrCreateSimulation(attackName) {
             simulationId
         );
 
-        return simulationId;
+        return { simulationId, chainId };
     }
 
 
@@ -136,7 +136,7 @@ async function getOrCreateSimulation(attackName) {
         simulationId
     );
 
-    return simulationId;
+    return { simulationId, chainId };
 }
 
 module.exports = {

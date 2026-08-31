@@ -32,14 +32,28 @@ function decodeCallValue(step) {
     }
 }
 
+// --- MISSING FROM THIS VERSION - decodes the CALL's target address ---
+function decodeCallTarget(step) {
+    if (!Array.isArray(step.stack)) return null;
+    if (step.op === "CREATE" || step.op === "CREATE2") return null;
+    const s = step.stack;
+    const addrHex = s[s.length - 2];
+    if (!addrHex) return null;
+    return "0x" + addrHex.replace(/^0x/, "").slice(-40).padStart(40, "0");
+}
+
 function detectInternalCalls(structLogs, txContext = {}) {
     const openFrames = [];
     const calls = [];
+    const addressStack = [txContext.rootAddress ?? null]; // <- MISSING: this is what rootAddress feeds into
 
     for (let i = 0; i < structLogs.length; i++) {
         const step = structLogs[i];
 
         if (CALL_OPS.has(step.op)) {
+            const fromAddress = addressStack[addressStack.length - 1]; // <- MISSING
+            const toAddress = decodeCallTarget(step);                  // <- MISSING
+
             openFrames.push({
                 call_depth: step.depth + 1,
                 call_type: step.op,
@@ -48,8 +62,12 @@ function detectInternalCalls(structLogs, txContext = {}) {
                 start_opcode_index: i + 1,
                 end_opcode_index: null,
                 value: decodeCallValue(step),
+                from_address: fromAddress,  // <- MISSING
+                to_address: toAddress,      // <- MISSING
                 _startGas: structLogs[i + 1] ? structLogs[i + 1].gas : null
             });
+
+            addressStack.push(toAddress); // <- MISSING
             continue;
         }
 
@@ -59,6 +77,7 @@ function detectInternalCalls(structLogs, txContext = {}) {
                 top.end_opcode_index = i;
                 top._endGas = step.gas;
                 calls.push(openFrames.pop());
+                addressStack.pop(); // <- MISSING
             }
         }
     }
@@ -125,7 +144,8 @@ module.exports = {
     createInternalTransaction,
     detectInternalCalls,
     saveInternalCallTraces,
-    decodeCallValue
+    decodeCallValue,
+    decodeCallTarget
 };
 
 // --- example: run directly against a real trace file when this file is executed on its own ---
@@ -133,11 +153,10 @@ if (require.main === module) {
     const filePath = path.join(__dirname, "../../test_traces/attack_zero-format3.json");
     const trace = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
-    // placeholder values for this standalone test - a live pipeline run would
-    // pass the real receipt.blockNumber / tx_Timestamp instead
     const calls = detectInternalCalls(trace.structLogs, {
         blockNumber: 11543258,
-        timestamp: new Date()
+        timestamp: new Date(),
+        rootAddress: "0xYourTransactionsToAddressHere" // required for correct from_address tracking
     });
 
     console.log(`Detected ${calls.length} internal call(s):`);
