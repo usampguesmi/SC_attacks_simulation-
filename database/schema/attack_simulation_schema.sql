@@ -14,7 +14,8 @@ CREATE TYPE account_role_enum AS ENUM (
 CREATE TYPE transaction_purpose_enum AS ENUM (
     'MALICIOUS',
     'BENIGN',
-    'INSTRUMENTATION'
+    'INSTRUMENTATION',
+    'INTERNAL'
 );
 
 CREATE TABLE blockchain_network (
@@ -116,6 +117,8 @@ CREATE TABLE SmartContract (
         to_address VARCHAR(50) NOT NULL, 
         toAddress_chain_id BIGINT NOT NULL,
         geth_traces TEXT, 
+        transaction_purpose transaction_purpose_enum,
+
 
         CONSTRAINT tk_transactionRecord_simulation
             FOREIGN KEY (simulation_id)
@@ -151,7 +154,6 @@ CREATE TABLE main_transaction (
 
     index_in_block    INTEGER,
     tx_status            BOOLEAN,
-    transaction_purpose transaction_purpose_enum,
 
     CONSTRAINT fk_main_transaction_parent
         FOREIGN KEY (tx_id)

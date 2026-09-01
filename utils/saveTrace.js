@@ -55,7 +55,7 @@ console.log("structLogs length:", trace.structLogs.length);
     const format3 = JSON.stringify(trace, null, 2);
     fs.writeFileSync(path.join(outputDir, `${filePrefix}-format3.json`), format3);
 
- //   return { trace, format1, format2, format3, opcodeCount };
+ return { trace, format1, format2, format3, opcodeCount };
 }
 
 module.exports = {

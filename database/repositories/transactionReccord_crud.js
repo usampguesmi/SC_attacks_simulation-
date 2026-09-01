@@ -17,12 +17,14 @@ async function createTransactionRecord(data) {
             fromAddress_chain_id,
             to_address,
             toAddress_chain_id,
-            geth_traces
+            geth_traces,
+            transaction_purpose
+
         )
         VALUES (
             $1, $2, $3, $4, $5,
             $6, $7, $8, $9, $10,
-            $11, $12, $13, $14
+            $11, $12, $13, $14, $15
         )
         RETURNING tx_id;
     `;
@@ -41,7 +43,8 @@ async function createTransactionRecord(data) {
         data.fromAddressChainId,
         data.toAddress,
         data.toAddressChainId,
-        data.gethTraces
+        data.gethTraces,
+        data.transaction_purpose
     ];
 
     const result = await pool.query(query, values);
