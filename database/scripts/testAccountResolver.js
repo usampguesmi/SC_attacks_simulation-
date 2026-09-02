@@ -4,7 +4,7 @@ const {
     findAccount,
     getAccountType,
     createAccount
-} = require("../repositories/account_crud");
+} = require("../repositories/account_crud.js");
 const {fetchDeploymentInfoFromEtherscan} = require ("../repositories/etherscan_crud.js");
 const {createEOA} = require("../repositories/eoa_crud.js");
 const {createSmartContract} = require("../repositories/smartContract_crud.js");
