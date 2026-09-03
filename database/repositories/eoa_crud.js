@@ -3,7 +3,8 @@ const pool = require("../db");
 async function createEOA(
     accountAddress,
     chainId,
-    publicKey
+    publicKey,
+    client = pool
 ) {
     const query = `
         INSERT INTO eoa (
@@ -12,17 +13,9 @@ async function createEOA(
             publickey
         )
         VALUES ($1, $2, $3)
-        ON CONFLICT (account_address, chain_id)
-        DO NOTHING;
+         ON CONFLICT (account_address, chain_id) DO NOTHING;
     `;
-
-    const values = [
-        accountAddress,
-        chainId,
-        publicKey
-    ];
-
-    await pool.query(query, values);
+    await client.query(query, [accountAddress, chainId, publicKey]);
 }
 
 module.exports = {

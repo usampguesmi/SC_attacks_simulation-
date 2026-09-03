@@ -5,19 +5,82 @@ const path = require("path");
 const CALL_OPS = new Set(["CALL", "CALLCODE", "DELEGATECALL", "STATICCALL", "CREATE", "CREATE2"]);
 const RETURN_OPS = new Set(["RETURN", "REVERT", "STOP", "INVALID", "SELFDESTRUCT"]);
 
-async function createInternalTransaction(
-    txId, callDepth, callType, callIndex, startOpcodeIndex, endOpcodeIndex, mainTxId
-) {
+async function createInternalTransaction({
+    mainTxId,
+    chainId,
+    hashTx,
+    callOrder,
+    callDepth,
+    callType,
+    callIndex,
+    startOpcodeIndex,
+    endOpcodeIndex,
+    callStatus,
+    txValue,
+    gasUsed,
+    tracesLength,
+    opcodeTraces,
+    opcodeStackTraces,
+    fullEvmExecTraces,
+    fromAddress,
+    fromAddressChainId,
+    toAddress,
+    toAddressChainId,
+}) {
     const query = `
         INSERT INTO internal_transaction (
-            tx_id, call_depth, call_type, call_index,
-            start_opcode_index, end_opcode_index, main_tx_id
+            main_tx_id,
+            chain_id,
+            hash_tx,
+            call_order,
+            call_depth,
+            call_type,
+            call_index,
+            start_opcode_index,
+            end_opcode_index,
+            call_status,
+            tx_value,
+            gas_used,
+            traces_length,
+            opcode_traces,
+            opcode_stack_traces,
+            full_evm_exec_traces,
+            from_address,
+            fromAddress_chain_id,
+            to_address,
+            toAddress_chain_id
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7);
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
+        RETURNING tx_id;
     `;
-    const values = [txId, callDepth, callType, callIndex, startOpcodeIndex, endOpcodeIndex, mainTxId];
-    await pool.query(query, values);
+
+    const values = [
+        mainTxId,
+        chainId,
+        hashTx,
+        callOrder,
+        callDepth,
+        callType,
+        callIndex,
+        startOpcodeIndex,
+        endOpcodeIndex,
+        callStatus,
+        txValue,
+        gasUsed,
+        tracesLength,
+        opcodeTraces,
+        opcodeStackTraces,
+        fullEvmExecTraces,
+        fromAddress,
+        fromAddressChainId,
+        toAddress,
+        toAddressChainId,
+    ];
+
+    const result = await pool.query(query, values);
+    return result.rows[0]; // { tx_id } — needed for the internal_tx_id FK on role_account
 }
+
 
 function decodeCallValue(step) {
     if (!Array.isArray(step.stack)) return null;

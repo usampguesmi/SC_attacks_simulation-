@@ -69,8 +69,8 @@ async function getOrCreateSimulation(attackName) {
         SELECT simulation_id
         FROM simulation
         WHERE solidity_version = $1
-          AND dev_environment = $2
-          AND dev_environment_version = $3
+          AND environment = $2
+          AND environment_version = $3
           AND chain_id = $4
           AND attack_name = $5
           AND evm_hardfork = $6

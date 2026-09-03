@@ -1,23 +1,21 @@
 const pool = require("../db");
+const hre = require("hardhat");
 
 async function createAccount(
     accountAddress,
-    chainId
+    chainId,
+    client = pool
 ) {
     const query = `
         INSERT INTO account (
             account_address,
             chain_id
         )
-        VALUES ($1, $2);
+        VALUES ($1, $2)
+        ON CONFLICT (account_address, chain_id) DO NOTHING;
     `;
 
-    const values = [
-        accountAddress,
-        chainId
-    ];
-
-    await pool.query(query, values);
+    await client.query(query, [accountAddress, chainId]);
 }
 
 async function findAccount(accountAddress, chainId) {
@@ -27,7 +25,7 @@ async function findAccount(accountAddress, chainId) {
             account_address,
             chain_id
         FROM account
-        WHERE account_address = $1
+        WHERE LOWER(account_address) = LOWER($1)
           AND chain_id = $2;
     `;
 

@@ -1,4 +1,5 @@
 const hre = require("hardhat");
+const pool = require("../db");
 
 const {
     findAccount,
@@ -40,12 +41,9 @@ async function resolveAccount(accountAddress, chainId, scontractName = null ) {
     // checksummed addresses, geth traces return lowercase ones)
     accountAddress = hre.ethers.getAddress(accountAddress);
 
-    const account =
-        await findAccount(
-            accountAddress,
-            chainId
-        );
-  // Account already exists
+    const account = await findAccount(accountAddress, chainId);
+
+    // Account already exists
     if (account.exists) {
         console.log("Account exists in database.");
         return {
@@ -53,71 +51,106 @@ async function resolveAccount(accountAddress, chainId, scontractName = null ) {
             chainId: account.chainId
         };
     }
-    
- // Account does not exist
-   console.log("Account does not exist in database.");
 
- // fetsh address type (smart contract or EOA )
-   const { type: accountType, bytecode } = await getAccountType(accountAddress);
-   if (accountType === "EOA") {
-     // First insert parent Account
-        await createAccount(
-        accountAddress,
-        chainId
-    );
-    console.log("new account created !")
-    // Then insert EOA
-    const publicKey = null;
-    await createEOA(
-        accountAddress,
+    // Account does not exist
+    console.log("Account does not exist in database.");
+
+    // fetch address type (smart contract or EOA)
+    const { type: accountType, bytecode } = await getAccountType(accountAddress);
+
+    // -----------------------------------------------------------
+    // EOA branch — createAccount + createEOA wrapped in one transaction
+    // -----------------------------------------------------------
+    if (accountType === "EOA") {
+        const client = await pool.connect();
+        try {
+            await client.query("BEGIN");
+
+            await createAccount(accountAddress, chainId, client);
+            console.log("new account created !");
+
+            const publicKey = null;
+            await createEOA(accountAddress, chainId, publicKey, client);
+            console.log("new EOA account created !");
+
+            await client.query("COMMIT");
+            return { accountAddress, chainId };
+        } catch (err) {
+            await client.query("ROLLBACK");
+            throw err;
+        } finally {
+            client.release();
+        }
+    }
+
+    // -----------------------------------------------------------
+    // SMART_CONTRACT branch
+    // -----------------------------------------------------------
+    if (accountType === "SMART_CONTRACT") {
+
+        // 1. fetch everything Etherscan knows about this contract
+        //    (done BEFORE opening a DB transaction - no connection held
+        //    open during slow external HTTP calls)
+        const deploymentInfo = await fetchDeploymentInfoFromEtherscan(accountAddress, chainId);
+        const smartContractData = {
+            accountAddress,
             chainId,
-            publicKey
-    );
-    console.log("new EOA account created !")
-    return {
-        accountAddress,
-        chainId
-    };
-}
+            bytecode,
+            name: scontractName || null,
+            solidityCode: deploymentInfo?.solidityCode || null,
+            blockNumberDeployment: deploymentInfo?.blockNumberDeployment || null,
+            txHashDeployment: deploymentInfo?.txHashDeployment || null,
+            timestampDeployment: deploymentInfo?.timestampDeployment || null,
+            creatorAddress: deploymentInfo?.creatorAddress || null,   // null only when Etherscan didn't return it
+            creatorChainId: deploymentInfo?.creatorChainId || null
+        };
 
-if (accountType === "SMART_CONTRACT") {
+        let resolvedCreatorAddress = null;
+        let resolvedCreatorChainId = null;
 
-    // 1. fetch everything Etherscan knows about this contract
-    const deploymentInfo = await fetchDeploymentInfoFromEtherscan(accountAddress, chainId);
-    const smartContractData = {
-        accountAddress,
-        chainId,
-        bytecode,
-        name: scontractName || null,
-        solidityCode: deploymentInfo?.solidityCode || null,
-        blockNumberDeployment: deploymentInfo?.blockNumberDeployment || null,
-        txHashDeployment: deploymentInfo?.txHashDeployment || null,
-        timestampDeployment: deploymentInfo?.timestampDeployment || null,
-        creatorAddress: deploymentInfo?.creatorAddress || null,   // null only when Etherscan didn't return it
-        creatorChainId: deploymentInfo?.creatorChainId  || null   
-    };
-
-    if (smartContractData.creatorAddress) {
-            await resolveAccount(smartContractData.creatorAddress, smartContractData.creatorChainId);
+        // 2. resolve the creator FULLY (its own independent transaction,
+        //    committed on its own) BEFORE this contract's own rows are
+        //    inserted - guarantees the creator FK target already exists
+        //    by the time createSmartContract runs below
+        if (smartContractData.creatorAddress) {
+           //await resolveAccount(smartContractData.creatorAddress, smartContractData.creatorChainId);
+            const creatorResolved = await resolveAccount(smartContractData.creatorAddress, smartContractData.creatorChainId);
+            resolvedCreatorAddress = creatorResolved.accountAddress;
+            resolvedCreatorChainId = creatorResolved.chainId;
         }
 
-    await createAccount(accountAddress, chainId);
-    console.log("new account created !")
-    await createSmartContract(
-        accountAddress,
-        chainId,
-        smartContractData.name,
-        bytecode,
-        smartContractData.solidityCode,
-        smartContractData.blockNumberDeployment,
-        smartContractData.txHashDeployment,
-        smartContractData.timestampDeployment,
-        smartContractData.creatorAddress,
-        smartContractData.creatorChainId
-    );
-    console.log("new smart contract created !")
-    return { accountAddress, chainId };
-}
+        // 3. this contract's own Account + SmartContract rows, one transaction
+        const client = await pool.connect();
+        try {
+            await client.query("BEGIN");
+
+            await createAccount(accountAddress, chainId, client);
+            console.log("new account created !");
+
+            await createSmartContract(
+                accountAddress,
+                chainId,
+                smartContractData.name,
+                bytecode,
+                smartContractData.solidityCode,
+                smartContractData.blockNumberDeployment,
+                smartContractData.txHashDeployment,
+                smartContractData.timestampDeployment,
+                resolvedCreatorAddress,
+                resolvedCreatorChainId,
+                client
+            );
+            console.log("new smart contract created !");
+
+            await client.query("COMMIT");
+            return { accountAddress, chainId };
+        } catch (err) {
+            await client.query("ROLLBACK");
+            throw err;
+        } finally {
+            client.release();
+        }
+    }
 }
 
 module.exports = {

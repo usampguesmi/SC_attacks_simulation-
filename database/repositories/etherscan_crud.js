@@ -3,6 +3,7 @@ require("dotenv").config();
 const hre = require("hardhat");
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const ETHERSCAN_BASE_URL = "https://api.etherscan.io/v2/api";
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 async function findTrueCreatorFromTx(txHash, targetAddress) {
     const trace = await hre.ethers.provider.send("debug_traceTransaction", [
@@ -50,23 +51,29 @@ async function findTrueCreatorFromInternalTxs(txHash, targetAddress, chainId) {
     return creationEntry ? creationEntry.from : null;
 }
 
-async function fetchDeploymentInfoFromEtherscan(accountAddress, chainId) {
+async function fetchDeploymentInfoFromEtherscan(accountAddress, chainId, retries = 3) {
 
     // 1. creator address + deployment tx hash
     const creationUrl = `${ETHERSCAN_BASE_URL}?chainid=${chainId}&module=contract&action=getcontractcreation&contractaddresses=${accountAddress}&apikey=${ETHERSCAN_API_KEY}`;
     const creationRes = await fetch(creationUrl);
     const creationData = await creationRes.json();
 
-   if (creationData.status !== "1" || !creationData.result?.length) {
+    if (creationData.status !== "1" || !creationData.result?.length) {
+        const isRateLimited = String(creationData.result).toLowerCase().includes("rate limit");
+        if (isRateLimited && retries > 0) {
+            console.warn(`Rate limited fetching ${accountAddress}, retrying in 1s... (${retries} left)`);
+            await sleep(1000);
+            return fetchDeploymentInfoFromEtherscan(accountAddress, chainId, retries - 1);
+        }
         console.warn(`fetchDeploymentInfoFromEtherscan: no creation data for ${accountAddress} - status="${creationData.status}", message="${creationData.message}", result=${JSON.stringify(creationData.result)}`);
         return null;
     }
-
 
     const { contractCreator, txHash } = creationData.result[0];
 
     let trueCreator = contractCreator;
     try {
+        await sleep(350); // throttle before next Etherscan call
         const tracedCreator = await findTrueCreatorFromInternalTxs(txHash, accountAddress, chainId);
         if (tracedCreator) {
             trueCreator = tracedCreator;
@@ -76,6 +83,7 @@ async function fetchDeploymentInfoFromEtherscan(accountAddress, chainId) {
     }
 
     // 2. verified source code (may be empty if contract isn't verified)
+    await sleep(350); // throttle before next Etherscan call
     const sourceUrl = `${ETHERSCAN_BASE_URL}?chainid=${chainId}&module=contract&action=getsourcecode&address=${accountAddress}&apikey=${ETHERSCAN_API_KEY}`;
     const sourceRes = await fetch(sourceUrl);
     const sourceData = await sourceRes.json();
@@ -112,5 +120,3 @@ if (require.main === module) {
             process.exit(1);
         });
 }*/
-
-

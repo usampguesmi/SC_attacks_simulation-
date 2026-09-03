@@ -10,7 +10,8 @@ async function createSmartContract(
     txHashDeployment,
     timestampDeployment,
     creatorAddress,
-    creatorChainId
+    creatorChainId,
+    client = pool
 ) {
     const query = `
         INSERT INTO smartcontract (
@@ -32,21 +33,11 @@ async function createSmartContract(
         ON CONFLICT (account_address, chain_id)
         DO NOTHING;
     `;
-
-    const values = [
-        accountAddress,
-        chainId,
-        contractName,
-        bytecode,
-        solidityCode,
-        blockNumberDeployment,
-        txHashDeployment,
-        timestampDeployment,
-        creatorAddress,
-        creatorChainId
-    ];
-
-    await pool.query(query, values);
+    await client.query(query, [
+        accountAddress, chainId, contractName, bytecode, solidityCode,
+        blockNumberDeployment, txHashDeployment, timestampDeployment,
+        creatorAddress, creatorChainId
+    ]);
 }
 
 module.exports = {
