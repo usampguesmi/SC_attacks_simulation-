@@ -69,7 +69,7 @@ async function transaction_reccord_values(txHash, transaction_purpose, attack_na
 
     // separately-sourced trace from your own patched Geth node's MongoDB,
     // fetched over SSH/docker exec, kept byte-for-byte as-is
-    const geth_traces = await fetchAndSaveGethTrace(txHash, outputDir2, filePrefix1);
+   //const geth_traces = await fetchAndSaveGethTrace(txHash, outputDir2, filePrefix1);
 
     // ---------------------------------------------------------------
     // 5. Walk the trace and detect any internal calls (CALL/DELEGATECALL/
@@ -108,8 +108,8 @@ async function transaction_reccord_values(txHash, transaction_purpose, attack_na
             fromAddressChainId,
             toAddress,
             toAddressChainId,
-            transactionPurpose,
-            geth_traces
+            transaction_purpose,
+            //geth_traces
         };
 
         // insert transaction_record first - Postgres auto-generates tx_id
@@ -155,8 +155,8 @@ async function transaction_reccord_values(txHash, transaction_purpose, attack_na
         fromAddressChainId,
         toAddress,
         toAddressChainId,
-        transactionPurpose,
-        geth_traces
+        transaction_purpose,
+        //geth_traces
     };
     const mainTxId = await createTransactionRecord(mainTransactionRecordData);
     console.log("main transaction_record created, tx_id:", mainTxId);
@@ -203,8 +203,8 @@ async function transaction_reccord_values(txHash, transaction_purpose, attack_na
             fromAddressChainId: callFromResolved.chainId,
             toAddress: callToResolved.accountAddress,
             toAddressChainId: callToResolved.chainId,
-            transactionPurpose: "internal",
-            gethTraces: null // the patched-Geth raw trace is only captured once for the whole tx, not duplicated per internal call
+            transaction_purpose: "INTERNAL",
+            //gethTraces: null // the patched-Geth raw trace is only captured once for the whole tx, not duplicated per internal call
         };
 
         // each internal call gets its own transaction_record row (its own tx_id)

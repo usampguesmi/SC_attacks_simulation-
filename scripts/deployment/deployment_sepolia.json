@@ -1,5 +1,5 @@
 {
-  "network": "hardhat",
+  "network": "sepolia",
   "timestamp": "2026-07-23T13:12:59.319Z",
   "contracts": {
     "Attacker": {
@@ -15,10 +15,10 @@
       "address": "0xA6dB5993efd4B0F6fF173A99877ce61F014E38Ab"
     },
     "VulnerableBank": {
-      "address": "0x5bb3996E4FEC5aF6Ed5FA5E310B6E463dd24033c"
+      "address": "0xf51509e723261a6e1009e49D61dB454f07c571D6"
     },
     "Attacker2": {
-      "address": "0x623aF1d8fa7bBe21A2E19D6A4C207AF362092f4E"
+      "address": "0xDF8E5DC4EE3D841Adc865e99F18756Fbd737109a"
     }
   }
 }

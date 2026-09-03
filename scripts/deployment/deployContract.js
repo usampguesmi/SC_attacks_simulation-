@@ -6,7 +6,7 @@ async function main() {
     const deploymentPath = path.join(
             __dirname,
             "../deployment",
-            "deployment_localhost.json"
+            "deployment_sepolia.json"
     );
     
    // Read existing deployment file

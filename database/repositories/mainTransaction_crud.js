@@ -8,7 +8,7 @@ async function createMainTransaction(txId, txHash, chainId, indexInBlock, txStat
             tx_hash,
             chain_id,
             index_in_block,
-            tx_status
+            status
         )
         VALUES ($1, $2, $3, $4, $5);
     `;

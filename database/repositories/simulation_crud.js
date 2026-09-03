@@ -13,10 +13,10 @@ async function createSimulation(
     const query = `
         INSERT INTO simulation (
             solidity_version,
-            dev_environment,
+            environment,
             chain_id,
             attack_name,
-            dev_environment_version,
+            environment_version,
             evm_hardfork
         )
         VALUES ($1, $2, $3, $4, $5, $6)
@@ -115,8 +115,8 @@ async function getOrCreateSimulation(attackName) {
     const insertQuery = `
         INSERT INTO simulation (
             solidity_version,
-            dev_environment,
-            dev_environment_version,
+            environment,
+            environment_version,
             chain_id,
             attack_name,
             evm_hardfork

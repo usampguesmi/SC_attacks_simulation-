@@ -18,6 +18,11 @@ CREATE TYPE transaction_purpose_enum AS ENUM (
     'INTERNAL'
 );
 
+CREATE TYPE transac_type_enum AS ENUM (
+    'MAIN',
+    'INTERNAL'
+);
+
 CREATE TABLE blockchain_network (
     chain_id BIGINT PRIMARY KEY,
     network_name VARCHAR(100) NOT NULL,
@@ -32,7 +37,7 @@ CREATE TABLE Attack (
     );
 
 CREATE TABLE Simulation(
-    simulation_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY , 
+    simulation_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
     solidity_version VARCHAR(50), 
     environment VARCHAR(100),
     environment_version VARCHAR(50),
@@ -97,160 +102,162 @@ CREATE TABLE SmartContract (
         REFERENCES account(account_address,chain_id)
 );
 
-    CREATE TABLE transaction_record(
-        tx_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY , 
-        tx_value  NUMERIC(78,0), 
-        block_number BIGINT, 
-        tx_timestamp TIMESTAMPTZ, 
-        gas_used BIGINT,
-        traces_length BIGINT, 
-
-        opcode_traces TEXT,
-        opcode_stack_traces TEXT,
-        full_evm_exec_traces JSONB, 
-
-        simulation_id BIGINT NOT NULL, 
-
-        from_address VARCHAR(50) NOT NULL,
-        fromAddress_chain_id BIGINT NOT NULL, 
-
-        to_address VARCHAR(50) NOT NULL, 
-        toAddress_chain_id BIGINT NOT NULL,
-        geth_traces TEXT, 
-        transaction_purpose transaction_purpose_enum,
-
-
-        CONSTRAINT tk_transactionRecord_simulation
-            FOREIGN KEY (simulation_id)
-            REFERENCES simulation(simulation_id),
-        
-        CONSTRAINT fk_transaction_from_account
-            FOREIGN KEY (
-            from_address,
-            fromAddress_chain_id
-            )
-            REFERENCES account(
-            account_address,
-            chain_id
-            ),
-
-        CONSTRAINT fk_transaction_to_account
-            FOREIGN KEY (
-            to_Address,
-            toAddress_chain_id
-            )
-            REFERENCES account(
-            account_address,
-            chain_id
-            ),
-
-); 
-
 CREATE TABLE main_transaction (
-    tx_id             BIGINT PRIMARY KEY,
+     tx_id BIGINT GENERATED ALWAYS AS IDENTITY, 
+     tx_hash  VARCHAR(70) NOT NULL,
+     tx_value  NUMERIC(78,0), 
+     block_number BIGINT, 
+     index_inBlock  INT,
+     tx_timestamp TIMESTAMPTZ,
+     tx_status    BOOLEAN, 
+     gas_used BIGINT,
+     transaction_purpose transaction_purpose_enum,
 
-    tx_hash              VARCHAR(66) NOT NULL,
-    chain_id          BIGINT NOT NULL,
+     traces_length BIGINT, 
+     opcode_traces TEXT,
+     opcode_stack_traces TEXT,
+     full_evm_exec_traces JSONB, 
+    
+     simulation_id BIGINT NOT NULL, 
 
-    index_in_block    INTEGER,
-    tx_status            BOOLEAN,
+    from_address VARCHAR(50),
+    fromAddress_chain_id BIGINT, 
 
-    CONSTRAINT fk_main_transaction_parent
-        FOREIGN KEY (tx_id)
-        REFERENCES transaction_record(tx_id)
-        ON DELETE CASCADE,
+    to_address VARCHAR(50), 
+    toAddress_chain_id BIGINT,
+    
+    chain_id          BIGINT,
+
+    PRIMARY KEY (tx_id, tx_hash,  chain_id ),
 
     CONSTRAINT fk_main_transaction_network
         FOREIGN KEY (chain_id)
         REFERENCES blockchain_network(chain_id),
 
     CONSTRAINT uq_main_transaction_hash
-        UNIQUE (chain_id, tx_hash)
+        UNIQUE (chain_id, tx_hash),
+
+    CONSTRAINT fk_main_transaction_simulation
+         FOREIGN KEY (simulation_id)
+         REFERENCES simulation(simulation_id),
+    
+    CONSTRAINT fk_main_transaction_from_account
+         FOREIGN KEY (from_address, fromAddress_chain_id)
+         REFERENCES account(account_address, chain_id),
+
+     CONSTRAINT fk_main_transaction_to_account
+         FOREIGN KEY (to_address, toAddress_chain_id)
+         REFERENCES account(account_address, chain_id)
 );
 
 CREATE TABLE internal_transaction (
-    tx_id                 BIGINT PRIMARY KEY,
+    tx_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
-    call_depth                 INTEGER,
-    call_type             VARCHAR(50),
-    call_index          INTEGER,
+    main_tx_id BIGINT NOT NULL,
+    hash_tx    VARCHAR(70) NOT NULL,
+    chain_id   BIGINT NOT NULL,
 
-    start_opcode_index    BIGINT,
-    end_opcode_index      BIGINT,
+    call_order         INT NOT NULL,
+    call_depth         INT,
+    call_type          VARCHAR(20),
+    call_index         INT,
+    start_opcode_index INT,
+    end_opcode_index   INT,
+    call_status        BOOLEAN,
 
-    main_tx_id            BIGINT NOT NULL,
+    tx_value             NUMERIC(78,0),
+    gas_used             BIGINT,
+    traces_length        BIGINT,
+    opcode_traces        TEXT,
+    opcode_stack_traces  TEXT,
+    full_evm_exec_traces JSONB,
 
-    CONSTRAINT fk_internal_transaction_parent
-        FOREIGN KEY (tx_id)
-        REFERENCES transaction_record(tx_id)
-        ON DELETE CASCADE,
+    from_address          VARCHAR(50),
+     fromAddress_chain_id  BIGINT,
 
-    CONSTRAINT fk_internal_transaction_main
-        FOREIGN KEY (main_tx_id)
-        REFERENCES main_transaction(tx_id)
-        ON DELETE CASCADE,
+    to_address            VARCHAR(50),
+    toAddress_chain_id    BIGINT,
 
-    CONSTRAINT chk_internal_opcode_indexes
-        CHECK (
-            start_opcode_index IS NULL
-            OR end_opcode_index IS NULL
-            OR start_opcode_index <= end_opcode_index
-        )
+
+     CONSTRAINT fk_internal_transaction_main
+         FOREIGN KEY (main_tx_id, chain_id, hash_tx)
+         REFERENCES main_transaction(tx_id, chain_id, tx_hash),
+
+    CONSTRAINT fk_internal_transaction_from_account
+         FOREIGN KEY (from_address, fromAddress_chain_id)
+         REFERENCES account(account_address, chain_id),
+
+     CONSTRAINT fk_internal_transaction_to_account
+         FOREIGN KEY (to_address, toAddress_chain_id)
+         REFERENCES account(account_address, chain_id),
+
+     CONSTRAINT uq_internal_transaction_order
+         UNIQUE (main_tx_id, chain_id, hash_tx, call_order)
 );
 
-
-CREATE TABLE evm_traces (
-    tx_id               BIGINT NOT NULL,
-    opcode_index        BIGINT NOT NULL,
-
-    pc                   BIGINT,
-    opcode_name          VARCHAR(100),
-    opcode_depth                INTEGER,
-    opcode_category      VARCHAR(100),
-
-    memory               INTEGER,
-    stack                INTEGER,
-    storage              INTEGER,
-
-    PRIMARY KEY (tx_id, opcode_index),
-
-    CONSTRAINT fk_evm_trace_transaction
-        FOREIGN KEY (tx_id)
-        REFERENCES transaction_record(tx_id)
-        ON DELETE CASCADE
-);
 
 CREATE TABLE role_account (
-    tx_id                BIGINT NOT NULL,
+    id                   BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    transaction_type     transac_type_enum NOT NULL,   -- 'MAIN' | 'INTERNAL'
+
+    main_tx_id           BIGINT,
+    main_chain_id        BIGINT,
+    main_hash_tx         VARCHAR(70),
+
+    internal_tx_id       BIGINT,
 
     account_address      VARCHAR(50) NOT NULL,
     chain_id             BIGINT NOT NULL,
 
     participation_type   participation_type_enum NOT NULL,
-    role_account         account_role_enum NOT NULL,
+    role_account          account_role_enum NOT NULL,
 
     balance_before_tx    NUMERIC(78, 0),
     balance_after_tx     NUMERIC(78, 0),
 
     function_selector    VARCHAR(10),
 
-    PRIMARY KEY (
-        tx_id,
-        account_address,
-        chain_id,
-        participation_type
-    ),
+    CONSTRAINT fk_role_account_main
+        FOREIGN KEY (main_tx_id, main_chain_id, main_hash_tx)
+        REFERENCES main_transaction(tx_id, chain_id, tx_hash)
+        ON DELETE CASCADE,
 
-    CONSTRAINT fk_role_account_transaction
-        FOREIGN KEY (tx_id)
-        REFERENCES transaction_record(tx_id)
+    CONSTRAINT fk_role_account_internal
+        FOREIGN KEY (internal_tx_id)
+        REFERENCES internal_transaction(tx_id)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_role_account_account
         FOREIGN KEY (account_address, chain_id)
         REFERENCES account(account_address, chain_id)
-        ON DELETE CASCADE
-)
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_role_account_type_consistency
+    CHECK (
+        (transaction_type = 'MAIN'
+            AND main_tx_id IS NOT NULL
+            AND main_chain_id IS NOT NULL
+            AND main_hash_tx IS NOT NULL
+            AND internal_tx_id IS NULL)
+        OR
+        (transaction_type = 'INTERNAL'
+            AND main_tx_id IS NOT NULL
+            AND main_chain_id IS NOT NULL
+            AND main_hash_tx IS NOT NULL
+            AND internal_tx_id IS NOT NULL)
+    )
+);
+
+-- only ever sees MAIN rows (internal_tx_id always NULL here, but irrelevant — not part of this index)
+CREATE UNIQUE INDEX uq_role_account_main
+    ON role_account (main_tx_id, account_address, chain_id, participation_type)
+    WHERE transaction_type = 'MAIN';
+
+-- only ever sees INTERNAL rows (internal_tx_id always NOT NULL here, guaranteed by CHECK)
+CREATE UNIQUE INDEX uq_role_account_internal
+    ON role_account (main_tx_id, internal_tx_id, account_address, chain_id, participation_type)
+    WHERE transaction_type = 'INTERNAL';
 
 
 

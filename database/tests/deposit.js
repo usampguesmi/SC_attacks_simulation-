@@ -16,19 +16,13 @@
     { name: "Signer", address: ctx.signer.address, notes: `balances[signer]: ${ethers.formatEther(balancesMapping1)} ETH` }
 ]);
 
-//transaction update the the attackCount value
-    const tx1 = await ctx.contractAttacker2.setMaxAttacks(3); // whichever value you're testing
-    const receipt1 = await tx1.wait();
-    console.log("setMaxAttacks tx hash:", receipt1.hash);
-    console.log("New MAX_ATTACKS value:", await ctx.contractAttacker2.MAX_ATTACKS());
-
 // send transaction -- example deposit()
     const amount = ethers.parseEther("1.3");
     const calldata = ctx.contractVulnerableBank.interface.encodeFunctionData("deposit");
     const tx = await ctx.signer.sendTransaction({
           to : ctx.VulnerableBankAddress,
           data: calldata,
-          value: ethers.parseEther("20")    
+          value: ethers.parseEther("0.0001")    
       })
     const receipt = await tx.wait();
     console.log(tx.hash);

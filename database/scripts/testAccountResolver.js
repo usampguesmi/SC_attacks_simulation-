@@ -34,6 +34,12 @@ async function resolveAccount(accountAddress, chainId, scontractName = null ) {
     if (!check.valid) {
         throw new Error(`resolveAccount: invalid address ${accountAddress} on chain ${chainId} - ${check.reason}`);
     }
+
+    // normalize to EIP-55 checksummed form so the same address always resolves
+    // to the same DB row regardless of the casing it arrived in (ethers returns
+    // checksummed addresses, geth traces return lowercase ones)
+    accountAddress = hre.ethers.getAddress(accountAddress);
+
     const account =
         await findAccount(
             accountAddress,

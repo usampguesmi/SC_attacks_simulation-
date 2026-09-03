@@ -10,6 +10,8 @@ const path = require("path");
  * @param {string} filePrefix Prefix of the output files.
  */
 async function saveTrace(txHash, outputDir, filePrefix) {
+    fs.mkdirSync(outputDir, { recursive: true });
+
     const trace = await ethers.provider.send(
         "debug_traceTransaction",
         [
