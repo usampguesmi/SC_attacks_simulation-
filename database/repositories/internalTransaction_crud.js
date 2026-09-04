@@ -104,6 +104,52 @@ function decodeCallTarget(step) {
     return "0x" + addrHex.replace(/^0x/, "").slice(-40).padStart(40, "0");
 }
 
+// Decodes the 4-byte function selector from the calldata this call is about to send,
+// by reading argsOffset/argsLength off the stack and pulling those bytes out of memory
+// at the moment the CALL/CALLCODE/DELEGATECALL/STATICCALL opcode executes.
+//
+// Stack layouts (s[s.length - N], following the same "index 0 = top" convention used
+// by decodeCallValue/decodeCallTarget above):
+//   CALL / CALLCODE:            gas, to, value, argsOffset, argsLength, retOffset, retLength
+//   DELEGATECALL / STATICCALL:  gas, to, argsOffset, argsLength, retOffset, retLength
+//
+// Requires the trace to have been captured with disableMemory: false.
+function decodeFunctionSelector(step) {
+    if (!Array.isArray(step.stack) || !Array.isArray(step.memory)) return null;
+    if (step.op === "CREATE" || step.op === "CREATE2") return null; // no calldata concept for CREATE
+
+    const s = step.stack;
+    let argsOffsetHex, argsLengthHex;
+
+    if (step.op === "CALL" || step.op === "CALLCODE") {
+        argsOffsetHex = s[s.length - 4];
+        argsLengthHex = s[s.length - 5];
+    } else if (step.op === "DELEGATECALL" || step.op === "STATICCALL") {
+        argsOffsetHex = s[s.length - 3];
+        argsLengthHex = s[s.length - 4];
+    } else {
+        return null;
+    }
+
+    if (!argsOffsetHex || !argsLengthHex) return null;
+
+    const argsOffset = parseInt(argsOffsetHex, 16);
+    const argsLength = parseInt(argsLengthHex, 16);
+
+    if (!Number.isFinite(argsOffset) || !Number.isFinite(argsLength) || argsLength < 4) {
+        return null; // not enough calldata for a 4-byte selector
+    }
+
+    // geth's `memory` field is an array of 32-byte hex words (no "0x" prefix, 64 hex chars each)
+    const memory = step.memory.join(""); // flatten into one long hex string
+    const startNibble = argsOffset * 2;   // convert byte offset to hex-character offset
+    const selectorHex = memory.slice(startNibble, startNibble + 8); // 4 bytes = 8 hex chars
+
+    if (selectorHex.length < 8) return null; // memory not expanded that far yet
+
+    return "0x" + selectorHex;
+}
+
 function detectInternalCalls(structLogs, txContext = {}) {
     const openFrames = [];
     const calls = [];
@@ -126,6 +172,7 @@ function detectInternalCalls(structLogs, txContext = {}) {
                 value: decodeCallValue(step),
                 from_address: fromAddress,
                 to_address: toAddress,
+                function_selector: decodeFunctionSelector(step),
                 _startGas: structLogs[i + 1] ? structLogs[i + 1].gas : null
             });
 
@@ -213,7 +260,8 @@ module.exports = {
     detectInternalCalls,
     saveInternalCallTraces,
     decodeCallValue,
-    decodeCallTarget
+    decodeCallTarget,
+    decodeFunctionSelector
 };
 
 // --- example: run directly against a real trace file when this file is executed on its own ---

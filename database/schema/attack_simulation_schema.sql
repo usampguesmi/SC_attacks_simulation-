@@ -195,23 +195,18 @@ CREATE TABLE internal_transaction (
          UNIQUE (main_tx_id, chain_id, hash_tx, call_order)
 );
 
-
 CREATE TABLE role_account (
     id                   BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
-    transaction_type     transac_type_enum NOT NULL,   -- 'MAIN' | 'INTERNAL'
-
-    main_tx_id           BIGINT,
-    main_chain_id        BIGINT,
-    main_hash_tx         VARCHAR(70),
-
-    internal_tx_id       BIGINT,
+    main_tx_id           BIGINT NOT NULL,
+    main_chain_id        BIGINT NOT NULL,
+    main_hash_tx         VARCHAR(70) NOT NULL,
 
     account_address      VARCHAR(50) NOT NULL,
     chain_id             BIGINT NOT NULL,
 
     participation_type   participation_type_enum NOT NULL,
-    role_account          account_role_enum NOT NULL,
+    role_account         account_role_enum,   -- nullable: filled in later via separate script
 
     balance_before_tx    NUMERIC(78, 0),
     balance_after_tx     NUMERIC(78, 0),
@@ -223,41 +218,14 @@ CREATE TABLE role_account (
         REFERENCES main_transaction(tx_id, chain_id, tx_hash)
         ON DELETE CASCADE,
 
-    CONSTRAINT fk_role_account_internal
-        FOREIGN KEY (internal_tx_id)
-        REFERENCES internal_transaction(tx_id)
-        ON DELETE CASCADE,
-
     CONSTRAINT fk_role_account_account
         FOREIGN KEY (account_address, chain_id)
         REFERENCES account(account_address, chain_id)
         ON DELETE CASCADE,
 
-    CONSTRAINT chk_role_account_type_consistency
-    CHECK (
-        (transaction_type = 'MAIN'
-            AND main_tx_id IS NOT NULL
-            AND main_chain_id IS NOT NULL
-            AND main_hash_tx IS NOT NULL
-            AND internal_tx_id IS NULL)
-        OR
-        (transaction_type = 'INTERNAL'
-            AND main_tx_id IS NOT NULL
-            AND main_chain_id IS NOT NULL
-            AND main_hash_tx IS NOT NULL
-            AND internal_tx_id IS NOT NULL)
-    )
+    CONSTRAINT uq_role_account
+        UNIQUE (main_tx_id, account_address, chain_id, participation_type)
 );
-
--- only ever sees MAIN rows (internal_tx_id always NULL here, but irrelevant — not part of this index)
-CREATE UNIQUE INDEX uq_role_account_main
-    ON role_account (main_tx_id, account_address, chain_id, participation_type)
-    WHERE transaction_type = 'MAIN';
-
--- only ever sees INTERNAL rows (internal_tx_id always NOT NULL here, guaranteed by CHECK)
-CREATE UNIQUE INDEX uq_role_account_internal
-    ON role_account (main_tx_id, internal_tx_id, account_address, chain_id, participation_type)
-    WHERE transaction_type = 'INTERNAL';
 
 
 
