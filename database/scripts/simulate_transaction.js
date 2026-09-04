@@ -8,11 +8,12 @@ const {saveTrace} = require("../../utils/saveTrace.js")
 const hre = require("hardhat");
 const {createMainTransaction} = require("../repositories/mainTransaction_crud.js")
 const hardhatPackage = require("hardhat/package.json");
+const {insertMainRoleAccounts} = require("../repositories/roleAccount_crud.js");
 
 const { detectInternalCalls, saveInternalCallTraces, createInternalTransaction } = require("../repositories/internalTransaction_crud.js");
 
 //async function transaction_reccord_values(txHash, transaction_purpose, attack_name, outputDir1, filePrefix1, outputDir2, baseOutputDir, folderName) {
-async function transaction_reccord_values(txHash, attack_name, transactionPurpose, outputDir1, filePrefix1, baseOutputDir, folderName) {
+async function transaction_reccord_values(txHash, attack_name, transactionPurpose, outputDir1, filePrefix1, baseOutputDir, folderName, fromRole, toRole) {
    // outputDir1, filePrefix1 for saving the traces of the whole transaction 
    // outputDir2, filePrefix2 for saving geth traces  
    // for internal calls baseOutputDir, folderName
@@ -37,6 +38,10 @@ const tx_Timestamp = new Date(Number(block.timestamp) * 1000);
 
 // gas_used: actual gas consumed by the WHOLE transaction (all internal calls included)
 const gasUsed = receipt.gasUsed;
+
+// ★ NEW: function_selector for the MAIN transaction — first 4 bytes of the top-level calldata
+    const mainFunctionSelector = tx.data && tx.data !== "0x" ? tx.data.slice(0, 10) : null;
+
 
 // attack name --- example : const attack_name = "sf_reentrancy";
     const { simulationId, chainId } =  await getOrCreateSimulation(attack_name);
@@ -113,6 +118,20 @@ const gasUsed = receipt.gasUsed;
 
         console.log("main_transaction created, tx_id:", mainTx.tx_id);
 
+        // ★ NEW: insert role_account rows (FROM + TO) for the main transaction
+        await insertMainRoleAccounts({
+            mainTx,
+            blockNumber,
+            fromAddress,
+            fromAddressChainId,
+            toAddress,
+            toAddressChainId,
+            functionSelector: mainFunctionSelector,
+            fromRole,   
+            toRole    
+        });
+
+
         return { mainTxId: mainTx.tx_id, internalCallCount: 0 };
     }
 
@@ -147,6 +166,20 @@ const gasUsed = receipt.gasUsed;
     });
 
     console.log("main_transaction created, tx_id:", mainTx.tx_id);
+
+    // ★ NEW: insert role_account rows (FROM + TO) for the main transaction
+    await insertMainRoleAccounts({
+        mainTx,
+        blockNumber,
+        fromAddress,
+        fromAddressChainId,
+        toAddress,
+        toAddressChainId,
+        functionSelector: mainFunctionSelector,
+        fromRole,   
+        toRole 
+    });
+
 
     // --- 5b. Save each internal call's own trace files to a dedicated subfolder ---
     await saveInternalCallTraces(internalCalls, baseOutputDir, folderName);
@@ -199,14 +232,16 @@ module.exports = { transaction_reccord_values };
 // --- only runs when this file is executed directly, not when imported elsewhere ---
 if (require.main === module) {
 
-    const txHash = "0x66802904c47145a9822f01775aa20a3cd9adbaa248820b17d4564fa692a04b3b";
+    const txHash = "0xdf5caf40a9f8c5120726913398af21069b39d69e6737dc5b795368c137956b20";
     const attack_name = "sf_reentrancy"; // must match an existing row in the Attack table
     const outputDir1 = path.join(__dirname, "../tests/traces_tests/full"); // for saving the traces of the whole transaction
     const filePrefix1 = "test";
     const baseOutputDir = path.join(__dirname, "../tests/traces_tests/internal");
     const folderName = "test_folder";
+    const fromRole = "ATTACKER";   // ★ NEW
+    const toRole = "VICTIM";
 
-    transaction_reccord_values(txHash, attack_name,"INSTRUMENTATION", outputDir1, filePrefix1, baseOutputDir, folderName)
+    transaction_reccord_values(txHash, attack_name,"INSTRUMENTATION", outputDir1, filePrefix1, baseOutputDir, folderName, fromRole, toRole)
         .then((result) => {
             console.log("Done:", result);
             process.exit(0);

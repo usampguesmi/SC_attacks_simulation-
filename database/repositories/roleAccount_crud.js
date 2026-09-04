@@ -47,4 +47,50 @@ async function createRoleAccount({
     return result.rows[0]; // { id }
 }
 
-module.exports = { createRoleAccount };
+// ★ ENTIRELY NEW FUNCTION — inserts the FROM + TO role_account rows for the
+// main transaction. Fetches real on-chain balances before/after the block.
+async function insertMainRoleAccounts({
+    mainTx,
+    blockNumber,
+    fromAddress,
+    fromAddressChainId,
+    toAddress,
+    toAddressChainId,
+    functionSelector,
+    fromRole,   
+    toRole 
+}) {
+    const fromBalanceBefore = await hre.ethers.provider.getBalance(fromAddress, blockNumber - 1);
+    const fromBalanceAfter = await hre.ethers.provider.getBalance(fromAddress, blockNumber);
+    const toBalanceBefore = await hre.ethers.provider.getBalance(toAddress, blockNumber - 1);
+    const toBalanceAfter = await hre.ethers.provider.getBalance(toAddress, blockNumber);
+
+    await createRoleAccount({
+        mainTxId: mainTx.tx_id,
+        mainChainId: mainTx.chain_id,
+        mainHashTx: mainTx.tx_hash,
+        accountAddress: fromAddress,
+        chainId: fromAddressChainId,
+        participationType: "FROM",
+        roleAccount: fromRole, // you fill this in manually later, via a separate script
+        balanceBeforeTx: fromBalanceBefore,
+        balanceAfterTx: fromBalanceAfter,
+        functionSelector,
+    });
+    await createRoleAccount({
+        mainTxId: mainTx.tx_id,
+        mainChainId: mainTx.chain_id,
+        mainHashTx: mainTx.tx_hash,
+        accountAddress: toAddress,
+        chainId: toAddressChainId,
+        participationType: "TO",
+        roleAccount: toRole,
+        balanceBeforeTx: toBalanceBefore,
+        balanceAfterTx: toBalanceAfter,
+        functionSelector,
+    });
+
+    console.log("role_account rows created for main_transaction (FROM + TO).");
+}
+
+module.exports = { createRoleAccount, insertMainRoleAccounts };
