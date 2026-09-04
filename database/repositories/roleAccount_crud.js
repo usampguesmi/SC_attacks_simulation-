@@ -1,5 +1,5 @@
 const pool = require("../db");
-
+const hre = require("hardhat"); 
 async function createRoleAccount({
     mainTxId,
     mainChainId,
@@ -11,7 +11,8 @@ async function createRoleAccount({
     balanceBeforeTx,
     balanceAfterTx,
     functionSelector,
-    client = pool,
+    function_name,
+    client = pool
 }) {
     const query = `
         INSERT INTO role_account (
@@ -24,9 +25,10 @@ async function createRoleAccount({
             role_account,
             balance_before_tx,
             balance_after_tx,
-            function_selector
+            function_selector,
+            function_name
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         RETURNING id;
     `;
 
@@ -41,6 +43,7 @@ async function createRoleAccount({
         balanceBeforeTx,
         balanceAfterTx,
         functionSelector,
+        function_name   
     ];
 
     const result = await client.query(query, values);
@@ -58,7 +61,8 @@ async function insertMainRoleAccounts({
     toAddressChainId,
     functionSelector,
     fromRole,   
-    toRole 
+    toRole ,
+    function_name
 }) {
     const fromBalanceBefore = await hre.ethers.provider.getBalance(fromAddress, blockNumber - 1);
     const fromBalanceAfter = await hre.ethers.provider.getBalance(fromAddress, blockNumber);
@@ -76,6 +80,7 @@ async function insertMainRoleAccounts({
         balanceBeforeTx: fromBalanceBefore,
         balanceAfterTx: fromBalanceAfter,
         functionSelector,
+        function_name
     });
     await createRoleAccount({
         mainTxId: mainTx.tx_id,
@@ -88,6 +93,7 @@ async function insertMainRoleAccounts({
         balanceBeforeTx: toBalanceBefore,
         balanceAfterTx: toBalanceAfter,
         functionSelector,
+        function_name
     });
 
     console.log("role_account rows created for main_transaction (FROM + TO).");

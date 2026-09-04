@@ -20,6 +20,7 @@ async function createMainTransaction({
     fromAddressChainId,
     toAddress,
     toAddressChainId,
+    function_name
 }) {
     const query = `
         INSERT INTO main_transaction (
@@ -40,9 +41,10 @@ async function createMainTransaction({
             from_address,
             fromAddress_chain_id,
             to_address,
-            toAddress_chain_id
+            toAddress_chain_id,
+            function_name
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
         RETURNING tx_id, tx_hash, chain_id;
     `;
 
@@ -65,6 +67,7 @@ async function createMainTransaction({
         fromAddressChainId,
         toAddress,
         toAddressChainId,
+        function_name
     ];
 
     const result = await pool.query(query, values);

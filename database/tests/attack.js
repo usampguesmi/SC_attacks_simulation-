@@ -11,7 +11,7 @@
 
     // check accounts state brfotr trsndsction
     let attackCount = await ctx.contractAttacker2.MAX_ATTACKS();
-    const balancesMapping1 = await ctx.contractVulnerableBank.balances(ctx.signer);
+    const balancesMapping1 = await ctx.contractReentrancyTest.balances(ctx.signer);
     await displayState("Before Attack", [
     { name: "Victim (vulnerable bank)", address: ctx.VulnerableBankAddress },
     { name: "Attacker Contract", address: ctx.Attacker2Address, notes: `attackCount: ${attackCount}` },
@@ -48,7 +48,8 @@
         tx.hash,                  // the attack transaction hash
         attack_name,
         "INSTRUMENTATION",          // attack_name
-       outputDir1, filePrefix1, baseOutputDir, folderName            // folderName
+       outputDir1, filePrefix1, baseOutputDir, folderName,
+        fromRole, toRole,  function_name       // folderName
     );
      
     console.log("Record result:", result);

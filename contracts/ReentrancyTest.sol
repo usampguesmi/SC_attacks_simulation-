@@ -131,4 +131,21 @@ contract ReentrancyTest {
     function withdraw() external {
         payable(msg.sender).call{value: address(this).balance}("");
     }
+
+    bool private locked;
+
+modifier nonReentrant() {
+    require(!locked, "reentrant call");
+    locked = true;
+    _;
+    locked = false;
+}
+
+function withdrawGuarded() public nonReentrant {
+    uint256 amount = balances[msg.sender];
+    require(amount > 0, "no balance");
+    (bool success,) = payable(msg.sender).call{value: amount}("");
+    require(success, "transfer failed");
+    balances[msg.sender] = 0;
+}
 }

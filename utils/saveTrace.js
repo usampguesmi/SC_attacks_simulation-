@@ -23,7 +23,7 @@ async function saveTrace(txHash, outputDir, filePrefix) {
             }
         ]
     );
-console.log("structLogs length:", trace.structLogs.length);
+console.log("traces length:", trace.structLogs.length);
     // ---------- Format 1 ----------
     const opcodeSequence = trace.structLogs.map(
         log => `${log.pc};${log.op}`

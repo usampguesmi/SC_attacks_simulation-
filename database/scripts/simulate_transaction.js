@@ -1,99 +1,115 @@
-const path = require("path");
-const { createTransactionRecord } = require("../repositories/transactionReccord_crud.js");
 const {getOrCreateSimulation} = require("../repositories/simulation_crud.js");
-const {fetchAndSaveGethTrace} = require("./remoteTraceExport.js")
-const { resolveAccount } = require("./testAccountResolver.js"); 
-const {TransactionPurpose} = require("../repositories/enumeration.js");
+const { resolveAccount } = require("./testAccountResolver.js");
 const {saveTrace} = require("../../utils/saveTrace.js")
 const hre = require("hardhat");
 const {createMainTransaction} = require("../repositories/mainTransaction_crud.js")
-const hardhatPackage = require("hardhat/package.json");
 const {insertMainRoleAccounts} = require("../repositories/roleAccount_crud.js");
 
 const { detectInternalCalls, saveInternalCallTraces, createInternalTransaction } = require("../repositories/internalTransaction_crud.js");
 
-//async function transaction_reccord_values(txHash, transaction_purpose, attack_name, outputDir1, filePrefix1, outputDir2, baseOutputDir, folderName) {
-async function transaction_reccord_values(txHash, attack_name, transactionPurpose, outputDir1, filePrefix1, baseOutputDir, folderName, fromRole, toRole) {
-   // outputDir1, filePrefix1 for saving the traces of the whole transaction 
-   // outputDir2, filePrefix2 for saving geth traces  
-   // for internal calls baseOutputDir, folderName
-
-
 // ---------------------------------------------------------------
+// Small logging helpers for clean, structured console output
+// ---------------------------------------------------------------
+function logSection(title) {
+    console.log(`\n── ${title} ${'─'.repeat(Math.max(0, 50 - title.length))}`);
+}
+
+function logKV(label, value) {
+    console.log(`  ${label.padEnd(22)} ${value}`);
+}
+
+function logOk(msg) {
+    console.log(`  ✓ ${msg}`);
+}
+
+async function transaction_reccord_values(txHash, attack_name, transactionPurpose, outputDir1, filePrefix1, baseOutputDir, folderName, fromRole, toRole, function_name) {
+    // outputDir1, filePrefix1 for saving the traces of the whole transaction
+    // baseOutputDir, folderName for internal call trace files
+
+    logSection("Simulation Run");
+    logKV("Transaction hash", txHash);
+    logKV("Attack name", attack_name);
+    logKV("Purpose", transactionPurpose);
+    logKV("Function name", function_name ?? "(not set)");
+    logKV("From role / To role", `${fromRole} / ${toRole}`);
+
+    // ---------------------------------------------------------------
     // 1. Fetch the raw transaction + receipt from the chain
-// ---------------------------------------------------------------
+    // ---------------------------------------------------------------
+    const tx = await hre.ethers.provider.getTransaction(txHash);
+    const receipt = await hre.ethers.provider.getTransactionReceipt(txHash);
 
-const tx = await hre.ethers.provider.getTransaction(txHash);
-const receipt = await hre.ethers.provider.getTransactionReceipt(txHash);
+    const txValue = tx.value;
+    const blockNumber = receipt.blockNumber;
 
-// tx_value: the ETH sent with the top-level transaction itself
-const txValue = tx.value;
-// block_number: which block this transaction was mined in
-const blockNumber = receipt.blockNumber;
+    const block = await hre.ethers.provider.getBlock(receipt.blockNumber);
+    const tx_Timestamp = new Date(Number(block.timestamp) * 1000);
 
-// tx_timestamp: block.timestamp is in seconds (unix epoch) -
-// JS Date expects milliseconds, hence the *1000
-const block = await hre.ethers.provider.getBlock(receipt.blockNumber);
-const tx_Timestamp = new Date(Number(block.timestamp) * 1000);
-
-// gas_used: actual gas consumed by the WHOLE transaction (all internal calls included)
-const gasUsed = receipt.gasUsed;
-
-// ★ NEW: function_selector for the MAIN transaction — first 4 bytes of the top-level calldata
+    const gasUsed = receipt.gasUsed;
     const mainFunctionSelector = tx.data && tx.data !== "0x" ? tx.data.slice(0, 10) : null;
 
+    logSection("Chain Data");
+    logKV("Status", receipt.status === 1 ? "SUCCESS" : "REVERTED");
+    logKV("Block number", blockNumber);
+    logKV("Timestamp", tx_Timestamp.toISOString());
+    logKV("Gas used", gasUsed.toString());
+    logKV("Value (wei)", txValue.toString());
+    logKV("Function selector", mainFunctionSelector ?? "(none / plain transfer)");
 
-// attack name --- example : const attack_name = "sf_reentrancy";
-    const { simulationId, chainId } =  await getOrCreateSimulation(attack_name);
-    console.log("chain id and simulationID", simulationId, chainId)
+    // attack name --- example : const attack_name = "sf_reentrancy";
+    const { simulationId, chainId } = await getOrCreateSimulation(attack_name);
 
-     // ---------------------------------------------------------------
-    // 3. Resolve from_address / to_address (recursively resolves the
+    logSection("Simulation Context");
+    logKV("simulation_id", simulationId);
+    logKV("chain_id", chainId);
+
+    // ---------------------------------------------------------------
+    // 2. Resolve from_address / to_address (recursively resolves the
     //    whole creator chain if either turns out to be a contract not
     //    yet in the database - see resolveAccount.js)
     // ---------------------------------------------------------------
-    const fromResolved = await resolveAccount(tx.from, chainId);   // <- chainId, not simulationChainId
+    const fromResolved = await resolveAccount(tx.from, chainId);
     const fromAddress = fromResolved.accountAddress;
     const fromAddressChainId = fromResolved.chainId;
-    console.log("from address", fromAddress)
 
-    // tx.to is null for contract-deployment transactions - in that case
-    // the real recipient-equivalent address is receipt.contractAddress instead
     const toAddressRaw = tx.to || receipt.contractAddress;
     const toResolved = await resolveAccount(toAddressRaw, chainId);
     const toAddress = toResolved.accountAddress;
     const toAddressChainId = toResolved.chainId;
-    console.log("To address", toAddress)
+
+    logSection("Address Resolution");
+    logKV("From", fromAddress);
+    logKV("To", toAddress);
 
     // ---------------------------------------------------------------
-    // 2. Fetch the full opcode-level trace (Hardhat/Geth debug_traceTransaction)
+    // 3. Fetch the full opcode-level trace (Hardhat/Geth debug_traceTransaction)
     // ---------------------------------------------------------------
+    const { trace, format1, format2, format3, opcodeCount } = await saveTrace(txHash, outputDir1, filePrefix1);
 
-    // saveTrace returns: the raw trace object (with structLogs), plus
-    // format1: opcode_traces (pc;OPCODE), format2: opcode_stack_traces (pc;OPCODE;stack), format3: full_evm_exec_traces (raw JSON string)
-    const { trace, format1, format2,  format3, opcodeCount } = await saveTrace(txHash, outputDir1, filePrefix1);
+    logSection("Trace");
+    logKV("number ofOpcodes ", opcodeCount);
+    logKV("Saved to", `${outputDir1}/${filePrefix1}-format[1|2|3]`);
 
- 
     // ---------------------------------------------------------------
-    // . Walk 5the trace and detect any internal calls (CALL/DELEGATECALL/
+    // 4. Walk the trace and detect any internal calls (CALL/DELEGATECALL/
     //    STATICCALL/CREATE/CREATE2) that happened during execution.
     //    rootAddress = the address executing at depth 1, i.e. THIS
     //    transaction's own recipient - needed so detectInternalCalls can
     //    correctly track from_address across nested calls.
     // ---------------------------------------------------------------
-    
-     const internalCalls = detectInternalCalls(trace.structLogs, {
+    const internalCalls = detectInternalCalls(trace.structLogs, {
         rootAddress: toAddress
-     });
+    });
 
-     console.log("Internal calls detected:", internalCalls.length);       
-    // BRANCH 1: no internal calls -> just one main_transaction row.
-    // Simple case, nothing nested to record.
+    logKV("Internal calls detected", internalCalls.length);
+
     // =================================================================
-
+    // BRANCH 1: no internal calls -> just one main_transaction row.
+    // =================================================================
     if (internalCalls.length === 0) {
 
-        console.log("No internal calls detected - inserting as a single main_transaction.");
+        logSection("Database Insert");
+        logOk("No internal calls - inserting single main_transaction.");
 
         const mainTx = await createMainTransaction({
             txHash,
@@ -114,11 +130,11 @@ const gasUsed = receipt.gasUsed;
             fromAddressChainId,
             toAddress,
             toAddressChainId,
+            function_name
         });
 
-        console.log("main_transaction created, tx_id:", mainTx.tx_id);
+        logOk(`main_transaction created — tx_id: ${mainTx.tx_id}`);
 
-        // ★ NEW: insert role_account rows (FROM + TO) for the main transaction
         await insertMainRoleAccounts({
             mainTx,
             blockNumber,
@@ -127,10 +143,17 @@ const gasUsed = receipt.gasUsed;
             toAddress,
             toAddressChainId,
             functionSelector: mainFunctionSelector,
-            fromRole,   
-            toRole    
+            fromRole,
+            toRole,
+            function_name
         });
 
+        logOk("role_account rows created (FROM + TO).");
+
+        logSection("Summary");
+        logKV("main_tx_id", mainTx.tx_id);
+        logKV("Internal calls", 0);
+        console.log("");
 
         return { mainTxId: mainTx.tx_id, internalCallCount: 0 };
     }
@@ -141,7 +164,8 @@ const gasUsed = receipt.gasUsed;
     // internal call detected.
     // =================================================================
 
-    console.log(`Detected ${internalCalls.length} internal call(s) - inserting main + child records.`);
+    logSection("Database Insert");
+    logOk(`${internalCalls.length} internal call(s) detected — inserting main + child records.`);
 
     // --- 5a. Insert the main_transaction row (same as Branch 1) ---
     const mainTx = await createMainTransaction({
@@ -163,11 +187,11 @@ const gasUsed = receipt.gasUsed;
         fromAddressChainId,
         toAddress,
         toAddressChainId,
+        function_name
     });
 
-    console.log("main_transaction created, tx_id:", mainTx.tx_id);
+    logOk(`main_transaction created — tx_id: ${mainTx.tx_id}`);
 
-    // ★ NEW: insert role_account rows (FROM + TO) for the main transaction
     await insertMainRoleAccounts({
         mainTx,
         blockNumber,
@@ -176,24 +200,26 @@ const gasUsed = receipt.gasUsed;
         toAddress,
         toAddressChainId,
         functionSelector: mainFunctionSelector,
-        fromRole,   
-        toRole 
+        fromRole,
+        toRole,
+        function_name
     });
 
+    logOk("role_account rows created (FROM + TO).");
 
     // --- 5b. Save each internal call's own trace files to a dedicated subfolder ---
     await saveInternalCallTraces(internalCalls, baseOutputDir, folderName);
+    logOk(`Internal call trace files saved to ${baseOutputDir}/${folderName}`);
 
     // --- 5c. For EACH internal call: resolve its addresses, then insert
     // the internal_transaction row, pointing back to the main transaction
     // via the composite FK (main_tx_id, chain_id, hash_tx) ---
 
+    logSection("Internal Calls");
+
     const insertedInternalTxIds = [];
 
     for (const call of internalCalls) {
-        // resolveAccount handles both cases: address already known in DB
-        // (returns immediately), or unknown (recursively resolves its
-        // whole creator chain via Etherscan before inserting)
         const callFromResolved = await resolveAccount(call.from_address, chainId);
         const callToResolved = await resolveAccount(call.to_address, chainId);
 
@@ -220,9 +246,22 @@ const gasUsed = receipt.gasUsed;
             toAddressChainId: callToResolved.chainId,
         });
 
-        console.log(`  internal call #${call.call_order} (${call.call_type}, depth ${call.call_depth}) -> tx_id ${internalTx.tx_id}`);
+        const statusLabel = call.call_status === false ? "FAILED" : "ok";
+        console.log(
+            `  #${String(call.call_order).padEnd(2)} ${call.call_type.padEnd(12)} ` +
+            `depth ${String(call.call_depth).padEnd(2)} ` +
+            `${callFromResolved.accountAddress.slice(0, 10)}… → ${callToResolved.accountAddress.slice(0, 10)}… ` +
+            `[${statusLabel}] tx_id=${internalTx.tx_id}`
+        );
+
         insertedInternalTxIds.push(internalTx.tx_id);
     }
+
+    logSection("Summary");
+    logKV("main_tx_id", mainTx.tx_id);
+    logKV("Internal calls", internalCalls.length);
+    logKV("Internal tx_ids", insertedInternalTxIds.join(", "));
+    console.log("");
 
     return { mainTxId: mainTx.tx_id, internalCallCount: internalCalls.length, insertedInternalTxIds };
 }
@@ -234,14 +273,16 @@ if (require.main === module) {
 
     const txHash = "0xdf5caf40a9f8c5120726913398af21069b39d69e6737dc5b795368c137956b20";
     const attack_name = "sf_reentrancy"; // must match an existing row in the Attack table
-    const outputDir1 = path.join(__dirname, "../tests/traces_tests/full"); // for saving the traces of the whole transaction
+    const outputDir1 = path.join(__dirname, "../../traces_tests/full");
     const filePrefix1 = "test";
-    const baseOutputDir = path.join(__dirname, "../tests/traces_tests/internal");
+    const baseOutputDir = path.join(__dirname, "../../traces_tests/internal");
     const folderName = "test_folder";
-    const fromRole = "ATTACKER";   // ★ NEW
+    const fromRole = "ATTACKER";
     const toRole = "VICTIM";
+    const transactionPurpose = "INSTRUMENTATION"; // example value, adjust as needed
+    const function_name = "attack";
 
-    transaction_reccord_values(txHash, attack_name,"INSTRUMENTATION", outputDir1, filePrefix1, baseOutputDir, folderName, fromRole, toRole)
+    transaction_reccord_values(txHash, attack_name, transactionPurpose, outputDir1, filePrefix1, baseOutputDir, folderName, fromRole, toRole, function_name)
         .then((result) => {
             console.log("Done:", result);
             process.exit(0);
