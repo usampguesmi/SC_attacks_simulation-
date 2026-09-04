@@ -1,3 +1,4 @@
+const path = require("path");
 const { createTransactionRecord } = require("../repositories/transactionReccord_crud.js");
 const {getOrCreateSimulation} = require("../repositories/simulation_crud.js");
 const {fetchAndSaveGethTrace} = require("./remoteTraceExport.js")
@@ -11,7 +12,7 @@ const hardhatPackage = require("hardhat/package.json");
 const { detectInternalCalls, saveInternalCallTraces, createInternalTransaction } = require("../repositories/internalTransaction_crud.js");
 
 //async function transaction_reccord_values(txHash, transaction_purpose, attack_name, outputDir1, filePrefix1, outputDir2, baseOutputDir, folderName) {
-async function transaction_reccord_values(txHash, attack_name) {
+async function transaction_reccord_values(txHash, attack_name, transactionPurpose, outputDir1, filePrefix1, baseOutputDir, folderName) {
    // outputDir1, filePrefix1 for saving the traces of the whole transaction 
    // outputDir2, filePrefix2 for saving geth traces  
    // for internal calls baseOutputDir, folderName
@@ -49,9 +50,7 @@ const gasUsed = receipt.gasUsed;
     const fromResolved = await resolveAccount(tx.from, chainId);   // <- chainId, not simulationChainId
     const fromAddress = fromResolved.accountAddress;
     const fromAddressChainId = fromResolved.chainId;
-    console.log(fromAddress)
-    console.log(fromAddressChainId)
-
+    console.log("from address", fromAddress)
 
     // tx.to is null for contract-deployment transactions - in that case
     // the real recipient-equivalent address is receipt.contractAddress instead
@@ -59,8 +58,140 @@ const gasUsed = receipt.gasUsed;
     const toResolved = await resolveAccount(toAddressRaw, chainId);
     const toAddress = toResolved.accountAddress;
     const toAddressChainId = toResolved.chainId;
-    console.log(toAddress)
-    console.log(toAddressChainId)
+    console.log("To address", toAddress)
+
+    // ---------------------------------------------------------------
+    // 2. Fetch the full opcode-level trace (Hardhat/Geth debug_traceTransaction)
+    // ---------------------------------------------------------------
+
+    // saveTrace returns: the raw trace object (with structLogs), plus
+    // format1: opcode_traces (pc;OPCODE), format2: opcode_stack_traces (pc;OPCODE;stack), format3: full_evm_exec_traces (raw JSON string)
+    const { trace, format1, format2,  format3, opcodeCount } = await saveTrace(txHash, outputDir1, filePrefix1);
+
+ 
+    // ---------------------------------------------------------------
+    // . Walk 5the trace and detect any internal calls (CALL/DELEGATECALL/
+    //    STATICCALL/CREATE/CREATE2) that happened during execution.
+    //    rootAddress = the address executing at depth 1, i.e. THIS
+    //    transaction's own recipient - needed so detectInternalCalls can
+    //    correctly track from_address across nested calls.
+    // ---------------------------------------------------------------
+    
+     const internalCalls = detectInternalCalls(trace.structLogs, {
+        rootAddress: toAddress
+     });
+
+     console.log("Internal calls detected:", internalCalls.length);       
+    // BRANCH 1: no internal calls -> just one main_transaction row.
+    // Simple case, nothing nested to record.
+    // =================================================================
+
+    if (internalCalls.length === 0) {
+
+        console.log("No internal calls detected - inserting as a single main_transaction.");
+
+        const mainTx = await createMainTransaction({
+            txHash,
+            chainId,
+            txValue,
+            blockNumber,
+            indexInBlock: receipt.index,
+            txTimestamp: tx_Timestamp,
+            txStatus: receipt.status === 1,
+            gasUsed,
+            transactionPurpose,
+            tracesLength: opcodeCount,
+            opcodeTraces: format1,
+            opcodeStackTraces: format2,
+            fullEvmExecTraces: format3,
+            simulationId,
+            fromAddress,
+            fromAddressChainId,
+            toAddress,
+            toAddressChainId,
+        });
+
+        console.log("main_transaction created, tx_id:", mainTx.tx_id);
+
+        return { mainTxId: mainTx.tx_id, internalCallCount: 0 };
+    }
+
+    // =================================================================
+    // BRANCH 2: internal calls present -> one main_transaction row for
+    // the whole tx (full trace), PLUS one internal_transaction row per
+    // internal call detected.
+    // =================================================================
+
+    console.log(`Detected ${internalCalls.length} internal call(s) - inserting main + child records.`);
+
+    // --- 5a. Insert the main_transaction row (same as Branch 1) ---
+    const mainTx = await createMainTransaction({
+        txHash,
+        chainId,
+        txValue,
+        blockNumber,
+        indexInBlock: receipt.index,
+        txTimestamp: tx_Timestamp,
+        txStatus: receipt.status === 1,
+        gasUsed,
+        transactionPurpose,
+        tracesLength: opcodeCount,
+        opcodeTraces: format1,
+        opcodeStackTraces: format2,
+        fullEvmExecTraces: format3,
+        simulationId,
+        fromAddress,
+        fromAddressChainId,
+        toAddress,
+        toAddressChainId,
+    });
+
+    console.log("main_transaction created, tx_id:", mainTx.tx_id);
+
+    // --- 5b. Save each internal call's own trace files to a dedicated subfolder ---
+    await saveInternalCallTraces(internalCalls, baseOutputDir, folderName);
+
+    // --- 5c. For EACH internal call: resolve its addresses, then insert
+    // the internal_transaction row, pointing back to the main transaction
+    // via the composite FK (main_tx_id, chain_id, hash_tx) ---
+
+    const insertedInternalTxIds = [];
+
+    for (const call of internalCalls) {
+        // resolveAccount handles both cases: address already known in DB
+        // (returns immediately), or unknown (recursively resolves its
+        // whole creator chain via Etherscan before inserting)
+        const callFromResolved = await resolveAccount(call.from_address, chainId);
+        const callToResolved = await resolveAccount(call.to_address, chainId);
+
+        const internalTx = await createInternalTransaction({
+            mainTxId: mainTx.tx_id,
+            chainId: mainTx.chain_id,
+            hashTx: mainTx.tx_hash,
+            callOrder: call.call_order,
+            callDepth: call.call_depth,
+            callType: call.call_type,
+            callIndex: call.call_index,
+            startOpcodeIndex: call.start_opcode_index,
+            endOpcodeIndex: call.end_opcode_index,
+            callStatus: call.call_status,
+            txValue: call.value,
+            gasUsed: call.gas_used,
+            tracesLength: call.traces_length,
+            opcodeTraces: call.opcode_traces,
+            opcodeStackTraces: call.opcode_stack_traces,
+            fullEvmExecTraces: call.full_evm_exec_traces,
+            fromAddress: callFromResolved.accountAddress,
+            fromAddressChainId: callFromResolved.chainId,
+            toAddress: callToResolved.accountAddress,
+            toAddressChainId: callToResolved.chainId,
+        });
+
+        console.log(`  internal call #${call.call_order} (${call.call_type}, depth ${call.call_depth}) -> tx_id ${internalTx.tx_id}`);
+        insertedInternalTxIds.push(internalTx.tx_id);
+    }
+
+    return { mainTxId: mainTx.tx_id, internalCallCount: internalCalls.length, insertedInternalTxIds };
 }
 
 module.exports = { transaction_reccord_values };
@@ -68,10 +199,14 @@ module.exports = { transaction_reccord_values };
 // --- only runs when this file is executed directly, not when imported elsewhere ---
 if (require.main === module) {
 
-    const txHash = "0xacbd300d4eb8b59a4a7bb2e3e58f8827fe4a2c85da7f8eecf1ba34a28140d758";
+    const txHash = "0x66802904c47145a9822f01775aa20a3cd9adbaa248820b17d4564fa692a04b3b";
     const attack_name = "sf_reentrancy"; // must match an existing row in the Attack table
+    const outputDir1 = path.join(__dirname, "../tests/traces_tests/full"); // for saving the traces of the whole transaction
+    const filePrefix1 = "test";
+    const baseOutputDir = path.join(__dirname, "../tests/traces_tests/internal");
+    const folderName = "test_folder";
 
-    transaction_reccord_values(txHash, attack_name)
+    transaction_reccord_values(txHash, attack_name,"INSTRUMENTATION", outputDir1, filePrefix1, baseOutputDir, folderName)
         .then((result) => {
             console.log("Done:", result);
             process.exit(0);

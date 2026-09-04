@@ -162,8 +162,8 @@ if (require.main === module) {
     const chainId = 11155111; // Sepolia
 
     // paste the ContractB address printed by deployAndTriggerB.js
-    const contractBAddress = "0xB2FA9347370dFa4DfB627de71037986B0d76070c";
-
+   // const contractBAddress = "0xB2FA9347370dFa4DfB627de71037986B0d76070c";
+  const contractBAddress = "0x421c0F6344dFa1FCfc63A999006D0a3f5A6270bA";
     resolveAccount(contractBAddress, chainId)
         .then((result) => {
             console.log("resolveAccount finished. Top-level result:", result);

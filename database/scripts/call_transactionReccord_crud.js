@@ -72,7 +72,7 @@ async function transaction_reccord_values(txHash, transaction_purpose, attack_na
    //const geth_traces = await fetchAndSaveGethTrace(txHash, outputDir2, filePrefix1);
 
     // ---------------------------------------------------------------
-    // 5. Walk the trace and detect any internal calls (CALL/DELEGATECALL/
+    // . Walk 5the trace and detect any internal calls (CALL/DELEGATECALL/
     //    STATICCALL/CREATE/CREATE2) that happened during execution.
     //    rootAddress = the address executing at depth 1, i.e. THIS
     //    transaction's own recipient - needed so detectInternalCalls can
@@ -109,7 +109,7 @@ async function transaction_reccord_values(txHash, transaction_purpose, attack_na
             toAddress,
             toAddressChainId,
             transaction_purpose,
-            //geth_traces
+          
         };
 
         // insert transaction_record first - Postgres auto-generates tx_id

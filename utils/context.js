@@ -7,6 +7,8 @@ const artifact_attacker= require ("../artifacts/contracts/Attacker.sol/Attacker.
 const artifact_ReentrancyTest= require ("../artifacts/contracts/ReentrancyTest.sol/ReentrancyTest.json")
 const artifact_VulnerableBank= require ("../artifacts/contracts/VulnerableBank.sol/VulnerableBank.json")
 const artifact_Attacker2= require ("../artifacts/contracts/attacker2.sol/Attacker2.json")
+const artifact_ContractA= require ("../artifacts/contracts/ContractA.sol/ContractA.json")
+
 
 async function loadContext() {
 const context ={};
@@ -20,7 +22,7 @@ const attackerAddress = deployment.contracts.Attacker.address;
 const reentrancyTestAddress = deployment.contracts.ReentrancyTest.address;
 const VulnerableBankAddress = deployment.contracts.VulnerableBank.address;
 const Attacker2Address = deployment.contracts.Attacker2.address;
-
+const ContractAAddress = deployment.contracts.ContractA.address;
 const signers  = await ethers.getSigners();
 const signer   = signers[0];
 const user1    = signers[1]  || null;
@@ -54,12 +56,20 @@ const contractAttacker2 = new ethers.Contract (
     signer
 );
 
+const contractContractA = new ethers.Contract (
+    ContractAAddress,
+    artifact_ContractA.abi,
+    signer
+);
+
 context.deployment = deployment;
 context.attackerAddress = attackerAddress;
 context.reentrancyTestAddress = reentrancyTestAddress;
+context.ContractAAddress = ContractAAddress;
 context.signers = signers;
 context.contractAttacker = contractAttacker;
 context.contractReentrancyTest = contractReentrancyTest;
+context.contractContractA = contractContractA;
 context.signer = signer;
 /*context.user1 = user1;
 context.user2 = user2;

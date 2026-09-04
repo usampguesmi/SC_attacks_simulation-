@@ -95,7 +95,6 @@ function decodeCallValue(step) {
     }
 }
 
-// --- MISSING FROM THIS VERSION - decodes the CALL's target address ---
 function decodeCallTarget(step) {
     if (!Array.isArray(step.stack)) return null;
     if (step.op === "CREATE" || step.op === "CREATE2") return null;
@@ -108,14 +107,14 @@ function decodeCallTarget(step) {
 function detectInternalCalls(structLogs, txContext = {}) {
     const openFrames = [];
     const calls = [];
-    const addressStack = [txContext.rootAddress ?? null]; // <- MISSING: this is what rootAddress feeds into
+    const addressStack = [txContext.rootAddress ?? null];
 
     for (let i = 0; i < structLogs.length; i++) {
         const step = structLogs[i];
 
         if (CALL_OPS.has(step.op)) {
-            const fromAddress = addressStack[addressStack.length - 1]; // <- MISSING
-            const toAddress = decodeCallTarget(step);                  // <- MISSING
+            const fromAddress = addressStack[addressStack.length - 1];
+            const toAddress = decodeCallTarget(step);
 
             openFrames.push({
                 call_depth: step.depth + 1,
@@ -125,12 +124,12 @@ function detectInternalCalls(structLogs, txContext = {}) {
                 start_opcode_index: i + 1,
                 end_opcode_index: null,
                 value: decodeCallValue(step),
-                from_address: fromAddress,  // <- MISSING
-                to_address: toAddress,      // <- MISSING
+                from_address: fromAddress,
+                to_address: toAddress,
                 _startGas: structLogs[i + 1] ? structLogs[i + 1].gas : null
             });
 
-            addressStack.push(toAddress); // <- MISSING
+            addressStack.push(toAddress);
             continue;
         }
 
@@ -140,7 +139,7 @@ function detectInternalCalls(structLogs, txContext = {}) {
                 top.end_opcode_index = i;
                 top._endGas = step.gas;
                 calls.push(openFrames.pop());
-                addressStack.pop(); // <- MISSING
+                addressStack.pop();
             }
         }
     }
@@ -172,8 +171,14 @@ function detectInternalCalls(structLogs, txContext = {}) {
         call.gas_used = (call._startGas != null && call._endGas != null)
             ? call._startGas - call._endGas
             : null;
-        call.block_number = txContext.blockNumber ?? null;
-        call.timestamp = txContext.timestamp ?? null;
+
+        // call_status: did THIS call frame succeed, independent of the parent tx's overall outcome.
+        // Note: only catches an EXPLICIT REVERT/INVALID as the frame's last step - a call that fails
+        // due to running out of gas mid-frame (no closing opcode at all) won't be caught here.
+        const lastStep = structLogs[call.end_opcode_index];
+        call.call_status = lastStep
+            ? !(lastStep.op === "REVERT" || lastStep.op === "INVALID")
+            : null;
 
         delete call._startGas;
         delete call._endGas;
@@ -217,8 +222,6 @@ if (require.main === module) {
     const trace = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
     const calls = detectInternalCalls(trace.structLogs, {
-        blockNumber: 11543258,
-        timestamp: new Date(),
         rootAddress: "0xYourTransactionsToAddressHere" // required for correct from_address tracking
     });
 
