@@ -15,10 +15,13 @@
       "address": "0x6d4caca0dCFF5ee9B9BaC61A592A60CB92Efda45"
     },
     "VulnerableBank": {
-      "address": "0xbED9f37B1F0e2F93c9E3FFb0F9761AEb24C8D3FF"
+      "address": "0x1E8B786a93ECfA1Dd30db2eBCd4246848B3Df794"
     },
     "Attacker2": {
       "address": "0x7020c361315616BC478e686f6adab88F8F3078af"
+    },
+    "Attacker_drainAll": {
+      "address": "0x652152457C6BcCd7B7Ba5a2e6D7A00254844ee6C"
     }
   }
 }

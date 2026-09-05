@@ -8,11 +8,11 @@
     const ctx = await loadContext();
 
     // check accounts state
-    //let attackCount = await ctx.contractAttacker2.MAX_ATTACKS();
+    let attackCount = await ctx.contractAttacker_drainAll.attackCount();
     const balancesMapping1 = await ctx.contractVulnerableBank.balances(ctx.signer);
     await displayState("Before Attack", [
     { name: "Victim (vulnerable bank)", address: ctx.VulnerableBankAddress },
-    { name: "Attacker Contract", address: ctx.Attacker2Address, notes: `attackCount: ${attackCount}` },
+    { name: "Attacker Contract", address: ctx.Attacker_drainAllAddress, notes: `attackCount: ${attackCount}` },
     { name: "Signer", address: ctx.signer.address, notes: `balances[signer]: ${ethers.formatEther(balancesMapping1)} ETH` }
 ]);
 
@@ -27,11 +27,11 @@
     const receipt = await tx.wait();
     console.log(tx.hash);
 
-    attackCount = await ctx.contractAttacker2.MAX_ATTACKS();
+    attackCount = await ctx.contractAttacker_drainAll.attackCount();
     const balancesMapping2 = await ctx.contractVulnerableBank.balances(ctx.signer);
     await displayState("After Attack", [
     { name: "Victim (vulnerable bank)", address: ctx.VulnerableBankAddress },
-    { name: "Attacker Contract", address: ctx.Attacker2Address, notes: `MAX_ATTACKS: ${attackCount}` },
+    { name: "Attacker Contract", address: ctx.Attacker_drainAllAddress, notes: `attackCount: ${attackCount}` },
     { name: "Signer", address: ctx.signer.address, notes: `balances[signer]: ${ethers.formatEther(balancesMapping2)} ETH` }
     ]);
 

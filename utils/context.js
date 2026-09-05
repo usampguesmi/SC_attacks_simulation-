@@ -6,8 +6,9 @@ const path = require ("path");
 const artifact_attacker= require ("../artifacts/contracts/Attacker.sol/Attacker.json")
 const artifact_ReentrancyTest= require ("../artifacts/contracts/ReentrancyTest.sol/ReentrancyTest.json")
 const artifact_VulnerableBank= require ("../artifacts/contracts/VulnerableBank.sol/VulnerableBank.json")
-const artifact_Attacker2= require ("../artifacts/contracts/attacker2.sol/Attacker2.json")
+const artifact_Attacker2= require ("../artifacts/contracts/attacker0-N.sol/Attacker2.json")
 const artifact_ContractA= require ("../artifacts/contracts/ContractA.sol/ContractA.json")
+const artifact_Attacker_drainAll= require ("../artifacts/contracts/attacker-drainAll.sol/Attacker_drainAll.json")
 
 
 async function loadContext() {
@@ -22,6 +23,7 @@ const attackerAddress = deployment.contracts.Attacker.address;
 const reentrancyTestAddress = deployment.contracts.ReentrancyTest.address;
 const VulnerableBankAddress = deployment.contracts.VulnerableBank.address;
 const Attacker2Address = deployment.contracts.Attacker2.address;
+const Attacker_drainAllAddress = deployment.contracts.Attacker_drainAll.address;
 const ContractAAddress = deployment.contracts.ContractA.address;
 const signers  = await ethers.getSigners();
 const signer   = signers[0];
@@ -50,9 +52,9 @@ const contractVulnerableBank = new ethers.Contract (
     signer
 );
 
-const contractAttacker2 = new ethers.Contract (
-    Attacker2Address,
-    artifact_Attacker2.abi,
+const contractAttacker_drainAll = new ethers.Contract (
+    Attacker_drainAllAddress,
+    artifact_Attacker_drainAll.abi,
     signer
 );
 
@@ -79,8 +81,8 @@ context.user5 = user5;
 context.user6 = user6;
 context.attacker = attacker;*/
 context.contractVulnerableBank=contractVulnerableBank;
-context.contractAttacker2=contractAttacker2;
-context.Attacker2Address=Attacker2Address;
+context.contractAttacker_drainAll=contractAttacker_drainAll;
+context.Attacker_drainAllAddress=Attacker_drainAllAddress;
 context.VulnerableBankAddress=VulnerableBankAddress;
 
 

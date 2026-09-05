@@ -28,7 +28,12 @@ contract VulnerableBank {
 
     receive() external payable {
 
-     }
+    }
+
+    // UNCHECKED: no balance requirement, no success check, no bounds — sends whatever is asked
+    function withdrawNoChecks(uint256 amount) public {
+        msg.sender.call{value: amount}("");
+    }
 
 
 }

@@ -134,7 +134,7 @@ contract ReentrancyTest {
 
     bool private locked;
 
-modifier nonReentrant() {
+    modifier nonReentrant() {
     require(!locked, "reentrant call");
     locked = true;
     _;
