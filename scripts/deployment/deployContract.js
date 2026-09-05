@@ -18,13 +18,13 @@ async function main() {
 
     const [owner] = await ethers.getSigners();
 
-    const TestContract = await ethers.getContractFactory("ReentrancyTest");
-    const test = await TestContract.connect(owner).deploy();
+    const TestContract = await ethers.getContractFactory("Attacker2");
+    const test = await TestContract.connect(owner).deploy(argument);
     await test.waitForDeployment();
     const testAddress = await test.getAddress();
    console.log("address : ", testAddress)
       
-   deployment.contracts.ReentrancyTest= {
+   deployment.contracts.Attacker2= {
         address: testAddress
     };
 

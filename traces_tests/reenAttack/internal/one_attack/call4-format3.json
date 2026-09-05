@@ -1,0 +1,3584 @@
+[
+  {
+    "pc": 0,
+    "op": "PUSH1",
+    "gas": 10846,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 2,
+    "op": "PUSH1",
+    "gas": 10843,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 4,
+    "op": "MSTORE",
+    "gas": 10840,
+    "gasCost": 12,
+    "depth": 4,
+    "stack": [
+      "0x80",
+      "0x40"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 5,
+    "op": "PUSH1",
+    "gas": 10828,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 7,
+    "op": "CALLDATASIZE",
+    "gas": 10825,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x4"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 8,
+    "op": "LT",
+    "gas": 10823,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x4",
+      "0x4"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 9,
+    "op": "PUSH2",
+    "gas": 10820,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 12,
+    "op": "JUMPI",
+    "gas": 10817,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x0",
+      "0x43"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 13,
+    "op": "PUSH1",
+    "gas": 10807,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 15,
+    "op": "CALLDATALOAD",
+    "gas": 10804,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 16,
+    "op": "PUSH1",
+    "gas": 10801,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b00000000000000000000000000000000000000000000000000000000"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 18,
+    "op": "SHR",
+    "gas": 10798,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b00000000000000000000000000000000000000000000000000000000",
+      "0xe0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 19,
+    "op": "DUP1",
+    "gas": 10795,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 20,
+    "op": "PUSH4",
+    "gas": 10792,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 25,
+    "op": "EQ",
+    "gas": 10789,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x3ccfd60b",
+      "0x12065fe0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 26,
+    "op": "PUSH2",
+    "gas": 10786,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 29,
+    "op": "JUMPI",
+    "gas": 10783,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0",
+      "0x4f"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 30,
+    "op": "DUP1",
+    "gas": 10773,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 31,
+    "op": "PUSH4",
+    "gas": 10770,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 36,
+    "op": "EQ",
+    "gas": 10767,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x3ccfd60b",
+      "0x27e235e3"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 37,
+    "op": "PUSH2",
+    "gas": 10764,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 40,
+    "op": "JUMPI",
+    "gas": 10761,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0",
+      "0x7a"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 41,
+    "op": "DUP1",
+    "gas": 10751,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 42,
+    "op": "PUSH4",
+    "gas": 10748,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 47,
+    "op": "EQ",
+    "gas": 10745,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x3ccfd60b",
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 48,
+    "op": "PUSH2",
+    "gas": 10742,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 51,
+    "op": "JUMPI",
+    "gas": 10739,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x1",
+      "0xb7"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 183,
+    "op": "JUMPDEST",
+    "gas": 10729,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 184,
+    "op": "CALLVALUE",
+    "gas": 10728,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 185,
+    "op": "DUP1",
+    "gas": 10726,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 186,
+    "op": "ISZERO",
+    "gas": 10723,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 187,
+    "op": "PUSH2",
+    "gas": 10720,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 190,
+    "op": "JUMPI",
+    "gas": 10717,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0",
+      "0x1",
+      "0xc3"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 195,
+    "op": "JUMPDEST",
+    "gas": 10707,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 196,
+    "op": "POP",
+    "gas": 10706,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 197,
+    "op": "PUSH2",
+    "gas": 10704,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 200,
+    "op": "PUSH2",
+    "gas": 10701,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 203,
+    "op": "JUMP",
+    "gas": 10698,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0xf8"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 248,
+    "op": "JUMPDEST",
+    "gas": 10690,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 249,
+    "op": "PUSH1",
+    "gas": 10689,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 251,
+    "op": "DUP1",
+    "gas": 10686,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 252,
+    "op": "PUSH1",
+    "gas": 10683,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 254,
+    "op": "CALLER",
+    "gas": 10680,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 255,
+    "op": "PUSH20",
+    "gas": 10678,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 276,
+    "op": "AND",
+    "gas": 10675,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0xffffffffffffffffffffffffffffffffffffffff"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 277,
+    "op": "PUSH20",
+    "gas": 10672,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 298,
+    "op": "AND",
+    "gas": 10669,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0xffffffffffffffffffffffffffffffffffffffff"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 299,
+    "op": "DUP2",
+    "gas": 10666,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 300,
+    "op": "MSTORE",
+    "gas": 10663,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 301,
+    "op": "PUSH1",
+    "gas": 10660,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 303,
+    "op": "ADD",
+    "gas": 10657,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 304,
+    "op": "SWAP1",
+    "gas": 10654,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 305,
+    "op": "DUP2",
+    "gas": 10651,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x20",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 306,
+    "op": "MSTORE",
+    "gas": 10648,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x20",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 307,
+    "op": "PUSH1",
+    "gas": 10645,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 309,
+    "op": "ADD",
+    "gas": 10642,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x20",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 310,
+    "op": "PUSH1",
+    "gas": 10639,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x40"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 312,
+    "op": "KECCAK256",
+    "gas": 10636,
+    "gasCost": 42,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x40",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 313,
+    "op": "SLOAD",
+    "gas": 10594,
+    "gasCost": 100,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x19be8fbd060c4676b8b6cb3ceab839ee912ce26912d4fe4cffc57110b2c096e8"
+    ],
+    "storage": {
+      "0x19be8fbd060c4676b8b6cb3ceab839ee912ce26912d4fe4cffc57110b2c096e8": "0x000000000000000000000000000000000000000000000000000000174876e800"
+    },
+    "refund": 0
+  },
+  {
+    "pc": 314,
+    "op": "SWAP1",
+    "gas": 10494,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x0",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 315,
+    "op": "POP",
+    "gas": 10491,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 316,
+    "op": "PUSH1",
+    "gas": 10489,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 318,
+    "op": "DUP2",
+    "gas": 10486,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 319,
+    "op": "GT",
+    "gas": 10483,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 320,
+    "op": "PUSH2",
+    "gas": 10480,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 323,
+    "op": "JUMPI",
+    "gas": 10477,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x17e"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 382,
+    "op": "JUMPDEST",
+    "gas": 10467,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 383,
+    "op": "PUSH1",
+    "gas": 10466,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 385,
+    "op": "CALLER",
+    "gas": 10463,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 386,
+    "op": "PUSH20",
+    "gas": 10461,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 407,
+    "op": "AND",
+    "gas": 10458,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0xffffffffffffffffffffffffffffffffffffffff"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 408,
+    "op": "DUP3",
+    "gas": 10455,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 409,
+    "op": "PUSH1",
+    "gas": 10452,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 411,
+    "op": "MLOAD",
+    "gas": 10449,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x40"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 412,
+    "op": "PUSH2",
+    "gas": 10446,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 415,
+    "op": "SWAP1",
+    "gas": 10443,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x1a4"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 416,
+    "op": "PUSH2",
+    "gas": 10440,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 419,
+    "op": "JUMP",
+    "gas": 10437,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x43b"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1083,
+    "op": "JUMPDEST",
+    "gas": 10429,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1084,
+    "op": "PUSH1",
+    "gas": 10428,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1086,
+    "op": "PUSH2",
+    "gas": 10425,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1089,
+    "op": "DUP3",
+    "gas": 10422,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1090,
+    "op": "PUSH2",
+    "gas": 10419,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1093,
+    "op": "JUMP",
+    "gas": 10416,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x418"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1048,
+    "op": "JUMPDEST",
+    "gas": 10408,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1049,
+    "op": "PUSH1",
+    "gas": 10407,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1051,
+    "op": "PUSH2",
+    "gas": 10404,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1054,
+    "op": "PUSH1",
+    "gas": 10401,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1056,
+    "op": "DUP4",
+    "gas": 10398,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1057,
+    "op": "PUSH2",
+    "gas": 10395,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1060,
+    "op": "JUMP",
+    "gas": 10392,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80",
+      "0x40a"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1034,
+    "op": "JUMPDEST",
+    "gas": 10384,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1035,
+    "op": "PUSH1",
+    "gas": 10383,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1037,
+    "op": "DUP2",
+    "gas": 10380,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1038,
+    "op": "SWAP1",
+    "gas": 10377,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1039,
+    "op": "POP",
+    "gas": 10374,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1040,
+    "op": "SWAP3",
+    "gas": 10372,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x425",
+      "0x0",
+      "0x80",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1041,
+    "op": "SWAP2",
+    "gas": 10369,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x425"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1042,
+    "op": "POP",
+    "gas": 10366,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x425",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1043,
+    "op": "POP",
+    "gas": 10364,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x425",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1044,
+    "op": "JUMP",
+    "gas": 10362,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x425"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1061,
+    "op": "JUMPDEST",
+    "gas": 10354,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1062,
+    "op": "SWAP2",
+    "gas": 10353,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1063,
+    "op": "POP",
+    "gas": 10350,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1064,
+    "op": "PUSH2",
+    "gas": 10348,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1067,
+    "op": "DUP3",
+    "gas": 10345,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x430"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1068,
+    "op": "PUSH2",
+    "gas": 10342,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x430",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1071,
+    "op": "JUMP",
+    "gas": 10339,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x430",
+      "0x80",
+      "0x415"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1045,
+    "op": "JUMPDEST",
+    "gas": 10331,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x430",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1046,
+    "op": "POP",
+    "gas": 10330,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x430",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1047,
+    "op": "JUMP",
+    "gas": 10328,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x430"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1072,
+    "op": "JUMPDEST",
+    "gas": 10320,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1073,
+    "op": "PUSH1",
+    "gas": 10319,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1075,
+    "op": "DUP3",
+    "gas": 10316,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1076,
+    "op": "ADD",
+    "gas": 10313,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1077,
+    "op": "SWAP1",
+    "gas": 10310,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1078,
+    "op": "POP",
+    "gas": 10307,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1079,
+    "op": "SWAP2",
+    "gas": 10305,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x446",
+      "0x80",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1080,
+    "op": "SWAP1",
+    "gas": 10302,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x80",
+      "0x446"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1081,
+    "op": "POP",
+    "gas": 10299,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x446",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1082,
+    "op": "JUMP",
+    "gas": 10297,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x446"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1094,
+    "op": "JUMPDEST",
+    "gas": 10289,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1095,
+    "op": "SWAP2",
+    "gas": 10288,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1096,
+    "op": "POP",
+    "gas": 10285,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1097,
+    "op": "DUP2",
+    "gas": 10283,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1098,
+    "op": "SWAP1",
+    "gas": 10280,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1099,
+    "op": "POP",
+    "gas": 10277,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1100,
+    "op": "SWAP2",
+    "gas": 10275,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x1a4",
+      "0x80",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1101,
+    "op": "SWAP1",
+    "gas": 10272,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x80",
+      "0x1a4"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1102,
+    "op": "POP",
+    "gas": 10269,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x1a4",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 1103,
+    "op": "JUMP",
+    "gas": 10267,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x1a4"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 420,
+    "op": "JUMPDEST",
+    "gas": 10259,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 421,
+    "op": "PUSH1",
+    "gas": 10258,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 423,
+    "op": "PUSH1",
+    "gas": 10255,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 425,
+    "op": "MLOAD",
+    "gas": 10252,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x40"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 426,
+    "op": "DUP1",
+    "gas": 10249,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 427,
+    "op": "DUP4",
+    "gas": 10246,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 428,
+    "op": "SUB",
+    "gas": 10243,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x80",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 429,
+    "op": "DUP2",
+    "gas": 10240,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 430,
+    "op": "DUP6",
+    "gas": 10237,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x0",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 431,
+    "op": "DUP8",
+    "gas": 10234,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 432,
+    "op": "GAS",
+    "gas": 10231,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x174876e800",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 433,
+    "op": "CALL",
+    "gas": 10229,
+    "gasCost": 10212,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x0",
+      "0x80",
+      "0x174876e800",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x27f5"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 0,
+    "op": "PUSH1",
+    "gas": 3412,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 2,
+    "op": "PUSH1",
+    "gas": 3409,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 4,
+    "op": "MSTORE",
+    "gas": 3406,
+    "gasCost": 12,
+    "depth": 5,
+    "stack": [
+      "0x80",
+      "0x40"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 5,
+    "op": "PUSH1",
+    "gas": 3394,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 7,
+    "op": "CALLDATASIZE",
+    "gas": 3391,
+    "gasCost": 2,
+    "depth": 5,
+    "stack": [
+      "0x4"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 8,
+    "op": "LT",
+    "gas": 3389,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x4",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 9,
+    "op": "PUSH2",
+    "gas": 3386,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 12,
+    "op": "JUMPI",
+    "gas": 3383,
+    "gasCost": 10,
+    "depth": 5,
+    "stack": [
+      "0x1",
+      "0x74"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 116,
+    "op": "JUMPDEST",
+    "gas": 3373,
+    "gasCost": 1,
+    "depth": 5,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 117,
+    "op": "CALLDATASIZE",
+    "gas": 3372,
+    "gasCost": 2,
+    "depth": 5,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 118,
+    "op": "PUSH2",
+    "gas": 3370,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 121,
+    "op": "JUMPI",
+    "gas": 3367,
+    "gasCost": 10,
+    "depth": 5,
+    "stack": [
+      "0x0",
+      "0x120"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 122,
+    "op": "PUSH1",
+    "gas": 3357,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 124,
+    "op": "SLOAD",
+    "gas": 3354,
+    "gasCost": 100,
+    "depth": 5,
+    "stack": [
+      "0x2"
+    ],
+    "storage": {
+      "0x0000000000000000000000000000000000000000000000000000000000000001": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "0x0000000000000000000000000000000000000000000000000000000000000002": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    "refund": 0
+  },
+  {
+    "pc": 125,
+    "op": "PUSH1",
+    "gas": 3254,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 127,
+    "op": "SLOAD",
+    "gas": 3251,
+    "gasCost": 100,
+    "depth": 5,
+    "stack": [
+      "0x1",
+      "0x1"
+    ],
+    "storage": {
+      "0x0000000000000000000000000000000000000000000000000000000000000001": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "0x0000000000000000000000000000000000000000000000000000000000000002": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    "refund": 0
+  },
+  {
+    "pc": 128,
+    "op": "LT",
+    "gas": 3151,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x1",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 129,
+    "op": "ISZERO",
+    "gas": 3148,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 130,
+    "op": "PUSH2",
+    "gas": 3145,
+    "gasCost": 3,
+    "depth": 5,
+    "stack": [
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 133,
+    "op": "JUMPI",
+    "gas": 3142,
+    "gasCost": 10,
+    "depth": 5,
+    "stack": [
+      "0x1",
+      "0x11e"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 286,
+    "op": "JUMPDEST",
+    "gas": 3132,
+    "gasCost": 1,
+    "depth": 5,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 287,
+    "op": "STOP",
+    "gas": 3131,
+    "gasCost": 0,
+    "depth": 5,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 434,
+    "op": "SWAP3",
+    "gas": 3148,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x174876e800",
+      "0x80",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 435,
+    "op": "POP",
+    "gas": 3145,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x174876e800",
+      "0x80",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 436,
+    "op": "POP",
+    "gas": 3143,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x174876e800",
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 437,
+    "op": "POP",
+    "gas": 3141,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x174876e800"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 438,
+    "op": "RETURNDATASIZE",
+    "gas": 3139,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 439,
+    "op": "DUP1",
+    "gas": 3137,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 440,
+    "op": "PUSH1",
+    "gas": 3134,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 442,
+    "op": "DUP2",
+    "gas": 3131,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 443,
+    "op": "EQ",
+    "gas": 3128,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 444,
+    "op": "PUSH2",
+    "gas": 3125,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 447,
+    "op": "JUMPI",
+    "gas": 3122,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x1",
+      "0x1e1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 481,
+    "op": "JUMPDEST",
+    "gas": 3112,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 482,
+    "op": "PUSH1",
+    "gas": 3111,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 484,
+    "op": "SWAP2",
+    "gas": 3108,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x60"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 485,
+    "op": "POP",
+    "gas": 3105,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x60",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 486,
+    "op": "JUMPDEST",
+    "gas": 3103,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x60",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 487,
+    "op": "POP",
+    "gas": 3102,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x60",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 488,
+    "op": "POP",
+    "gas": 3100,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1",
+      "0x60"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 489,
+    "op": "SWAP1",
+    "gas": 3098,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x0",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 490,
+    "op": "POP",
+    "gas": 3095,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 491,
+    "op": "DUP1",
+    "gas": 3093,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 492,
+    "op": "PUSH2",
+    "gas": 3090,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 495,
+    "op": "JUMPI",
+    "gas": 3087,
+    "gasCost": 10,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x1",
+      "0x22a"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 554,
+    "op": "JUMPDEST",
+    "gas": 3077,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 555,
+    "op": "PUSH1",
+    "gas": 3076,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 557,
+    "op": "DUP1",
+    "gas": 3073,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 558,
+    "op": "PUSH1",
+    "gas": 3070,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 560,
+    "op": "CALLER",
+    "gas": 3067,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 561,
+    "op": "PUSH20",
+    "gas": 3065,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 582,
+    "op": "AND",
+    "gas": 3062,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0xffffffffffffffffffffffffffffffffffffffff"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 583,
+    "op": "PUSH20",
+    "gas": 3059,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 604,
+    "op": "AND",
+    "gas": 3056,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0xffffffffffffffffffffffffffffffffffffffff"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 605,
+    "op": "DUP2",
+    "gas": 3053,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 606,
+    "op": "MSTORE",
+    "gas": 3050,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x7020c361315616bc478e686f6adab88f8f3078af",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 607,
+    "op": "PUSH1",
+    "gas": 3047,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 609,
+    "op": "ADD",
+    "gas": 3044,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 610,
+    "op": "SWAP1",
+    "gas": 3041,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 611,
+    "op": "DUP2",
+    "gas": 3038,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x20",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 612,
+    "op": "MSTORE",
+    "gas": 3035,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x20",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 613,
+    "op": "PUSH1",
+    "gas": 3032,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 615,
+    "op": "ADD",
+    "gas": 3029,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x20",
+      "0x20"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 616,
+    "op": "PUSH1",
+    "gas": 3026,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x40"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 618,
+    "op": "KECCAK256",
+    "gas": 3023,
+    "gasCost": 42,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x40",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 619,
+    "op": "DUP2",
+    "gas": 2981,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x19be8fbd060c4676b8b6cb3ceab839ee912ce26912d4fe4cffc57110b2c096e8"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 620,
+    "op": "SWAP1",
+    "gas": 2978,
+    "gasCost": 3,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x19be8fbd060c4676b8b6cb3ceab839ee912ce26912d4fe4cffc57110b2c096e8",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 621,
+    "op": "SSTORE",
+    "gas": 2975,
+    "gasCost": 100,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x19be8fbd060c4676b8b6cb3ceab839ee912ce26912d4fe4cffc57110b2c096e8"
+    ],
+    "storage": {
+      "0x19be8fbd060c4676b8b6cb3ceab839ee912ce26912d4fe4cffc57110b2c096e8": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "refund": 0
+  },
+  {
+    "pc": 622,
+    "op": "POP",
+    "gas": 2875,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1",
+      "0x0"
+    ],
+    "refund": 19900
+  },
+  {
+    "pc": 623,
+    "op": "POP",
+    "gas": 2873,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800",
+      "0x1"
+    ],
+    "refund": 19900
+  },
+  {
+    "pc": 624,
+    "op": "POP",
+    "gas": 2871,
+    "gasCost": 2,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc",
+      "0x174876e800"
+    ],
+    "refund": 19900
+  },
+  {
+    "pc": 625,
+    "op": "JUMP",
+    "gas": 2869,
+    "gasCost": 8,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b",
+      "0xcc"
+    ],
+    "refund": 19900
+  },
+  {
+    "pc": 204,
+    "op": "JUMPDEST",
+    "gas": 2861,
+    "gasCost": 1,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 19900
+  },
+  {
+    "pc": 205,
+    "op": "STOP",
+    "gas": 2860,
+    "gasCost": 0,
+    "depth": 4,
+    "stack": [
+      "0x3ccfd60b"
+    ],
+    "refund": 19900
+  }
+]

@@ -19,25 +19,26 @@
 ]);
 
 // send transaction -- example deposit()
-    const amount = ethers.parseEther("1.3");
-    const calldata = ctx.contractReentrancyTest.interface.encodeFunctionData("deposit");
+
+    const amount = ethers.parseEther("0.000000000001");
+    const calldata = ctx.contractReentrancyTest.interface.encodeFunctionData("WithdrawWithoutUpdatingState");
     const tx = await ctx.signer.sendTransaction({
           to : ctx.reentrancyTestAddress,
           data: calldata,
-          value: ethers.parseEther("0.00000000000001")    
+         //value: ethers.parseEther("0.000000000001")    
       })
     const receipt = await tx.wait();
     console.log(tx.hash);
 
      // ── record the transaction ──────────────────────────────────
-      
+
     console.log("\nRecording transaction...");
     const attack_name = "sf_reentrancy"; // must match an existing row in the Attack table
     const outputDir1 = path.join(__dirname, "../../traces_tests/full"); // for saving the traces of the whole transaction
-    const filePrefix1 = "deposit";
+    const filePrefix1 = "WithdrawWithoutUpdatingState";
     const baseOutputDir = path.join(__dirname, "../../traces_tests/internal");
     const folderName = "test_folder";
-    const function_name = "deposit";
+    const function_name = "WithdrawWithoutUpdatingState()";
     const fromRole = "NEUTRAL";
     const toRole = "NEUTRAL";
     const transactionPurpose = "INSTRUMENTATION"; // example value, adjust as needed
@@ -63,6 +64,6 @@
     { name: "contractReentrancyTest", address: ctx.reentrancyTestAddress },
     { name: "Signer", address: ctx.signer.address, notes: `balances[signer]: ${ethers.formatEther(balancesMapping2)} ETH` }
     ]);
-  
+
   }
   main().catch(console.error);

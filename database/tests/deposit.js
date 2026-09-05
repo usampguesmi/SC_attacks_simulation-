@@ -8,7 +8,7 @@
     const ctx = await loadContext();
 
     // check accounts state
-    let attackCount = await ctx.contractAttacker2.MAX_ATTACKS();
+    //let attackCount = await ctx.contractAttacker2.MAX_ATTACKS();
     const balancesMapping1 = await ctx.contractVulnerableBank.balances(ctx.signer);
     await displayState("Before Attack", [
     { name: "Victim (vulnerable bank)", address: ctx.VulnerableBankAddress },
@@ -35,7 +35,6 @@
     { name: "Signer", address: ctx.signer.address, notes: `balances[signer]: ${ethers.formatEther(balancesMapping2)} ETH` }
     ]);
 
-    //await saveTrace(tx.hash, "./test_traces", "attack_three");
   
   }
   main().catch(console.error);

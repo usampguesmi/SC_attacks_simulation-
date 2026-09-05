@@ -1,0 +1,245 @@
+[
+  {
+    "pc": 0,
+    "op": "PUSH1",
+    "gas": 2766,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 2,
+    "op": "PUSH1",
+    "gas": 2763,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x80"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 4,
+    "op": "MSTORE",
+    "gas": 2760,
+    "gasCost": 12,
+    "depth": 9,
+    "stack": [
+      "0x80",
+      "0x40"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 5,
+    "op": "PUSH1",
+    "gas": 2748,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 7,
+    "op": "CALLDATASIZE",
+    "gas": 2745,
+    "gasCost": 2,
+    "depth": 9,
+    "stack": [
+      "0x4"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 8,
+    "op": "LT",
+    "gas": 2743,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x4",
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 9,
+    "op": "PUSH2",
+    "gas": 2740,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 12,
+    "op": "JUMPI",
+    "gas": 2737,
+    "gasCost": 10,
+    "depth": 9,
+    "stack": [
+      "0x1",
+      "0x74"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 116,
+    "op": "JUMPDEST",
+    "gas": 2727,
+    "gasCost": 1,
+    "depth": 9,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 117,
+    "op": "CALLDATASIZE",
+    "gas": 2726,
+    "gasCost": 2,
+    "depth": 9,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 118,
+    "op": "PUSH2",
+    "gas": 2724,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 121,
+    "op": "JUMPI",
+    "gas": 2721,
+    "gasCost": 10,
+    "depth": 9,
+    "stack": [
+      "0x0",
+      "0x120"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 122,
+    "op": "PUSH1",
+    "gas": 2711,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 124,
+    "op": "SLOAD",
+    "gas": 2708,
+    "gasCost": 100,
+    "depth": 9,
+    "stack": [
+      "0x2"
+    ],
+    "storage": {
+      "0x0000000000000000000000000000000000000000000000000000000000000001": "0x0000000000000000000000000000000000000000000000000000000000000003",
+      "0x0000000000000000000000000000000000000000000000000000000000000002": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    "refund": 0
+  },
+  {
+    "pc": 125,
+    "op": "PUSH1",
+    "gas": 2608,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x3"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 127,
+    "op": "SLOAD",
+    "gas": 2605,
+    "gasCost": 100,
+    "depth": 9,
+    "stack": [
+      "0x3",
+      "0x1"
+    ],
+    "storage": {
+      "0x0000000000000000000000000000000000000000000000000000000000000001": "0x0000000000000000000000000000000000000000000000000000000000000003",
+      "0x0000000000000000000000000000000000000000000000000000000000000002": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    "refund": 0
+  },
+  {
+    "pc": 128,
+    "op": "LT",
+    "gas": 2505,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x3",
+      "0x3"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 129,
+    "op": "ISZERO",
+    "gas": 2502,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x0"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 130,
+    "op": "PUSH2",
+    "gas": 2499,
+    "gasCost": 3,
+    "depth": 9,
+    "stack": [
+      "0x1"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 133,
+    "op": "JUMPI",
+    "gas": 2496,
+    "gasCost": 10,
+    "depth": 9,
+    "stack": [
+      "0x1",
+      "0x11e"
+    ],
+    "refund": 0
+  },
+  {
+    "pc": 286,
+    "op": "JUMPDEST",
+    "gas": 2486,
+    "gasCost": 1,
+    "depth": 9,
+    "stack": [],
+    "refund": 0
+  },
+  {
+    "pc": 287,
+    "op": "STOP",
+    "gas": 2485,
+    "gasCost": 0,
+    "depth": 9,
+    "stack": [],
+    "refund": 0
+  }
+]
