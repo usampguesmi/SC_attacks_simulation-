@@ -1,8 +1,8 @@
-  const path = require("path");
   const {ethers} = require("hardhat");
   const {loadContext} = require ("../../utils/context.js");
   const {displayState} = require("../../utils/displayState2.js")
   const { transaction_reccord_values } = require("../scripts/simulate_transaction.js");
+  const { getCaseTracePaths } = require("../scripts/tracePaths.js");
   require("dotenv").config();
 
   async function main () {
@@ -32,11 +32,8 @@
     // ── record the transaction ──────────────────────────────────
       
    console.log("\nRecording transaction...");
-       const attack_name = "sf_reentrancy"; 
-       const outputDir1 = path.join(__dirname, "../../traces_tests/reenAttack/full"); 
-       const filePrefix1 = "attack_drainAll";
-       const baseOutputDir = path.join(__dirname, "../../traces_tests/reenAttack/internal");
-       const folderName = "attack_drainAll";
+       const attack_name = "sf_reentrancy";
+       const { outputDir1, filePrefix1, baseOutputDir, folderName } = getCaseTracePaths("malicious_scenario", "attack_drainAll");
        const function_name = "attack_drainAll";
        const fromRole = "ATTACKER";
        const toRole = "ATTACKER";

@@ -22,6 +22,31 @@
     },
     "Attacker_drainAll": {
       "address": "0x652152457C6BcCd7B7Ba5a2e6D7A00254844ee6C"
+    },
+    "SafeScenario": {
+      "banks": {
+        "vulnerable": "0x1E8B786a93ECfA1Dd30db2eBCd4246848B3Df794",
+        "ceiDecrement": "0x723E51025EbB1EB5FAbf9509e4Ac6Fe0E56AEb08",
+        "boolMutex": "0x100898eb0aa2ecAac8A78A557f868cBbcf252ED3",
+        "uintMutex": "0x683bBC27B98f72727135f73728F685E6F2bf144c",
+        "ozGuard": "0xce23A6B59b09a98858Ea82d6A8B923B3277361Ca",
+        "ceiZero": "0x72EAc59eb7e8d39B8d9Ad5f0f77e03d1ade683DE",
+        "fullBalance": "0x50B57cC8312F83af8c07dF05A4004208D6d303Af"
+      },
+      "attackers": {
+        "vulnerable": "0xB3c0529ba05d995d2aA38BE7F0D51aB739eD1A3c",
+        "ceiDecrement": "0x3ED4a8eFa4bbbAE4ACC90b0Ce952549Bd4E0463b",
+        "boolMutex": "0x8fa9b32Db06c8d4f3aa2Ae1996957C789E06CD9e",
+        "uintMutex": "0x99cf14faF15312FA38775109D77a2484A8E54B0E",
+        "ozGuard": "0x00c829eF19AB46d7AaaC57C0BF8B49b4Cc99B1f9",
+        "ceiZero": "0x0753d31a9b8736E66f32049cE8df5Ec68bc199da",
+        "fullBalance": "0xAE4819280542773d95C84b8b871B22b676666FB1"
+      }
+    },
+    "MaliciousScenario": {
+      "bank": "0x1E8B786a93ECfA1Dd30db2eBCd4246848B3Df794",
+      "attacker": "0xB3c0529ba05d995d2aA38BE7F0D51aB739eD1A3c",
+      "innocentDepositor": "0x0d9BC6Ee27Cd23aEC4803D9A4D68FFF2BeF9d3A9"
     }
   }
 }
