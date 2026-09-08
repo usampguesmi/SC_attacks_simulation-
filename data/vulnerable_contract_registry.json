@@ -1,0 +1,535 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-08T11:47:30.871Z",
+  "contracts": [
+    {
+      "contractAddress": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+      "chainId": 11155111,
+      "network": "sepolia",
+      "attackName": "sf_reentrancy",
+      "firstDetectedAt": "2026-09-07T23:21:02.704Z",
+      "lastDetectedAt": "2026-09-08T11:35:25.087Z",
+      "totalStolenWei": "1800000000000",
+      "totalStolenEth": "0.0000018",
+      "exploitCount": 7,
+      "maxReentrancyCount": 5,
+      "uniqueAttackers": [
+        "0x7020c361315616bc478e686f6adab88f8f3078af"
+      ],
+      "riskScore": 43,
+      "riskLevel": "MEDIUM",
+      "riskFactors": [
+        {
+          "id": "stolen_volume",
+          "label": "Total value drained",
+          "points": 0,
+          "detail": "0.0000018 ETH across known exploits"
+        },
+        {
+          "id": "exploit_count",
+          "label": "Confirmed exploit transactions",
+          "points": 25,
+          "detail": "7 recorded exploit(s)"
+        },
+        {
+          "id": "reentrancy_depth",
+          "label": "Max reentries in one tx",
+          "points": 10,
+          "detail": "max reentrancyCount = 5"
+        },
+        {
+          "id": "attackers",
+          "label": "Distinct attacker addresses",
+          "points": 3,
+          "detail": "1 unique recipient/attacker address(es)"
+        },
+        {
+          "id": "network",
+          "label": "Network exposure",
+          "points": 0,
+          "detail": "sepolia"
+        },
+        {
+          "id": "recency",
+          "label": "Recency of last exploit",
+          "points": 5,
+          "detail": "last exploit 0 day(s) ago"
+        }
+      ],
+      "riskSummary": "Medium: confirmed reentrancy with limited observed impact so far.",
+      "exploits": [
+        {
+          "txHash": "0x1111111111111111111111111111111111111111111111111111111111111111",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 100,
+          "timestamp": null,
+          "stolenWei": "100000000000",
+          "stolenEth": "0.0000001",
+          "reentrancyCount": 1,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x7020c361315616bc478e686f6adab88f8f3078af"
+          ],
+          "valuePerCallWei": "100000000000",
+          "valuePerCallEth": "0.0000001",
+          "victimContract": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "detectedAt": "2026-09-07T23:21:02.704Z"
+        },
+        {
+          "txHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 101,
+          "timestamp": null,
+          "stolenWei": "200000000000",
+          "stolenEth": "0.0000002",
+          "reentrancyCount": 2,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x7020c361315616bc478e686f6adab88f8f3078af"
+          ],
+          "valuePerCallWei": "100000000000",
+          "valuePerCallEth": "0.0000001",
+          "victimContract": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "detectedAt": "2026-09-07T23:21:02.738Z"
+        },
+        {
+          "txHash": "0x8a133e79e1f1e75b40dc236802b1ed7f5d9a9cc974428d0ca08f8c663d106027",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11636173,
+          "timestamp": null,
+          "stolenWei": "400000000000",
+          "stolenEth": "0.0000004",
+          "reentrancyCount": 4,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x7020c361315616bc478e686f6adab88f8f3078af"
+          ],
+          "valuePerCallWei": "100000000000",
+          "valuePerCallEth": "0.0000001",
+          "victimContract": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "detectedAt": "2026-09-08T11:29:12.682Z"
+        },
+        {
+          "txHash": "0x403e3c33776699608924e53d67e02dabc9c09e81dc2093f6eea6bdfc8717b583",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11636158,
+          "timestamp": "2026-09-04T22:51:24+01:00",
+          "stolenWei": "300000000000",
+          "stolenEth": "0.0000003",
+          "reentrancyCount": 3,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x7020c361315616bc478e686f6adab88f8f3078af"
+          ],
+          "valuePerCallWei": "100000000000",
+          "valuePerCallEth": "0.0000001",
+          "victimContract": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "detectedAt": "2026-09-08T11:35:25.042Z"
+        },
+        {
+          "txHash": "0xfbbf91cc3103174f5543e8a34c43a04f44ae834c2aedb52580b415300b639269",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11636181,
+          "timestamp": "2026-09-04T22:56:36+01:00",
+          "stolenWei": "500000000000",
+          "stolenEth": "0.0000005",
+          "reentrancyCount": 5,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x7020c361315616bc478e686f6adab88f8f3078af"
+          ],
+          "valuePerCallWei": "100000000000",
+          "valuePerCallEth": "0.0000001",
+          "victimContract": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "detectedAt": "2026-09-08T11:35:25.087Z"
+        },
+        {
+          "txHash": "0xd12c8ed7c80708d967c177f33a2110d2f6a3617a64eec023c110fd914d700096",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11636125,
+          "timestamp": "2026-09-04T22:44:36+01:00",
+          "stolenWei": "100000000000",
+          "stolenEth": "0.0000001",
+          "reentrancyCount": 1,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x7020c361315616bc478e686f6adab88f8f3078af"
+          ],
+          "valuePerCallWei": "100000000000",
+          "valuePerCallEth": "0.0000001",
+          "victimContract": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "detectedAt": "2026-09-08T11:35:25.087Z"
+        },
+        {
+          "txHash": "0x2833cca6b1977b8e6c26f669f65c05a18375d1ee023e82e07f2898dd536e6c5b",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11636145,
+          "timestamp": "2026-09-04T22:48:48+01:00",
+          "stolenWei": "200000000000",
+          "stolenEth": "0.0000002",
+          "reentrancyCount": 2,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x7020c361315616bc478e686f6adab88f8f3078af"
+          ],
+          "valuePerCallWei": "100000000000",
+          "valuePerCallEth": "0.0000001",
+          "victimContract": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "detectedAt": "2026-09-08T11:35:25.087Z"
+        }
+      ],
+      "summary": "Medium: confirmed reentrancy with limited observed impact so far."
+    },
+    {
+      "contractAddress": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+      "chainId": 1,
+      "network": "mainnet",
+      "attackName": "sf_reentrancy",
+      "firstDetectedAt": "2026-09-07T23:21:02.809Z",
+      "lastDetectedAt": "2026-09-07T23:21:02.809Z",
+      "totalStolenWei": "7225583813290688477408",
+      "totalStolenEth": "7225.583813290688477408",
+      "exploitCount": 1,
+      "maxReentrancyCount": 28,
+      "uniqueAttackers": [
+        "0x304a554a310c7e546dfe434669c62820b7d83490"
+      ],
+      "riskScore": 73,
+      "riskLevel": "HIGH",
+      "riskFactors": [
+        {
+          "id": "stolen_volume",
+          "label": "Total value drained",
+          "points": 40,
+          "detail": "7225.583813290688477408 ETH across known exploits"
+        },
+        {
+          "id": "exploit_count",
+          "label": "Confirmed exploit transactions",
+          "points": 5,
+          "detail": "1 recorded exploit(s)"
+        },
+        {
+          "id": "reentrancy_depth",
+          "label": "Max reentries in one tx",
+          "points": 15,
+          "detail": "max reentrancyCount = 28"
+        },
+        {
+          "id": "attackers",
+          "label": "Distinct attacker addresses",
+          "points": 3,
+          "detail": "1 unique recipient/attacker address(es)"
+        },
+        {
+          "id": "network",
+          "label": "Network exposure",
+          "points": 5,
+          "detail": "mainnet"
+        },
+        {
+          "id": "recency",
+          "label": "Recency of last exploit",
+          "points": 5,
+          "detail": "last exploit 0 day(s) ago"
+        }
+      ],
+      "riskSummary": "High: material value stolen and/or multiple confirmed reentrancy exploits.",
+      "exploits": [
+        {
+          "txHash": "0x37085f336b5d3e588e37674544678f8cb0fc092a6de5d83bd647e20e5232897b",
+          "network": "mainnet",
+          "chainId": 1,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 1718497,
+          "timestamp": null,
+          "stolenWei": "7225583813290688477408",
+          "stolenEth": "7225.583813290688477408",
+          "reentrancyCount": 28,
+          "functionSelector": "0x82661dc4",
+          "attackerAddresses": [
+            "0x304a554a310c7e546dfe434669c62820b7d83490"
+          ],
+          "valuePerCallWei": "258056564760381731336",
+          "valuePerCallEth": "258.056564760381731336",
+          "victimContract": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+          "detectedAt": "2026-09-07T23:21:02.809Z"
+        }
+      ],
+      "aiAssessment": {
+        "provider": "openai",
+        "schemaVersion": 2,
+        "generatedAt": "2026-09-08T00:20:58.356Z",
+        "fingerprint": "v2|0xbb9bc244d798123fde783fcc1c72d3bb8c189413|1|73|1|7225583813290688477408|28|1",
+        "toolsUsed": [
+          "scoreBreakdown",
+          "exploitHistory",
+          "explorerLinks",
+          "onChainContext"
+        ],
+        "toolSnapshot": {
+          "score": {
+            "riskScore": 73,
+            "riskLevel": "HIGH",
+            "topFactor": {
+              "id": "stolen_volume",
+              "label": "Total value drained",
+              "points": 40
+            }
+          },
+          "onChain": {
+            "tool": "on_chain_context",
+            "ok": true,
+            "ethBalance": "0.0006",
+            "hasCode": true,
+            "codeBytes": 10838,
+            "error": null
+          },
+          "links": {
+            "tool": "explorer_links",
+            "contractUrl": "https://etherscan.io/address/0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+            "latestTxUrl": "https://etherscan.io/tx/0x37085f336b5d3e588e37674544678f8cb0fc092a6de5d83bd647e20e5232897b",
+            "network": "mainnet",
+            "chainId": 1
+          }
+        },
+        "headline": "High Risk of Reentrancy Exploits Detected",
+        "narrative": "The contract has a risk score of 73, indicating a high level of risk primarily due to a significant amount of ETH stolen in a confirmed reentrancy exploit. The exploit involved 7225.58 ETH and a maximum reentrancy depth of 28, which raises concerns about the contract's security. Given the recency of the exploit, immediate attention is warranted.",
+        "scoreAssessment": {
+          "agreesWithLevel": true,
+          "suggestedLevel": "HIGH",
+          "rationale": "The score reflects the substantial value drained and the confirmed exploit, aligning with the high-risk classification.",
+          "overweighted": [
+            "stolen_volume",
+            "reentrancy_depth"
+          ],
+          "underweighted": [
+            "exploit_count",
+            "attackers"
+          ]
+        },
+        "factorInsights": [
+          "Total value drained: 40 points - significant loss of 7225.58 ETH.",
+          "Max reentries in one tx: 15 points - indicates vulnerability to complex reentrancy attacks.",
+          "Confirmed exploit transactions: 5 points - only one exploit recorded, but the impact was severe."
+        ],
+        "severityDrivers": [],
+        "additionalContext": [],
+        "informationGaps": [],
+        "recommendedActions": [
+          "Conduct a thorough security audit focusing on reentrancy vulnerabilities.",
+          "Implement immediate code fixes to prevent further exploits.",
+          "Monitor contract activity closely for any signs of additional attacks."
+        ],
+        "confidence": "high"
+      }
+    },
+    {
+      "contractAddress": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+      "chainId": 11155111,
+      "network": "sepolia",
+      "attackName": "sf_reentrancy",
+      "firstDetectedAt": "2026-09-08T11:35:25.044Z",
+      "lastDetectedAt": "2026-09-08T11:35:25.143Z",
+      "totalStolenWei": "1060000000000000",
+      "totalStolenEth": "0.00106",
+      "exploitCount": 7,
+      "maxReentrancyCount": 26,
+      "uniqueAttackers": [
+        "0x652152457c6bccd7b7ba5a2e6d7a00254844ee6c",
+        "0xb3c0529ba05d995d2aa38be7f0d51ab739ed1a3c"
+      ],
+      "riskScore": 51,
+      "riskLevel": "HIGH",
+      "riskFactors": [
+        {
+          "id": "stolen_volume",
+          "label": "Total value drained",
+          "points": 0,
+          "detail": "0.00106 ETH across known exploits"
+        },
+        {
+          "id": "exploit_count",
+          "label": "Confirmed exploit transactions",
+          "points": 25,
+          "detail": "7 recorded exploit(s)"
+        },
+        {
+          "id": "reentrancy_depth",
+          "label": "Max reentries in one tx",
+          "points": 15,
+          "detail": "max reentrancyCount = 26"
+        },
+        {
+          "id": "attackers",
+          "label": "Distinct attacker addresses",
+          "points": 6,
+          "detail": "2 unique recipient/attacker address(es)"
+        },
+        {
+          "id": "network",
+          "label": "Network exposure",
+          "points": 0,
+          "detail": "sepolia"
+        },
+        {
+          "id": "recency",
+          "label": "Recency of last exploit",
+          "points": 5,
+          "detail": "last exploit 0 day(s) ago"
+        }
+      ],
+      "riskSummary": "High: material value stolen and/or multiple confirmed reentrancy exploits.",
+      "exploits": [
+        {
+          "txHash": "0xcba9bea9a371cdf2d197b90dc1d87bf24e01aa49f6dbee3903c6fb327279549e",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11640100,
+          "timestamp": "2026-09-05T12:36:36+01:00",
+          "stolenWei": "60000000000000",
+          "stolenEth": "0.00006",
+          "reentrancyCount": 3,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0x652152457c6bccd7b7ba5a2e6d7a00254844ee6c"
+          ],
+          "valuePerCallWei": "20000000000000",
+          "valuePerCallEth": "0.00002",
+          "victimContract": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "detectedAt": "2026-09-08T11:35:25.044Z"
+        },
+        {
+          "txHash": "0x591bff586f9d34ee6eb5b7af69ba5a8c456ea1c31c95464a5ce281e26ef398a1",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11640953,
+          "timestamp": "2026-09-05T15:35:00+01:00",
+          "stolenWei": "20000000000000",
+          "stolenEth": "0.00002",
+          "reentrancyCount": 1,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0xb3c0529ba05d995d2aa38be7f0d51ab739ed1a3c"
+          ],
+          "valuePerCallWei": "20000000000000",
+          "valuePerCallEth": "0.00002",
+          "victimContract": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "detectedAt": "2026-09-08T11:35:25.141Z"
+        },
+        {
+          "txHash": "0x8451aca72143cafd88a3640aaac0ff9b300f4d255dd69a28bd33f0198ead42a3",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11640957,
+          "timestamp": "2026-09-05T15:35:48+01:00",
+          "stolenWei": "60000000000000",
+          "stolenEth": "0.00006",
+          "reentrancyCount": 3,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0xb3c0529ba05d995d2aa38be7f0d51ab739ed1a3c"
+          ],
+          "valuePerCallWei": "20000000000000",
+          "valuePerCallEth": "0.00002",
+          "victimContract": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "detectedAt": "2026-09-08T11:35:25.142Z"
+        },
+        {
+          "txHash": "0x417d38cf9937e90520609a561bb380bdbd869493c853c8701229921d3a1cb62e",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11640962,
+          "timestamp": "2026-09-05T15:36:48+01:00",
+          "stolenWei": "320000000000000",
+          "stolenEth": "0.00032",
+          "reentrancyCount": 16,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0xb3c0529ba05d995d2aa38be7f0d51ab739ed1a3c"
+          ],
+          "valuePerCallWei": "20000000000000",
+          "valuePerCallEth": "0.00002",
+          "victimContract": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "detectedAt": "2026-09-08T11:35:25.142Z"
+        },
+        {
+          "txHash": "0x50eccbaf084be09a1ec3fb559b1416bc42942e59e159b8773bcf7b96ba36f2a3",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11640967,
+          "timestamp": "2026-09-05T15:37:48+01:00",
+          "stolenWei": "20000000000000",
+          "stolenEth": "0.00002",
+          "reentrancyCount": 1,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0xb3c0529ba05d995d2aa38be7f0d51ab739ed1a3c"
+          ],
+          "valuePerCallWei": "20000000000000",
+          "valuePerCallEth": "0.00002",
+          "victimContract": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "detectedAt": "2026-09-08T11:35:25.142Z"
+        },
+        {
+          "txHash": "0x4fe7bf0cd8f22787db31cc0d4738a6f18df8b6bae19dd7b5b3f43399f5fd55a2",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11640973,
+          "timestamp": "2026-09-05T15:39:00+01:00",
+          "stolenWei": "60000000000000",
+          "stolenEth": "0.00006",
+          "reentrancyCount": 3,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0xb3c0529ba05d995d2aa38be7f0d51ab739ed1a3c"
+          ],
+          "valuePerCallWei": "20000000000000",
+          "valuePerCallEth": "0.00002",
+          "victimContract": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "detectedAt": "2026-09-08T11:35:25.142Z"
+        },
+        {
+          "txHash": "0x6d6fe734176d2834d16bb54ceef33524403ff4ac817fa796593e748b0f2c61cb",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "attackName": "sf_reentrancy",
+          "blockNumber": 11640979,
+          "timestamp": "2026-09-05T15:40:24+01:00",
+          "stolenWei": "520000000000000",
+          "stolenEth": "0.00052",
+          "reentrancyCount": 26,
+          "functionSelector": "0x3ccfd60b",
+          "attackerAddresses": [
+            "0xb3c0529ba05d995d2aa38be7f0d51ab739ed1a3c"
+          ],
+          "valuePerCallWei": "20000000000000",
+          "valuePerCallEth": "0.00002",
+          "victimContract": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "detectedAt": "2026-09-08T11:35:25.143Z"
+        }
+      ],
+      "summary": "High: material value stolen and/or multiple confirmed reentrancy exploits."
+    }
+  ]
+}

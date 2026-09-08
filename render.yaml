@@ -1,0 +1,27 @@
+# Render Blueprint — always-on YU-SAM Power
+# Deploy: https://dashboard.render.com/blueprints → connect this repo
+services:
+  - type: web
+    name: yu-sam-power
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node app/startProduction.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PUBLIC_MODE
+        value: "true"
+      - key: PUBLIC_AI
+        value: "false"
+      - key: ANALYZE_UI_HOST
+        value: "0.0.0.0"
+      - key: ANALYZE_UI_MAX_BODY_MB
+        value: "64"
+      - key: SEPOLIA_RPC_URL_PREIMUM
+        sync: false
+      - key: MAINNET_RPC_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false

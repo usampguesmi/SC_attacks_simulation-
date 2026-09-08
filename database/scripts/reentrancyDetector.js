@@ -1,13 +1,23 @@
-// Single-function reentrancy detector, built directly on the EFG method worked out by
-// hand against the zero/one/three/five-reentry traces: split the flat opcode trace into
-// call-frame "nodes" on CALL/STOP boundaries, reconstruct each node's call-depth, find
-// nodes whose exact opcode content repeats, pair up the "opens a call" half (p1) with the
-// "resumes after that call returns" half (p2) that a single logical invocation gets split
-// into, and check the resulting chain for the CEI-violation + value-drain signature.
+// Single-function reentrancy detector (EFG method), matching the hand analysis on
+// traces_tests/reenAttack/malicious_scenario/attackCount_0-N (0..5 reentries) and the
+// safe_scenario corpus (no false positives).
 //
-// Input: a format2.txt trace file — lines of `pc;OP;arg0,arg1,...` where args are the
-// EVM stack *reversed* (arg0 = top of stack), exactly as written by
-// database/repositories/internalTransaction_crud.js (saveInternalCallTraces / detectInternalCalls).
+// Algorithm (user principle → implementation):
+//   1-2. Input format2; node fingerprints use pc:OP only (= format1 content, no separate file)
+//   3.   buildNodes          — split on CALL*/STOP/RETURN/… into indexed call-frame nodes
+//   4.   assignDepths        — push on CALL-ending nodes, pop on terminators
+//   5.   findRepeatedNodes   — groups with identical pc:OP sequences (length ≥ 2)
+//   6.   filterSplitCandidates — keep p1 / pmid / p2 (pmid = mid-frame that resumes then CALLs again)
+//   7.   groupByDepth        — bucket surviving nodes by depth
+//   8-10.composeFunctions    — at each depth stitch p1 → (pmid)* → p2 with pc continuity
+//                            (handles multi-CALL functions like The DAO; also multiple
+//                            invocations sharing a depth via per-p1 matching)
+//   10b. splitIntoChains     — one chain per distinct p1 signature (victim vs attacker callback)
+//   11.  classify            — for one homogeneous chain sorted by depth:
+//                            • index(p1) strictly increasing, index(p2) strictly decreasing
+//                            • same p1 signature + same CALL target (same function / contract)
+//                            • p1 has SLOAD, p2 has SSTORE (CEI violation)
+//                            • count reentries beyond the outermost call with value > 0
 //
 // CLI: node database/scripts/reentrancyDetector.js <path-to-format2.txt>
 
@@ -16,9 +26,8 @@ const fs = require("fs");
 const CALL_OPS = new Set(["CALL", "CALLCODE", "DELEGATECALL", "STATICCALL", "CREATE", "CREATE2"]);
 const TERMINATING_OPS = new Set(["STOP", "RETURN", "REVERT", "INVALID", "SELFDESTRUCT"]);
 
-// --- steps 1-2: read format2.txt into flat {pc, op, args[]} records -----------------------
-function parseTraceFile(filePath) {
-    const raw = fs.readFileSync(filePath, "utf8");
+// --- steps 1-2: parse format2.txt content into flat {pc, op, args[]} records ----------------
+function parseTraceContent(raw) {
     return raw
         .split("\n")
         .map(l => l.trim())
@@ -28,6 +37,10 @@ function parseTraceFile(filePath) {
             const args = argsStr.length ? argsStr.split(",") : [];
             return { pc: parseInt(pcStr, 10), op, args };
         });
+}
+
+function parseTraceFile(filePath) {
+    return parseTraceContent(fs.readFileSync(filePath, "utf8"));
 }
 
 // --- step 3: split the flat trace into call-frame nodes -----------------------------------
@@ -101,15 +114,15 @@ function findRepeatedNodes(nodes) {
     return repeatedGroups;
 }
 
-// --- step 6: keep only the two frame-halves a split invocation can appear as ---------------
-//   p1 = opens at a fresh dispatcher entry (pc 0) but doesn't finish here — it will make a
-//        call and get completed later by a p2
-//   p2 = doesn't start at pc 0 (it's a resumption after a nested call returned) and DOES
-//        finish here
-// Anything else (a whole leaf function that never calls out, or a mid-frame fragment) isn't
-// part of a split pair and is dropped.
+// --- step 6: keep split-frame pieces that participate in a suspended invocation ----------
+//   p1   = opens at dispatcher entry (pc 0), makes a call, does not finish here
+//   pmid = resumes after a call (pc ≠ 0), makes another call, still not finished
+//          (The DAO withdraw path has several of these between the value-CALL and the
+//          final RETURN/SSTORE — without pmid the p1/p2 continuity check cannot close.)
+//   p2   = resumes after a call (pc ≠ 0) and terminates the frame
 function classifyNode(node) {
-    if (node.startPc === 0 && !node.endsWithTerminator) return "p1";
+    if (node.startPc === 0 && node.endsWithCall) return "p1";
+    if (node.startPc !== 0 && node.endsWithCall) return "pmid";
     if (node.startPc !== 0 && node.endsWithTerminator) return "p2";
     return null;
 }
@@ -135,25 +148,101 @@ function groupByDepth(candidates) {
     return byDepth;
 }
 
-// --- steps 8-10: compose (p1, p2) pairs into one logical function invocation per depth ------
-// CALL is a single-byte opcode (no immediate operand), so the caller's continuation must
-// resume at exactly callPc + 1 — that's the sanity check confirming p2 really is p1's
-// other half rather than an unrelated same-depth fragment.
+// Stitch one invocation at a single depth: p1 → (pmid)* → p2 with pc continuity.
+// Returns null if no continuous path from this p1 to a terminator exists in `sorted`.
+function stitchFromP1(p1, sorted, used) {
+    const path = [p1];
+    let expectPc = p1.endPc + 1;
+    let fromIndex = p1.index;
+    while (true) {
+        const next = sorted.find(
+            n => !used.has(n.index) && n.index > fromIndex && n.startPc === expectPc
+        );
+        if (!next) return null;
+        path.push(next);
+        fromIndex = next.index;
+        if (next.kind === "p2" || next.endsWithTerminator) {
+            return path;
+        }
+        if (next.kind === "pmid" || next.endsWithCall) {
+            expectPc = next.endPc + 1;
+            continue;
+        }
+        return null;
+    }
+}
+
+// --- steps 8-10: compose (p1 … p2) into one logical function invocation per depth ----------
+// CALL is a single-byte opcode, so each resume must start at exactly priorEndPc + 1.
+// Simple Sepolia sims: exactly one p1 and one p2 per depth (no pmid).
+// DAO-class traces: multiple CALLs inside one function → p1 + pmid* + p2 on the same depth;
+// also several distinct invocations can share a depth value over the trace lifetime — pair
+// each p1 to its continuous p2 by pc, instead of requiring counts === 1.
 function composeFunctions(byDepth) {
     const functions = [];
     const issues = [];
     for (const [depth, group] of byDepth) {
-        const p1s = group.filter(n => n.kind === "p1");
-        const p2s = group.filter(n => n.kind === "p2");
-        if (p1s.length !== 1 || p2s.length !== 1) {
-            issues.push({ depth, p1Count: p1s.length, p2Count: p2s.length });
+        const sorted = [...group].sort((a, b) => a.index - b.index);
+        const p1s = sorted.filter(n => n.kind === "p1");
+        const p2s = sorted.filter(n => n.kind === "p2");
+        const pmids = sorted.filter(n => n.kind === "pmid");
+
+        if (p1s.length === 0 || p2s.length === 0) {
+            issues.push({
+                depth,
+                p1Count: p1s.length,
+                p2Count: p2s.length,
+                pmidCount: pmids.length,
+                reason: "missing p1 or p2"
+            });
             continue;
         }
-        const [p1] = p1s, [p2] = p2s;
-        const continuityOk = p2.startPc === p1.endPc + 1;
-        functions.push({ depth, p1, p2, continuityOk });
+
+        const used = new Set();
+        let paired = 0;
+        for (const p1 of p1s) {
+            if (used.has(p1.index)) continue;
+            const path = stitchFromP1(p1, sorted, used);
+            if (!path) continue;
+            for (const n of path) used.add(n.index);
+            const p2 = path[path.length - 1];
+            paired++;
+            functions.push({
+                depth,
+                p1,
+                p2,
+                mids: path.slice(1, -1),
+                continuityOk: true,
+                partCount: path.length
+            });
+        }
+
+        if (paired === 0) {
+            // Fallback identical to the original strict rule (keeps old behavior if stitching
+            // cannot connect — e.g. incomplete repeated-mid coverage).
+            if (p1s.length === 1 && p2s.length === 1 && pmids.length === 0) {
+                const [p1] = p1s;
+                const [p2] = p2s;
+                functions.push({
+                    depth,
+                    p1,
+                    p2,
+                    mids: [],
+                    continuityOk: p2.startPc === p1.endPc + 1,
+                    partCount: 2
+                });
+            } else {
+                issues.push({
+                    depth,
+                    p1Count: p1s.length,
+                    p2Count: p2s.length,
+                    pmidCount: pmids.length,
+                    reason: "no continuous p1→p2 path"
+                });
+            }
+        }
     }
-    functions.sort((a, b) => a.depth - b.depth);
+    functions.sort((a, b) => a.depth - b.depth || a.p1.index - b.p1.index);
     return { functions, issues };
 }
 
@@ -247,16 +336,22 @@ function classify(functions, nodes) {
 
     // nesting invariant: as depth increases, the opening half's index increases (frames
     // open in order) while the closing half's index decreases (frames unwind in reverse -
-    // last opened, first closed). If this doesn't hold, these aren't a real nested chain.
-    for (let i = 1; i < functions.length; i++) {
+    // last opened, first closed). Matches hand EFG: depth(p1)↑, index(p1)↑, index(p2)↓.
+    // (depth(p1)==depth(p2) per composed function, so depth(p2) also increases with rank.)
+    for (let i = 0; i < functions.length; i++) {
+        if (!functions[i].continuityOk) {
+            return {
+                verdict: "INCONCLUSIVE",
+                reason: `p2 does not resume right after p1's CALL at rank ${i} (depth D${functions[i].depth})`,
+                chain: normalizeChain(functions)
+            };
+        }
+        if (i === 0) continue;
         if (functions[i].p1.index <= functions[i - 1].p1.index) {
             return { verdict: "INCONCLUSIVE", reason: `p1 index not increasing with depth at rank ${i}`, chain: normalizeChain(functions) };
         }
         if (functions[i].p2.index >= functions[i - 1].p2.index) {
             return { verdict: "INCONCLUSIVE", reason: `p2 index not decreasing with depth at rank ${i}`, chain: normalizeChain(functions) };
-        }
-        if (!functions[i].continuityOk) {
-            return { verdict: "INCONCLUSIVE", reason: `p2 does not resume right after p1's CALL at rank ${i}`, chain: normalizeChain(functions) };
         }
     }
 
@@ -346,8 +441,11 @@ function splitIntoChains(functions) {
 }
 
 // --- orchestrator ----------------------------------------------------------------------------
-function detectReentrancy(filePath) {
-    const opRecords = parseTraceFile(filePath);
+// Both entry points below share this core - detectReentrancy(filePath) for reading a
+// format2.txt off disk, detectReentrancyFromContent(text) for when the trace text already
+// lives elsewhere (e.g. a database column) and writing it to a temp file first would just be
+// unnecessary ceremony for a caller (such as an orchestrating agent) that already has it in hand.
+function runDetection(opRecords) {
     const nodes = buildNodes(opRecords);
     assignDepths(nodes);
     const repeatedGroups = findRepeatedNodes(nodes);
@@ -391,6 +489,14 @@ function detectReentrancy(filePath) {
         chains: chainResults, // one entry per DISTINCT function reconstructed (victim, attacker callback, ...)
         primaryChainIndex
     };
+}
+
+function detectReentrancy(filePath) {
+    return runDetection(parseTraceFile(filePath));
+}
+
+function detectReentrancyFromContent(traceContent) {
+    return runDetection(parseTraceContent(traceContent));
 }
 
 // --- human-readable analysis report --------------------------------------------------------
@@ -458,6 +564,7 @@ function formatReport(result, sourceFile) {
 }
 
 module.exports = {
+    parseTraceContent,
     parseTraceFile,
     buildNodes,
     assignDepths,
@@ -475,6 +582,7 @@ module.exports = {
     classify,
     splitIntoChains,
     detectReentrancy,
+    detectReentrancyFromContent,
     formatReport
 };
 

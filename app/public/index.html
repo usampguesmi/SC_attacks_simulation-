@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YU-SAM Power — Smart Contract Security</title>
+  <link rel="icon" href="/logo.png" type="image/png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="brand-block">
+        <img
+          class="brand-logo"
+          src="/logo.png"
+          width="280"
+          height="280"
+          alt="YU-SAM Power"
+        />
+      </div>
+    </header>
+
+    <form id="analyze-form" class="panel form" autocomplete="off">
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab active" data-mode="hash" id="tab-hash">Transaction hash</button>
+        <button type="button" class="tab" data-mode="paste" id="tab-paste">Paste format2</button>
+        <button type="button" class="tab" data-mode="dataset" id="tab-dataset">JSON dataset</button>
+        <button type="button" class="tab" data-mode="registry" id="tab-registry">Risk registry</button>
+        <button type="button" class="tab" data-mode="pretx" id="tab-pretx">Pre-tx risk</button>
+      </div>
+
+      <div id="mode-hash" class="mode">
+        <label class="field-label" for="tx-hash">Transaction hash</label>
+        <div class="row">
+          <select id="network" name="network" aria-label="Network">
+            <option value="sepolia" selected>Sepolia</option>
+            <option value="mainnet">Mainnet</option>
+          </select>
+          <input
+            id="tx-hash"
+            name="txHash"
+            type="text"
+            spellcheck="false"
+            placeholder="0x…"
+          />
+          <button type="submit" id="submit-btn">Analyze</button>
+        </div>
+        <p class="hint">Uses Postgres first. If missing, fetches format2 via Hardhat/Alchemy on the selected network (<code>SEPOLIA_RPC_URL_*</code> or <code>MAINNET_RPC_URL</code>). Restart <code>npm run analyze-ui</code> after changing .env.</p>
+      </div>
+
+      <div id="mode-paste" class="mode" hidden>
+        <label class="field-label" for="format2">format2 trace</label>
+        <textarea id="format2" name="format2" rows="10" spellcheck="false" placeholder="pc;OP;stack0,stack1,…"></textarea>
+        <div class="row paste-actions">
+          <button type="submit" id="submit-paste-btn">Analyze paste</button>
+        </div>
+        <p class="hint">Offline path — no RPC. Paste a <code>*-format2.txt</code>.</p>
+      </div>
+
+      <div id="mode-dataset" class="mode" hidden>
+        <label class="field-label" for="dataset-file">main_transaction JSON export</label>
+        <div class="row">
+          <input id="dataset-file" type="file" accept=".json,application/json" />
+          <button type="submit" id="submit-dataset-btn">Analyze dataset</button>
+        </div>
+        <p id="dataset-file-name" class="hint" hidden></p>
+        <p class="hint">JSON array of <code>main_transaction</code> objects (or <code>{ "transactions": [...] }</code>). Each row needs <code>opcode_stack_traces</code> (format2). Analyzed in batches of 25 (no RPC). Large files work best on <strong>localhost</strong> — the public Cloudflare tunnel can 502 on big uploads.</p>
+      </div>
+
+      <div id="mode-registry" class="mode" hidden>
+        <label class="field-label">Vulnerable contract risk registry</label>
+        <div class="row">
+          <button type="button" id="refresh-registry-btn">Refresh registry</button>
+        </div>
+        <p class="hint">Auto-updated on <code>REENTRANCY_DETECTED</code>. Deterministic risk score (volume, exploits, depth, attackers, network, recency). Optional AI briefing if <code>OPENAI_API_KEY</code> / <code>ANTHROPIC_API_KEY</code> is set — runs in the background and is cached.</p>
+      </div>
+
+      <div id="mode-pretx" class="mode" hidden>
+        <label class="field-label">Instant pre-transaction risk (human-in-the-loop)</label>
+        <div class="pretx-grid">
+          <label class="field-label" for="pretx-network">Network</label>
+          <select id="pretx-network" name="pretxNetwork" aria-label="Pre-tx network">
+            <option value="sepolia" selected>Sepolia</option>
+            <option value="mainnet">Mainnet</option>
+          </select>
+          <label class="field-label" for="pretx-from">From (optional)</label>
+          <input id="pretx-from" type="text" spellcheck="false" placeholder="0x… sender" />
+          <label class="field-label" for="pretx-to">To</label>
+          <input id="pretx-to" type="text" spellcheck="false" placeholder="0x… destination" />
+          <label class="field-label" for="pretx-value">Value (ETH)</label>
+          <input id="pretx-value" type="text" spellcheck="false" placeholder="0" value="0" />
+          <label class="field-label" for="pretx-data">Calldata</label>
+          <textarea id="pretx-data" rows="3" spellcheck="false" placeholder="0x… or empty"></textarea>
+        </div>
+        <div class="row paste-actions">
+          <label class="check-inline"><input type="checkbox" id="pretx-with-ai" checked /> Include AI advisor</label>
+          <button type="submit" id="submit-pretx-btn">Assess draft tx</button>
+        </div>
+        <p class="hint">Does <strong>not</strong> broadcast. Checks the vulnerable-contract ledger (victim / attacker / known selectors), value, and on-chain code/balance. AI explains the score; <strong>you</strong> choose Continue or Abort.</p>
+      </div>
+    </form>
+
+    <div id="status" class="status" hidden></div>
+    <div id="results" class="results" hidden></div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,597 @@
+[
+  {
+    "tx_hash": "0xac58d1e065937a4ca50ca1eeec7cc902e794668d7615c24950deec3bed8b9dff",
+    "tx_fromaddr": "0x504a2ee3558612dB56c90186A73e690eCd57FE9E",
+    "tx_toaddr": "0x4F833a24e1f95D70F028921e27040Ca56E09AB0b",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 1,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.615Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x00233d2cbeacf72415153dec1e0ec7d5ab718d9011b8ec2cd823cac80bf53196",
+    "tx_fromaddr": "0x0CD5Bc171145Bd0A48D63aae81ed3d3BEDFD9B66",
+    "tx_toaddr": "0xB7ac09C2c0217B07d7c103029B4918a2C401eeCB",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 3,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.617Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0xb1e789e55cc2b0be0ce90885ec42bdabd8f2eaafc4639914421c66f140504bdd",
+    "tx_fromaddr": "0x5185140A50cDf03a5450b7EA6FFAD210716E04e7",
+    "tx_toaddr": "0x4092678e4E78230F46A1534C0fbc8fA39780892B",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 1,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.618Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x04b1078f370b5215324e7d03eb6d765337c755cdddedb2ce0e5f90f558b69000",
+    "tx_fromaddr": "0xD2894D141eeDbde7d6Aff04A0e5D0fD571f85e51",
+    "tx_toaddr": "0xEE6BD04C6164D7F0Fa1cb03277C855639D99A7F6",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 2,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.619Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x8fd97680a8ccd5779af6dbced93d235b1e2483f9c735d3afdf0fe4e02752f30a",
+    "tx_fromaddr": "0x87D4c53ab7b269abeFe2b370Eee55bfc1b654ECA",
+    "tx_toaddr": "0x8d12A197cB00D4747a1fe03395095ce2A5CC6819",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 3,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.620Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0xf8a54a7ae42ba2085cdd48a7b9f4170ca58c6860fbb68146733bf11402331e41",
+    "tx_fromaddr": "0x682eD78859E2235E03535e11d2396e1E200bF0D4",
+    "tx_toaddr": "0x827727B4C3F75ea6Eb6Bd2CC256De40dB2B13665",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 4,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.622Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x99ac87ebbd0fe12222db3872a989cc82fd069338e49d0015b7bb51c112c22d9d",
+    "tx_fromaddr": "0x00000000C0293c8cA34Dac9BCC0F953532D34e4d",
+    "tx_toaddr": "0xD1CEeeeee83F8bCF3BEDad437202b6154E9F5405",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 2,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.622Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x333e07efc43598bad387507349e807b0f5337c2410931bf542ed9729d89abe30",
+    "tx_fromaddr": "0x6564027C2176835961c39a5F2b6a1c0032618655",
+    "tx_toaddr": "0x4EAC6Df4B1D8e2FAa125d10ba2531B491114c6b6",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 1,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.623Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0xac5ec0e95d540527d4e871c6e23e399aff98cb48b73679afd7e565f272ab151d",
+    "tx_fromaddr": "0x00004242f2F8641f41b24Dac431B674AC62B5B49",
+    "tx_toaddr": "0xA52e014B3f5Cc48287c2D483A3E026C32cc76E6d",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 6,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.625Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x624bbe10d72a871c7ca69c22e14a3cc70d48a9877924259a08d3a111b71f28ac",
+    "tx_fromaddr": "0x00004242948D4f090C324ef537D3Ea664A4492F8",
+    "tx_toaddr": "0xA52e014B3f5Cc48287c2D483A3E026C32cc76E6d",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 6,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.627Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0xcf94bf7f2302d10a54546c261b8802c8846e1a3a5857ba0198bf1ec7c25cc974",
+    "tx_fromaddr": "0x6B59210aDE46B62B25e82e95ab390A7CcAdd4c3a",
+    "tx_toaddr": "0x0",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 1,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.628Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x414f19e1343234f2f756bcdd57f8d9c35bedf3599d7500717859906623e87918",
+    "tx_fromaddr": "0xd7F1684d0a647F8c4aA82A208C35c9c9475ea6d0",
+    "tx_toaddr": "0xD1CEeeeee83F8bCF3BEDad437202b6154E9F5405",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 2,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.628Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0xa5df3f0e5462f110c5cdbfe9971f4cb632aec44e20fcace47d40646b6159d1de",
+    "tx_fromaddr": "0x042CeFA4E68fBBf2ADD3682a8aC82781803ca4ad",
+    "tx_toaddr": "0x5e6cd341b81671D3E96F6286272B2E7E2a921E6e",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 3,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.629Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0xb1d81d58771e7473a803b4a1cf5904a3b9f70af89e9f2e4237dbe0dadb656cf8",
+    "tx_fromaddr": "0x49b6C98084b3cCd8ce2d53eD9Fb9ddBDbd0Bf650",
+    "tx_toaddr": "0xB62870BE7516B232920392aCB0ce40F04B709E88",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 5,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.630Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x05fc9441654f3107c9fd445872be0f076699e723611306bb31986ba994116e8a",
+    "tx_fromaddr": "0xbFf5980f3DFCADf10BAfFebf016453b84F58af23",
+    "tx_toaddr": "0x2b48592E4387268E8827157D9e6ac644c2F30202",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 5,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.631Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0xa38ef349765aa49cb7cfb66aabee6520ddb4cf66b90f672569c557b8b7fda4b5",
+    "tx_fromaddr": "0x6DF71d63ad1bdd99B61Aaf1D67f0B7a1274e5D03",
+    "tx_toaddr": "0x896B516eB300E61CFc96ee1De4b297374E7b70ED",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 3,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.632Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x85647a05a2a223515ce11e9e3e862f3449d3b5b94bd7d277806a24ca4b6c4b54",
+    "tx_fromaddr": "0xBe2485bDc911d35fE8AEeBf14781333044031EFa",
+    "tx_toaddr": "0x000000109099b65bA98f0934DdD9c95e8eA3FD48",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 19,
+      "rawRepeatedGroupCount": 2,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [
+        {
+          "depth": 1,
+          "p1Count": 0,
+          "p2Count": 0,
+          "pmidCount": 6,
+          "reason": "missing p1 or p2"
+        },
+        {
+          "depth": 2,
+          "p1Count": 0,
+          "p2Count": 5,
+          "pmidCount": 0,
+          "reason": "missing p1 or p2"
+        }
+      ],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.641Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x71ea8287b11fe4b39b4652357ab0ee2a9ca4508c0dffd4c9706e655b3e003340",
+    "tx_fromaddr": "0xA7a7899d944fE658c4B0a1803BAB2F490bd3849e",
+    "tx_toaddr": "0x2a0c0DBEcC7E4D658f48E01e3fA353F44050c208",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 3,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.643Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x26e67a8c101fcec35a1efa12cfda0449cb58103e30d73a6b2b61b8502f59990e",
+    "tx_fromaddr": "0xA7a7899d944fE658c4B0a1803BAB2F490bd3849e",
+    "tx_toaddr": "0x2a0c0DBEcC7E4D658f48E01e3fA353F44050c208",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 3,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.644Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  },
+  {
+    "tx_hash": "0x492261333ed984854b8cb71ecd0a9b99f4c62f284bc4ab3cf9c0661aa536db71",
+    "tx_fromaddr": "0x31DA0288cFbF196B50B4c99A66Ee80e6137359f9",
+    "tx_toaddr": "0xc9c4d9Ec2B44B241361707679D3Db0876aC10CA6",
+    "tx_blocknum": "7160978",
+    "tx_timestamp": "1549065519",
+    "detection": {
+      "verdict": "NOT_REENTRANT",
+      "reentrancyCount": 0,
+      "reason": "no repeated call-frame pair found",
+      "chain": [],
+      "nodeCount": 1,
+      "rawRepeatedGroupCount": 0,
+      "composedFunctionCount": 0,
+      "skippedDepthBuckets": [],
+      "chains": [
+        {
+          "verdict": "NOT_REENTRANT",
+          "reentrancyCount": 0,
+          "reason": "no repeated call-frame pair found",
+          "chain": []
+        }
+      ],
+      "primaryChainIndex": 0,
+      "dataCaveat": "victim/attacker address and value-per-call are not recoverable from this dataset's tx_trace format - verdict is structural only (see file header)."
+    },
+    "analyzedAt": "2026-09-08T08:58:56.644Z",
+    "pipeline": "mongoReentrancyPipeline/stream-v2"
+  }
+]

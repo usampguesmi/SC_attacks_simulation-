@@ -1,0 +1,28 @@
+# fly.io config for always-on YU-SAM Power
+app = 'yu-sam-power'
+primary_region = 'ams'
+
+[build]
+
+[env]
+  YU_SAM_DATA_DIR = '/data'
+  PUBLIC_MODE = 'true'
+  PUBLIC_AI = 'false'
+  ANALYZE_UI_HOST = '0.0.0.0'
+
+[http_service]
+  internal_port = 3857
+  force_https = true
+  auto_stop_machines = 'off'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[[mounts]]
+  source = 'yu_sam_data'
+  destination = '/data'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

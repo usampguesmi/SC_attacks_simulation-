@@ -1,0 +1,14 @@
+node_modules
+.env
+.env.*
+.git
+.cache
+cache
+artifacts
+coverage
+tmp_traces
+traces_tests
+*.md
+.DS_Store
+reentrancy_detection_results_*.json
+agent-transcripts

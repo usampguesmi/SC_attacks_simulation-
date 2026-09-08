@@ -1,0 +1,362 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-08T12:00:05.211Z",
+  "assessments": [
+    {
+      "id": "txr_1788868799613_181d00",
+      "createdAt": "2026-09-08T11:59:59.613Z",
+      "network": "sepolia",
+      "chainId": 11155111,
+      "draft": {
+        "from": "0x7ecc6472d081f049d20f1f311458c19b91d54f65",
+        "to": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+        "valueWei": "10000000000000",
+        "valueEth": "0.00001",
+        "data": "0x",
+        "selector": null
+      },
+      "riskScore": 51,
+      "riskLevel": "HIGH",
+      "recommendation": "ABORT",
+      "ledgerHit": true,
+      "summary": "High confidence this draft interacts with known reentrancy risk — abort unless you fully understand the exposure.",
+      "riskFactors": [
+        {
+          "id": "ledger_victim",
+          "label": "Destination is in vulnerable-contract ledger",
+          "points": 48,
+          "detail": "HIGH (51/100), 7 exploit(s), 0.00106 ETH drained historically"
+        },
+        {
+          "id": "small_value",
+          "label": "ETH value attached",
+          "points": 3,
+          "detail": "0.00001 ETH"
+        }
+      ],
+      "ledger": {
+        "victimContract": {
+          "contractAddress": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+          "riskScore": 51,
+          "riskLevel": "HIGH",
+          "exploitCount": 7,
+          "totalStolenEth": "0.00106",
+          "maxReentrancyCount": 26,
+          "riskSummary": "High: material value stolen and/or multiple confirmed reentrancy exploits."
+        },
+        "toAsAttackerHits": [],
+        "fromAsAttackerHits": [],
+        "selectorHits": []
+      },
+      "onChain": {
+        "tool": "on_chain_draft",
+        "ok": true,
+        "ethBalance": "0.00001",
+        "hasCode": true,
+        "codeBytes": 1614,
+        "error": null
+      },
+      "humanDecision": {
+        "assessmentId": "txr_1788868799613_181d00",
+        "decision": "ABORT",
+        "note": "",
+        "decidedAt": "2026-09-08T12:00:05.211Z",
+        "riskScoreAtDecision": 51,
+        "riskLevelAtDecision": "HIGH",
+        "recommendationAtDecision": "ABORT",
+        "to": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+        "network": "sepolia"
+      },
+      "aiBriefing": null
+    },
+    {
+      "id": "txr_1788868769861_a086fa",
+      "createdAt": "2026-09-08T11:59:29.861Z",
+      "network": "sepolia",
+      "chainId": 11155111,
+      "draft": {
+        "from": "0x7ecc6472d081f049d20f1f311458c19b91d54f65",
+        "to": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+        "valueWei": "10000000000000",
+        "valueEth": "0.00001",
+        "data": "0x",
+        "selector": null
+      },
+      "riskScore": 3,
+      "riskLevel": "LOW",
+      "recommendation": "ALLOW",
+      "ledgerHit": false,
+      "summary": "No strong ledger match — residual risk remains; human should still confirm intent.",
+      "riskFactors": [
+        {
+          "id": "small_value",
+          "label": "ETH value attached",
+          "points": 3,
+          "detail": "0.00001 ETH"
+        }
+      ],
+      "ledger": {
+        "victimContract": null,
+        "toAsAttackerHits": [],
+        "fromAsAttackerHits": [],
+        "selectorHits": []
+      },
+      "onChain": {
+        "tool": "on_chain_draft",
+        "ok": true,
+        "ethBalance": "0.001214",
+        "hasCode": false,
+        "codeBytes": 0,
+        "error": null
+      },
+      "humanDecision": null,
+      "aiBriefing": null
+    },
+    {
+      "id": "txr_1788867927759_09c923",
+      "createdAt": "2026-09-08T11:45:27.759Z",
+      "network": "sepolia",
+      "chainId": 11155111,
+      "draft": {
+        "from": "0x7ecc6472d081f049d20f1f311458c19b91d54f65",
+        "to": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+        "valueWei": "100000000000000000",
+        "valueEth": "0.1",
+        "data": "0x",
+        "selector": null
+      },
+      "riskScore": 3,
+      "riskLevel": "LOW",
+      "recommendation": "ALLOW",
+      "ledgerHit": false,
+      "summary": "No strong ledger match — residual risk remains; human should still confirm intent.",
+      "riskFactors": [
+        {
+          "id": "small_value",
+          "label": "ETH value attached",
+          "points": 3,
+          "detail": "0.1 ETH"
+        }
+      ],
+      "ledger": {
+        "victimContract": null,
+        "toAsAttackerHits": [],
+        "fromAsAttackerHits": [],
+        "selectorHits": []
+      },
+      "onChain": {
+        "tool": "on_chain_draft",
+        "ok": true,
+        "ethBalance": "0.001214",
+        "hasCode": false,
+        "codeBytes": 0,
+        "error": null
+      },
+      "humanDecision": {
+        "assessmentId": "txr_1788867927759_09c923",
+        "decision": "CONTINUE",
+        "note": "",
+        "decidedAt": "2026-09-08T11:45:50.197Z",
+        "riskScoreAtDecision": 3,
+        "riskLevelAtDecision": "LOW",
+        "recommendationAtDecision": "ALLOW",
+        "to": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+        "network": "sepolia"
+      },
+      "aiBriefing": null
+    },
+    {
+      "id": "txr_1788827538824_dcd95e",
+      "createdAt": "2026-09-08T00:32:18.824Z",
+      "network": "sepolia",
+      "chainId": 11155111,
+      "draft": {
+        "from": "0x7ecc6472d081f049d20f1f311458c19b91d54f65",
+        "to": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+        "valueWei": "10000000000000",
+        "valueEth": "0.00001",
+        "data": "0x",
+        "selector": null
+      },
+      "riskScore": 36,
+      "riskLevel": "MEDIUM",
+      "recommendation": "REVIEW",
+      "ledgerHit": true,
+      "summary": "Elevated risk signals — review carefully with a human before broadcasting.",
+      "riskFactors": [
+        {
+          "id": "ledger_victim",
+          "label": "Destination is in vulnerable-contract ledger",
+          "points": 33,
+          "detail": "LOW (24/100), 2 exploit(s), 0.0000003 ETH drained historically"
+        },
+        {
+          "id": "small_value",
+          "label": "ETH value attached",
+          "points": 3,
+          "detail": "0.00001 ETH"
+        }
+      ],
+      "ledger": {
+        "victimContract": {
+          "contractAddress": "0xbed9f37b1f0e2f93c9e3ffb0f9761aeb24c8d3ff",
+          "riskScore": 24,
+          "riskLevel": "LOW",
+          "exploitCount": 2,
+          "totalStolenEth": "0.0000003",
+          "maxReentrancyCount": 2,
+          "riskSummary": "Low: limited observed drain or testnet-only activity."
+        },
+        "toAsAttackerHits": [],
+        "fromAsAttackerHits": [],
+        "selectorHits": []
+      },
+      "onChain": {
+        "tool": "on_chain_draft",
+        "ok": true,
+        "ethBalance": "0.0000185001",
+        "hasCode": true,
+        "codeBytes": 1365,
+        "error": null
+      },
+      "humanDecision": null,
+      "aiBriefing": {
+        "provider": "openai",
+        "generatedAt": "2026-09-08T00:32:22.709Z",
+        "headline": "Medium Risk Transaction Detected",
+        "narrative": "The transaction to a destination with a known vulnerability has been flagged with a medium risk score of 36. While the ETH value is low, the destination contract has a history of exploits, which could potentially lead to loss of funds. It is advisable to review this transaction carefully before proceeding.",
+        "scoreEvaluation": "The risk score of 36 aligns with the identified vulnerabilities and the low ETH value, indicating a cautious approach is warranted.",
+        "whatCouldGoWrong": [
+          "Funds could be drained if the destination contract is exploited during the transaction.",
+          "The transaction may lead to unexpected behavior due to the contract's vulnerabilities.",
+          "Even a small value can be significant if the contract has a history of exploits."
+        ],
+        "whyContinueMightBeOk": [],
+        "suggestedDecision": "REVIEW",
+        "questionsForHuman": [
+          "Have you verified the security of the destination contract?",
+          "Are you aware of the potential risks associated with this transaction?",
+          "Is there an alternative method to achieve your goal without interacting with this contract?"
+        ],
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "txr_1788827250980_bb02c8",
+      "createdAt": "2026-09-08T00:27:30.980Z",
+      "network": "mainnet",
+      "chainId": 1,
+      "draft": {
+        "from": null,
+        "to": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+        "valueWei": "1000000000000000000",
+        "valueEth": "1.0",
+        "data": "0x82661dc4",
+        "selector": "0x82661dc4"
+      },
+      "riskScore": 78,
+      "riskLevel": "CRITICAL",
+      "recommendation": "ABORT",
+      "ledgerHit": true,
+      "summary": "High confidence this draft interacts with known reentrancy risk — abort unless you fully understand the exposure.",
+      "riskFactors": [
+        {
+          "id": "ledger_victim",
+          "label": "Destination is in vulnerable-contract ledger",
+          "points": 55,
+          "detail": "HIGH (73/100), 1 exploit(s), 7225.583813290688477408 ETH drained historically"
+        },
+        {
+          "id": "known_selector",
+          "label": "Calldata selector seen in prior reentrancy exploits",
+          "points": 15,
+          "detail": "0x82661dc4 used against 0xbb9bc244d798123fde783fcc1c72d3bb8c189413 (reentries=28, stolen=7225.583813290688477408 ETH)"
+        },
+        {
+          "id": "moderate_value",
+          "label": "Non-trivial ETH value attached",
+          "points": 8,
+          "detail": "1.0 ETH"
+        }
+      ],
+      "ledger": {
+        "victimContract": {
+          "contractAddress": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+          "riskScore": 73,
+          "riskLevel": "HIGH",
+          "exploitCount": 1,
+          "totalStolenEth": "7225.583813290688477408",
+          "maxReentrancyCount": 28,
+          "riskSummary": "High: material value stolen and/or multiple confirmed reentrancy exploits."
+        },
+        "toAsAttackerHits": [],
+        "fromAsAttackerHits": [],
+        "selectorHits": [
+          {
+            "contractAddress": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+            "riskLevel": "HIGH",
+            "riskScore": 73,
+            "reentrancyCount": 28,
+            "txHash": "0x37085f336b5d3e588e37674544678f8cb0fc092a6de5d83bd647e20e5232897b",
+            "stolenEth": "7225.583813290688477408"
+          }
+        ]
+      },
+      "onChain": {
+        "tool": "on_chain_draft",
+        "ok": false,
+        "ethBalance": null,
+        "hasCode": null,
+        "codeBytes": null,
+        "error": "getaddrinfo ENOTFOUND eth-mainnet.g.alchemy.com"
+      },
+      "humanDecision": {
+        "assessmentId": "txr_1788827250980_bb02c8",
+        "decision": "ABORT",
+        "note": "smoke test",
+        "decidedAt": "2026-09-08T00:27:30.981Z",
+        "riskScoreAtDecision": 78,
+        "riskLevelAtDecision": "CRITICAL",
+        "recommendationAtDecision": "ABORT",
+        "to": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+        "network": "mainnet"
+      },
+      "aiBriefing": null
+    }
+  ],
+  "decisions": [
+    {
+      "assessmentId": "txr_1788868799613_181d00",
+      "decision": "ABORT",
+      "note": "",
+      "decidedAt": "2026-09-08T12:00:05.211Z",
+      "riskScoreAtDecision": 51,
+      "riskLevelAtDecision": "HIGH",
+      "recommendationAtDecision": "ABORT",
+      "to": "0x1e8b786a93ecfa1dd30db2ebcd4246848b3df794",
+      "network": "sepolia"
+    },
+    {
+      "assessmentId": "txr_1788867927759_09c923",
+      "decision": "CONTINUE",
+      "note": "",
+      "decidedAt": "2026-09-08T11:45:50.197Z",
+      "riskScoreAtDecision": 3,
+      "riskLevelAtDecision": "LOW",
+      "recommendationAtDecision": "ALLOW",
+      "to": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+      "network": "sepolia"
+    },
+    {
+      "assessmentId": "txr_1788827250980_bb02c8",
+      "decision": "ABORT",
+      "note": "smoke test",
+      "decidedAt": "2026-09-08T00:27:30.981Z",
+      "riskScoreAtDecision": 78,
+      "riskLevelAtDecision": "CRITICAL",
+      "recommendationAtDecision": "ABORT",
+      "to": "0xbb9bc244d798123fde783fcc1c72d3bb8c189413",
+      "network": "mainnet"
+    }
+  ]
+}
