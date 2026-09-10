@@ -1,22 +1,6 @@
 <p align="center">
   <img src="docs/images/yu-sam-power-logo.png" alt="YU-SAM Power logo" width="220" />
 </p>
-
-# YU-SAM Power
-
-Hardhat lab + analyzer product for **simulating**, **recording**, and **detecting** single-function reentrancy on Ethereum-style execution traces.
-
-**Live app:** [https://yu-sam-power.fly.dev/](https://yu-sam-power.fly.dev/)
-
-- **Simulate** vulnerable and guarded banks with attacker contracts (Hardhat / Sepolia).
-- **Persist** accounts, transactions, and opcode traces in **Postgres** (optional **Mongo** bulk scan).
-- **Detect** reentrancy with an EFG-style algorithm on **format2** traces.
-- **Operate** via the **YU-SAM Power** UI: analyze txs, maintain a risk registry, optional AI briefings, pre-tx risk (human CONTINUE/ABORT).
-
-> Scope: validated for **single-function, single-contract, single-transaction** reentrancy. Not cross-function / cross-contract / read-only reentrancy / multi-tx patterns.
-
----
-
 ## Table of contents
 
 1. [Architecture](#1-architecture)
