@@ -2,7 +2,7 @@
   <img src="docs/images/yu-sam-power-logo.png" alt="YU-SAM Power logo" width="220" />
 </p>
 
-# YU-SAM Power — 
+# YU-SAM Power
 
 Hardhat lab + analyzer product for **simulating**, **recording**, and **detecting** single-function reentrancy on Ethereum-style execution traces.
 
